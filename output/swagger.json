@@ -66,17 +66,17 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/Counterparty"
+                "$ref" : "#/components/schemas/CounterpartyCreate"
               }
             },
             "application/x-www-form-urlencoded" : {
               "schema" : {
-                "$ref" : "#/components/schemas/Counterparty"
+                "$ref" : "#/components/schemas/CounterpartyCreate"
               }
             },
             "multipart/form-data" : {
               "schema" : {
-                "$ref" : "#/components/schemas/Counterparty"
+                "$ref" : "#/components/schemas/CounterpartyCreate"
               }
             }
           }
@@ -143,17 +143,17 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/Counterparty"
+                "$ref" : "#/components/schemas/CounterpartyBase"
               }
             },
             "application/x-www-form-urlencoded" : {
               "schema" : {
-                "$ref" : "#/components/schemas/Counterparty"
+                "$ref" : "#/components/schemas/CounterpartyBase"
               }
             },
             "multipart/form-data" : {
               "schema" : {
-                "$ref" : "#/components/schemas/Counterparty"
+                "$ref" : "#/components/schemas/CounterpartyBase"
               }
             }
           }
@@ -190,17 +190,17 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/Counterparty"
+                "$ref" : "#/components/schemas/CounterpartyBase"
               }
             },
             "application/x-www-form-urlencoded" : {
               "schema" : {
-                "$ref" : "#/components/schemas/Counterparty"
+                "$ref" : "#/components/schemas/CounterpartyBase"
               }
             },
             "multipart/form-data" : {
               "schema" : {
-                "$ref" : "#/components/schemas/Counterparty"
+                "$ref" : "#/components/schemas/CounterpartyBase"
               }
             }
           }
@@ -551,8 +551,15 @@
   },
   "components" : {
     "schemas" : {
-      "Counterparty" : {
-        "required" : [ "address_1", "city", "country", "name", "primary_contact_email", "state", "type", "zipcode" ],
+      "CounterpartyCreate" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/CounterpartyBase"
+        }, {
+          "required" : [ "address_1", "city", "country", "name", "primary_contact_email", "state", "type", "zipcode" ],
+          "type" : "object"
+        } ]
+      },
+      "CounterpartyBase" : {
         "type" : "object",
         "properties" : {
           "id" : {
