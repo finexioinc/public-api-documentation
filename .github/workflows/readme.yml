@@ -14,5 +14,5 @@ jobs:
           readme-oas-key: bBcDCtTB0i7QyuIzI3JSlAzJgazDoo48:614b619931d385245b53041a
            
           # OPTIONAL CONFIG, use if necessary
-          # oas-file-path: './swagger.json'
+          oas-file-path: './output/swagger.json'
           # api-version: 'v1.0.0'
