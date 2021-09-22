@@ -15,4 +15,4 @@ jobs:
            
           # OPTIONAL CONFIG, use if necessary
           oas-file-path: './output/swagger.json'
-          # api-version: 'v1.0.0'
+          api-version: 'v2.0.0'
