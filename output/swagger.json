@@ -2,7 +2,7 @@
   "openapi" : "3.0.0",
   "info" : {
     "title" : "Finexio API Doc",
-    "description" : "Testing Staging API Doc",
+    "description" : "Testing Staging API Doc (Prod)",
     "version" : "v1"
   },
   "servers" : [ {
