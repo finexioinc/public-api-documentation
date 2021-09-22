@@ -11,8 +11,8 @@ jobs:
       - uses: actions/checkout@v2
       - uses: readmeio/github-readme-sync@v2
         with:
-          readme-oas-key: 7vLlme1XYiwUXDkXmVZxaLcATS0olh3d:614b799c951f7642e6c41a41
+          readme-oas-key: bBcDCtTB0i7QyuIzI3JSlAzJgazDoo48:614b805c44e02daff53806cd
            
           # OPTIONAL CONFIG, use if necessary
           oas-file-path: './output/swagger.json'
-          # api-version: 'v2.0.0'
+          # api-version: 'v1.0.0'
