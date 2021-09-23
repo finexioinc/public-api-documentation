@@ -1283,7 +1283,7 @@
           "payment_id" : {
             "type" : "string",
             "readOnly" : true,
-            "description" : "The id of the Payment associated with this invoice. (assigned when when invoice status transitions to in-progress). DEPRECATION WARNING: This field will be depricated in-favor of referencing the associated payment(s) through the installments list."
+            "description" : "The id of the Payment associated with this invoice. (assigned when when invoice status transitions to in-progress). Note that when there are multiple installments associated with the invoice, this value represents the *most recent* payment only. DEPRECATION WARNING: This field will be depricated in-favor of referencing the associated payment(s) through the installments list."
           }
         },
         "required" : [ "amount_cents", "invoice_date", "invoice_number", "originating_counterparty_id", "receiving_counterparty_id" ]
