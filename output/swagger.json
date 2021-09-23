@@ -316,7 +316,7 @@
     },
     "/invoices/batch/" : {
       "post" : {
-        "operationId" : "Create Invoice Batch",
+        "operationId" : "Batch Create Invoices",
         "summary" : "Create Invoice Batch",
         "description" : "Submit an array of invoices. Request Format: Array of Invoice objects",
         "parameters" : [ ],
@@ -1165,7 +1165,7 @@
           },
           "amount_cents" : {
             "type" : "integer",
-            "description" : "Invoice amount in specified currency's smallest unit. e.g. $10 would be represented as 1000. Or test."
+            "description" : "Invoice amount in specified currency's smallest unit. e.g. $10 would be represented as 1000."
           },
           "currency" : {
             "enum" : [ "USD" ],
