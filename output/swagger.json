@@ -318,7 +318,7 @@
       "post" : {
         "operationId" : "Create Invoice Batch",
         "summary" : "Batch Create Invoices",
-        "description" : "Submit an array of invoices.",
+        "description" : "Submit an array of invoices.Request Format: Array of Invoice objects",
         "parameters" : [ ],
         "requestBody" : {
           "content" : {
