@@ -1,3 +1,1306 @@
 {
-  "swagger" : "2.0"
+  "openapi" : "3.0.0",
+  "info" : {
+    "version" : "v1",
+    "title" : "Finexio API Doc",
+    "description" : "Testing Staging API Doc (Prod)"
+  },
+  "security" : [ {
+    "BasicAuth" : [ ]
+  } ],
+  "paths" : {
+    "/counterparties/" : {
+      "get" : {
+        "summary" : "List Counterparties",
+        "operationId" : "List Counterparties",
+        "description" : "Get A Paginated List Of All Counterparties",
+        "parameters" : [ {
+          "name" : "page",
+          "required" : false,
+          "in" : "query",
+          "description" : "A page number within the paginated result set.",
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Try It to see the response"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "tags" : [ "Counterparties" ]
+      },
+      "post" : {
+        "operationId" : "Create Counterparty",
+        "summary" : "Create Counterparty",
+        "description" : "Create A New Counterparty",
+        "parameters" : [ ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CounterpartyCreate"
+              }
+            },
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CounterpartyCreate"
+              }
+            },
+            "multipart/form-data" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CounterpartyCreate"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Try It to see the response"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "tags" : [ "Counterparties" ]
+      }
+    },
+    "/counterparties/{id}/" : {
+      "get" : {
+        "operationId" : "Get Counterparty",
+        "summary" : "Get Counterparty",
+        "description" : "Get Information Of A Single Counterparty",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "description" : "",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Try It to see the response"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "tags" : [ "Counterparties" ]
+      },
+      "put" : {
+        "operationId" : "Update Counterparty",
+        "summary" : "Update Counterparty",
+        "description" : "Update An Existing Counterparty",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "description" : "",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CounterpartyBase"
+              }
+            },
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CounterpartyBase"
+              }
+            },
+            "multipart/form-data" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CounterpartyBase"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Try It to see the response"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "tags" : [ "Counterparties" ]
+      },
+      "patch" : {
+        "operationId" : "Partial Update Counterparty",
+        "summary" : "Partial Update Counterparty",
+        "description" : "Partially update an existing counterparty",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "description" : "",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CounterpartyBase"
+              }
+            },
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CounterpartyBase"
+              }
+            },
+            "multipart/form-data" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CounterpartyBase"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        },
+        "tags" : [ "Counterparties" ]
+      }
+    },
+    "/payments/" : {
+      "get" : {
+        "operationId" : "List Payments",
+        "summary" : "List Payments",
+        "description" : "Get A Paginated List Of Payments",
+        "parameters" : [ {
+          "name" : "page",
+          "required" : false,
+          "in" : "query",
+          "description" : "A page number within the paginated result set.",
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Try It to see the response"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "tags" : [ "Payments" ]
+      }
+    },
+    "/payments/{key}/" : {
+      "get" : {
+        "operationId" : "Get Payment",
+        "summary" : "Get Payment Detail",
+        "description" : "Get Details Of A Payment Specified By Key",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "required" : true,
+          "description" : "",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Try It to see the response"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "tags" : [ "Payments" ]
+      }
+    },
+    "/invoices/" : {
+      "get" : {
+        "operationId" : "List Invoices",
+        "summary" : "List Invoices",
+        "description" : "Get A Paginated List Of Invoices",
+        "parameters" : [ {
+          "name" : "page",
+          "required" : false,
+          "in" : "query",
+          "description" : "A page number within the paginated result set.",
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Try It to see the response"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "tags" : [ "Invoices" ]
+      }
+    },
+    "/invoices/{key}/" : {
+      "get" : {
+        "operationId" : "Get Invoice",
+        "summary" : "Get Invoice",
+        "description" : "Get Details Of An Invoice By Key",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "required" : true,
+          "description" : "",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Try It to see the response"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "tags" : [ "Invoices" ]
+      }
+    },
+    "/invoices/batch/" : {
+      "post" : {
+        "operationId" : "Create Invoice Batch",
+        "summary" : "Batch Create Invoices",
+        "description" : "Submit an array of invoices.",
+        "parameters" : [ ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/Invoice"
+                }
+              }
+            },
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/Invoice"
+                }
+              }
+            },
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/Invoice"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Try It to see the response"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "tags" : [ "Invoices" ]
+      }
+    },
+    "/webhooks/" : {
+      "get" : {
+        "tags" : [ "Webhooks" ],
+        "operationId" : "listSubscribers",
+        "summary" : "List Subscriptions",
+        "description" : "List  new subscriptions for the currently logged in user.",
+        "parameters" : [ {
+          "name" : "page",
+          "required" : false,
+          "in" : "query",
+          "description" : "A page number within the paginated result set.",
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Webhooks" ],
+        "operationId" : "CreateSubscriber",
+        "summary" : "Create Subscription",
+        "description" : "Create new subscriptions for the currently logged in user.",
+        "parameters" : [ ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "properties" : {
+                  "event" : {
+                    "enum" : [ "payment.changed" ],
+                    "description" : "Name of event to connect with"
+                  },
+                  "url" : {
+                    "type" : "string",
+                    "format" : "uri",
+                    "description" : "Callback URL",
+                    "maxLength" : 190,
+                    "pattern" : "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:\\.]+\\]|([a-z¡-￿0-9](?:[a-z¡-￿0-9-]{0,61}[a-z¡-￿0-9])?(?:\\.(?!-)[a-z¡-￿0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z¡-￿-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?"
+                  },
+                  "content_type" : {
+                    "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
+                    "description" : "Desired content type for requests to this callback."
+                  },
+                  "user" : {
+                    "type" : "integer"
+                  },
+                  "username" : {
+                    "type" : "string",
+                    "description" : "Basic Auth username",
+                    "maxLength" : 190
+                  },
+                  "password" : {
+                    "type" : "string",
+                    "description" : "Basic Auth password",
+                    "maxLength" : 190
+                  }
+                },
+                "required" : [ "event", "url", "username", "password" ]
+              }
+            },
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "properties" : {
+                  "event" : {
+                    "enum" : [ "payment.changed" ],
+                    "description" : "Name of event to connect with"
+                  },
+                  "url" : {
+                    "type" : "string",
+                    "format" : "uri",
+                    "description" : "Callback URL",
+                    "maxLength" : 190,
+                    "pattern" : "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:\\.]+\\]|([a-z¡-￿0-9](?:[a-z¡-￿0-9-]{0,61}[a-z¡-￿0-9])?(?:\\.(?!-)[a-z¡-￿0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z¡-￿-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?"
+                  },
+                  "content_type" : {
+                    "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
+                    "description" : "Desired content type for requests to this callback."
+                  },
+                  "user" : {
+                    "type" : "integer"
+                  },
+                  "username" : {
+                    "type" : "string",
+                    "description" : "Basic Auth username",
+                    "maxLength" : 190
+                  },
+                  "password" : {
+                    "type" : "string",
+                    "description" : "Basic Auth password",
+                    "maxLength" : 190
+                  }
+                },
+                "required" : [ "event", "url", "username", "password" ]
+              }
+            },
+            "multipart/form-data" : {
+              "schema" : {
+                "properties" : {
+                  "event" : {
+                    "enum" : [ "payment.changed" ],
+                    "description" : "Name of event to connect with"
+                  },
+                  "url" : {
+                    "type" : "string",
+                    "format" : "uri",
+                    "description" : "Callback URL",
+                    "maxLength" : 190,
+                    "pattern" : "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:\\.]+\\]|([a-z¡-￿0-9](?:[a-z¡-￿0-9-]{0,61}[a-z¡-￿0-9])?(?:\\.(?!-)[a-z¡-￿0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z¡-￿-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?"
+                  },
+                  "content_type" : {
+                    "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
+                    "description" : "Desired content type for requests to this callback."
+                  },
+                  "user" : {
+                    "type" : "integer"
+                  },
+                  "username" : {
+                    "type" : "string",
+                    "description" : "Basic Auth username",
+                    "maxLength" : 190
+                  },
+                  "password" : {
+                    "type" : "string",
+                    "description" : "Basic Auth password",
+                    "maxLength" : 190
+                  }
+                },
+                "required" : [ "event", "url", "username", "password" ]
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        }
+      }
+    },
+    "/webhooks/{uuid}/" : {
+      "get" : {
+        "tags" : [ "Webhooks" ],
+        "operationId" : "GetSubscriber",
+        "summary" : "Get Subscription",
+        "description" : "Get details for specific subscription.",
+        "parameters" : [ {
+          "name" : "uuid",
+          "in" : "path",
+          "required" : true,
+          "description" : "",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Webhooks" ],
+        "operationId" : "UpdateSubscriber",
+        "summary" : "Update Subscription",
+        "description" : "Update details for specific subscription.",
+        "parameters" : [ {
+          "name" : "uuid",
+          "in" : "path",
+          "required" : true,
+          "description" : "",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "properties" : {
+                  "event" : {
+                    "enum" : [ "payment.changed" ],
+                    "description" : "Name of event to connect with"
+                  },
+                  "url" : {
+                    "type" : "string",
+                    "format" : "uri",
+                    "description" : "Callback URL",
+                    "maxLength" : 190,
+                    "pattern" : "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:\\.]+\\]|([a-z¡-￿0-9](?:[a-z¡-￿0-9-]{0,61}[a-z¡-￿0-9])?(?:\\.(?!-)[a-z¡-￿0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z¡-￿-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?"
+                  },
+                  "content_type" : {
+                    "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
+                    "description" : "Desired content type for requests to this callback."
+                  },
+                  "user" : {
+                    "type" : "integer"
+                  },
+                  "username" : {
+                    "type" : "string",
+                    "description" : "Basic Auth username",
+                    "maxLength" : 190
+                  },
+                  "password" : {
+                    "type" : "string",
+                    "description" : "Basic Auth password",
+                    "maxLength" : 190
+                  }
+                },
+                "required" : [ "event", "url", "username", "password" ]
+              }
+            },
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "properties" : {
+                  "event" : {
+                    "enum" : [ "payment.changed" ],
+                    "description" : "Name of event to connect with"
+                  },
+                  "url" : {
+                    "type" : "string",
+                    "format" : "uri",
+                    "description" : "Callback URL",
+                    "maxLength" : 190,
+                    "pattern" : "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:\\.]+\\]|([a-z¡-￿0-9](?:[a-z¡-￿0-9-]{0,61}[a-z¡-￿0-9])?(?:\\.(?!-)[a-z¡-￿0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z¡-￿-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?"
+                  },
+                  "content_type" : {
+                    "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
+                    "description" : "Desired content type for requests to this callback."
+                  },
+                  "user" : {
+                    "type" : "integer"
+                  },
+                  "username" : {
+                    "type" : "string",
+                    "description" : "Basic Auth username",
+                    "maxLength" : 190
+                  },
+                  "password" : {
+                    "type" : "string",
+                    "description" : "Basic Auth password",
+                    "maxLength" : 190
+                  }
+                },
+                "required" : [ "event", "url", "username", "password" ]
+              }
+            },
+            "multipart/form-data" : {
+              "schema" : {
+                "properties" : {
+                  "event" : {
+                    "enum" : [ "payment.changed" ],
+                    "description" : "Name of event to connect with"
+                  },
+                  "url" : {
+                    "type" : "string",
+                    "format" : "uri",
+                    "description" : "Callback URL",
+                    "maxLength" : 190,
+                    "pattern" : "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:\\.]+\\]|([a-z¡-￿0-9](?:[a-z¡-￿0-9-]{0,61}[a-z¡-￿0-9])?(?:\\.(?!-)[a-z¡-￿0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z¡-￿-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?"
+                  },
+                  "content_type" : {
+                    "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
+                    "description" : "Desired content type for requests to this callback."
+                  },
+                  "user" : {
+                    "type" : "integer"
+                  },
+                  "username" : {
+                    "type" : "string",
+                    "description" : "Basic Auth username",
+                    "maxLength" : 190
+                  },
+                  "password" : {
+                    "type" : "string",
+                    "description" : "Basic Auth password",
+                    "maxLength" : 190
+                  }
+                },
+                "required" : [ "event", "url", "username", "password" ]
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        }
+      },
+      "patch" : {
+        "tags" : [ "Webhooks" ],
+        "operationId" : "PartialUpdateSubscriber",
+        "summary" : "Partial Update Subscription",
+        "description" : "Partially update details for a specific subscription.",
+        "parameters" : [ {
+          "name" : "uuid",
+          "in" : "path",
+          "required" : true,
+          "description" : "",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "properties" : {
+                  "event" : {
+                    "enum" : [ "payment.changed" ],
+                    "description" : "Name of event to connect with"
+                  },
+                  "url" : {
+                    "type" : "string",
+                    "format" : "uri",
+                    "description" : "Callback URL",
+                    "maxLength" : 190,
+                    "pattern" : "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:\\.]+\\]|([a-z¡-￿0-9](?:[a-z¡-￿0-9-]{0,61}[a-z¡-￿0-9])?(?:\\.(?!-)[a-z¡-￿0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z¡-￿-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?"
+                  },
+                  "content_type" : {
+                    "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
+                    "description" : "Desired content type for requests to this callback."
+                  },
+                  "user" : {
+                    "type" : "integer"
+                  },
+                  "username" : {
+                    "type" : "string",
+                    "description" : "Basic Auth username",
+                    "maxLength" : 190
+                  },
+                  "password" : {
+                    "type" : "string",
+                    "description" : "Basic Auth password",
+                    "maxLength" : 190
+                  }
+                }
+              }
+            },
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "properties" : {
+                  "event" : {
+                    "enum" : [ "payment.changed" ],
+                    "description" : "Name of event to connect with"
+                  },
+                  "url" : {
+                    "type" : "string",
+                    "format" : "uri",
+                    "description" : "Callback URL",
+                    "maxLength" : 190,
+                    "pattern" : "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:\\.]+\\]|([a-z¡-￿0-9](?:[a-z¡-￿0-9-]{0,61}[a-z¡-￿0-9])?(?:\\.(?!-)[a-z¡-￿0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z¡-￿-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?"
+                  },
+                  "content_type" : {
+                    "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
+                    "description" : "Desired content type for requests to this callback."
+                  },
+                  "user" : {
+                    "type" : "integer"
+                  },
+                  "username" : {
+                    "type" : "string",
+                    "description" : "Basic Auth username",
+                    "maxLength" : 190
+                  },
+                  "password" : {
+                    "type" : "string",
+                    "description" : "Basic Auth password",
+                    "maxLength" : 190
+                  }
+                }
+              }
+            },
+            "multipart/form-data" : {
+              "schema" : {
+                "properties" : {
+                  "event" : {
+                    "enum" : [ "payment.changed" ],
+                    "description" : "Name of event to connect with"
+                  },
+                  "url" : {
+                    "type" : "string",
+                    "format" : "uri",
+                    "description" : "Callback URL",
+                    "maxLength" : 190,
+                    "pattern" : "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:\\.]+\\]|([a-z¡-￿0-9](?:[a-z¡-￿0-9-]{0,61}[a-z¡-￿0-9])?(?:\\.(?!-)[a-z¡-￿0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z¡-￿-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?"
+                  },
+                  "content_type" : {
+                    "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
+                    "description" : "Desired content type for requests to this callback."
+                  },
+                  "user" : {
+                    "type" : "integer"
+                  },
+                  "username" : {
+                    "type" : "string",
+                    "description" : "Basic Auth username",
+                    "maxLength" : 190
+                  },
+                  "password" : {
+                    "type" : "string",
+                    "description" : "Basic Auth password",
+                    "maxLength" : 190
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Webhooks" ],
+        "operationId" : "DeleteSubscriber",
+        "summary" : "Delete Subscription",
+        "description" : "Delete details for a specific subscription.",
+        "parameters" : [ {
+          "name" : "uuid",
+          "in" : "path",
+          "required" : true,
+          "description" : "",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : ""
+          }
+        }
+      }
+    }
+  },
+  "servers" : [ {
+    "description" : "Finexio API Staging",
+    "url" : "http://stage.api.finexio.com/v1"
+  } ],
+  "components" : {
+    "securitySchemes" : {
+      "BasicAuth" : {
+        "type" : "http",
+        "scheme" : "basic"
+      }
+    },
+    "schemas" : {
+      "CounterpartyCreate" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/CounterpartyBase"
+        }, {
+          "type" : "object",
+          "required" : [ "name", "type", "address_1", "city", "state", "zipcode", "country", "primary_contact_email" ]
+        } ]
+      },
+      "CounterpartyBase" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "readOnly" : true
+          },
+          "name" : {
+            "type" : "string",
+            "maxLength" : 100
+          },
+          "type" : {
+            "enum" : [ "Buyer", "Supplier" ],
+            "type" : "string"
+          },
+          "created" : {
+            "type" : "string",
+            "format" : "date-time",
+            "readOnly" : true
+          },
+          "updated" : {
+            "type" : "string",
+            "format" : "date-time",
+            "readOnly" : true
+          },
+          "address_1" : {
+            "type" : "string"
+          },
+          "address_2" : {
+            "type" : "string"
+          },
+          "city" : {
+            "type" : "string"
+          },
+          "state" : {
+            "enum" : [ "AL", "AK", "AS", "AZ", "AR", "AA", "AE", "AP", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "GU", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "MP", "OH", "OK", "OR", "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VI", "VA", "WA", "WV", "WI", "WY", "AB", "BC", "MB", "NB", "NL", "NT", "NS", "NU", "ON", "PE", "QC", "SK", "YT" ],
+            "type" : "string"
+          },
+          "zipcode" : {
+            "type" : "string"
+          },
+          "country" : {
+            "enum" : [ "CAN", "UMI", "USA" ],
+            "type" : "string"
+          },
+          "primary_contact_email" : {
+            "type" : "string",
+            "format" : "email"
+          },
+          "primary_contact_name" : {
+            "type" : "string"
+          },
+          "primary_contact_phone" : {
+            "type" : "string",
+            "maxLength" : 63
+          },
+          "bank_account_number" : {
+            "type" : "string",
+            "maxLength" : 17
+          },
+          "bank_routing_number" : {
+            "type" : "string",
+            "maxLength" : 9
+          },
+          "internal_id" : {
+            "type" : "string",
+            "description" : "Optional internal identifier for this counterparty. If provided, this value must be unique for counterparty type."
+          }
+        }
+      },
+      "Payment" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "readOnly" : true
+          },
+          "created" : {
+            "type" : "string",
+            "format" : "date-time",
+            "readOnly" : true
+          },
+          "updated" : {
+            "type" : "string",
+            "format" : "date-time",
+            "readOnly" : true
+          },
+          "amount_cents" : {
+            "type" : "integer",
+            "readOnly" : true
+          },
+          "originating_counterparty_id" : {
+            "type" : "string",
+            "format" : "uuid",
+            "readOnly" : true,
+            "description" : "The ID of one of your organization's internal counterparties (Buyer) that will send payment."
+          },
+          "receiving_counterparty_id" : {
+            "type" : "string",
+            "format" : "uuid",
+            "readOnly" : true,
+            "description" : "The ID of one of your external counterparties (Supplier) that will receive payment."
+          },
+          "payment_method" : {
+            "enum" : [ "PrintedCheck", "ACH", "Card", "Wire" ],
+            "type" : "string",
+            "readOnly" : true
+          },
+          "status" : {
+            "enum" : [ "in-progress", "sent", "complete", "failed" ],
+            "type" : "string",
+            "readOnly" : true,
+            "description" : "Current payment status"
+          },
+          "status_detail" : {
+            "type" : "object",
+            "readOnly" : true,
+            "description" : "Additional information regarding current status expressed as key-value pairs."
+          },
+          "invoices" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "id" : {
+                  "type" : "string",
+                  "readOnly" : true
+                },
+                "url" : {
+                  "type" : "string",
+                  "readOnly" : true
+                },
+                "created" : {
+                  "type" : "string",
+                  "format" : "date-time",
+                  "readOnly" : true
+                },
+                "updated" : {
+                  "type" : "string",
+                  "format" : "date-time",
+                  "readOnly" : true
+                },
+                "amount_cents" : {
+                  "type" : "integer",
+                  "description" : "Invoice amount in specified currency's smallest unit. e.g. $10 would be represented as 1000."
+                },
+                "currency" : {
+                  "enum" : [ "USD" ],
+                  "type" : "string"
+                },
+                "discount_amount_cents" : {
+                  "type" : "integer",
+                  "default" : 0,
+                  "description" : "Optional invoice discount amount in specified currency's smallest unit.",
+                  "minimum" : 0
+                },
+                "invoice_date" : {
+                  "type" : "string",
+                  "format" : "date",
+                  "description" : "Date of invoice provided by recipient. Must be +/- 365 days from today."
+                },
+                "invoice_due_date" : {
+                  "type" : "string",
+                  "format" : "date",
+                  "description" : "Optional invoice due date"
+                },
+                "invoice_number" : {
+                  "type" : "string",
+                  "description" : "Uniquely identifies this invoice for recipient.",
+                  "maxLength" : 49
+                },
+                "line_items" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "properties" : {
+                      "description" : {
+                        "type" : "string",
+                        "description" : "Describes invoice line item such as product, unit price, total, etc."
+                      }
+                    },
+                    "required" : [ "description" ]
+                  },
+                  "description" : "Optional list of invoice line items to include in remittance data."
+                },
+                "note" : {
+                  "type" : "string",
+                  "description" : "Optional additional information you would like to include regarding this invoice."
+                },
+                "originating_counterparty_id" : {
+                  "type" : "string",
+                  "format" : "uuid",
+                  "description" : "The ID of one of your organization's internal counterparties (Buyer) that will send payment."
+                },
+                "receiving_counterparty_id" : {
+                  "type" : "string",
+                  "format" : "uuid",
+                  "description" : "The ID of one of your external counterparty (Supplier) that will receive invoice payment."
+                },
+                "metadata" : {
+                  "type" : "object",
+                  "description" : "Additional private data represented as key-value pairs. Both the key and value must be strings or integers."
+                },
+                "status" : {
+                  "enum" : [ "pending", "in-progress", "sent", "complete", "failed" ],
+                  "type" : "string",
+                  "readOnly" : true,
+                  "description" : "Current payment status:\n* pending: Invoice is being prepared for payment.\n* in-progress: Payment for this invoice is in-progress.\n* complete: Payment for this invoice has been resolved.\n* failed: An exception has occurred during payment processing.\n"
+                },
+                "status_detail" : {
+                  "type" : "object",
+                  "readOnly" : true,
+                  "description" : "Additional information regarding current status expressed as key-value pairs."
+                },
+                "installments" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "properties" : {
+                      "id" : {
+                        "type" : "string",
+                        "readOnly" : true
+                      },
+                      "created" : {
+                        "type" : "string",
+                        "format" : "date-time",
+                        "readOnly" : true
+                      },
+                      "updated" : {
+                        "type" : "string",
+                        "format" : "date-time",
+                        "readOnly" : true
+                      },
+                      "amount_cents" : {
+                        "type" : "integer",
+                        "readOnly" : true,
+                        "description" : "Installment amount in specified currency's smallest unit. e.g. $10 would be represented as 1000."
+                      },
+                      "due_date" : {
+                        "type" : "string",
+                        "format" : "date",
+                        "readOnly" : true,
+                        "description" : "Installment due date"
+                      },
+                      "invoice_id" : {
+                        "type" : "string",
+                        "readOnly" : true,
+                        "description" : "The id of the Payment associated with this installment. (assigned when when associated invoice status transitions to in-progress)"
+                      },
+                      "payment_id" : {
+                        "type" : "string",
+                        "readOnly" : true,
+                        "description" : "The id of the Payment associated with this installment. (assigned when when associated invoice status transitions to in-progress)"
+                      }
+                    }
+                  },
+                  "readOnly" : true,
+                  "description" : "List of payment installments for this invoice. Typically, each invoice has just one installment for the full-amount."
+                },
+                "payment_id" : {
+                  "type" : "string",
+                  "readOnly" : true,
+                  "description" : "The id of the Payment associated with this invoice. (assigned when when invoice status transitions to in-progress). DEPRECATION WARNING: This field will be depricated in-favor of referencing the associated payment(s) through the installments list."
+                }
+              },
+              "required" : [ "amount_cents", "invoice_date", "invoice_number", "originating_counterparty_id", "receiving_counterparty_id" ]
+            },
+            "readOnly" : true,
+            "description" : "List of invoices associated with this payment."
+          },
+          "installments" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "id" : {
+                  "type" : "string",
+                  "readOnly" : true
+                },
+                "created" : {
+                  "type" : "string",
+                  "format" : "date-time",
+                  "readOnly" : true
+                },
+                "updated" : {
+                  "type" : "string",
+                  "format" : "date-time",
+                  "readOnly" : true
+                },
+                "amount_cents" : {
+                  "type" : "integer",
+                  "readOnly" : true,
+                  "description" : "Installment amount in specified currency's smallest unit. e.g. $10 would be represented as 1000."
+                },
+                "due_date" : {
+                  "type" : "string",
+                  "format" : "date",
+                  "readOnly" : true,
+                  "description" : "Installment due date"
+                },
+                "invoice_id" : {
+                  "type" : "string",
+                  "readOnly" : true,
+                  "description" : "The id of the Payment associated with this installment. (assigned when when associated invoice status transitions to in-progress)"
+                },
+                "payment_id" : {
+                  "type" : "string",
+                  "readOnly" : true,
+                  "description" : "The id of the Payment associated with this installment. (assigned when when associated invoice status transitions to in-progress)"
+                }
+              }
+            },
+            "readOnly" : true,
+            "description" : "List of invoice installments associated with this payment."
+          }
+        }
+      },
+      "Invoice" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "readOnly" : true
+          },
+          "url" : {
+            "type" : "string",
+            "readOnly" : true
+          },
+          "created" : {
+            "type" : "string",
+            "format" : "date-time",
+            "readOnly" : true
+          },
+          "updated" : {
+            "type" : "string",
+            "format" : "date-time",
+            "readOnly" : true
+          },
+          "amount_cents" : {
+            "type" : "integer",
+            "description" : "Invoice amount in specified currency's smallest unit. e.g. $10 would be represented as 1000."
+          },
+          "currency" : {
+            "enum" : [ "USD" ],
+            "type" : "string"
+          },
+          "discount_amount_cents" : {
+            "type" : "integer",
+            "default" : 0,
+            "description" : "Optional invoice discount amount in specified currency's smallest unit.",
+            "minimum" : 0
+          },
+          "invoice_date" : {
+            "type" : "string",
+            "format" : "date",
+            "description" : "Date of invoice provided by recipient. Must be +/- 365 days from today."
+          },
+          "invoice_due_date" : {
+            "type" : "string",
+            "format" : "date",
+            "description" : "Optional invoice due date"
+          },
+          "invoice_number" : {
+            "type" : "string",
+            "description" : "Uniquely identifies this invoice for recipient.",
+            "maxLength" : 49
+          },
+          "line_items" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "description" : {
+                  "type" : "string",
+                  "description" : "Describes invoice line item such as product, unit price, total, etc."
+                }
+              },
+              "required" : [ "description" ]
+            },
+            "description" : "Optional list of invoice line items to include in remittance data."
+          },
+          "note" : {
+            "type" : "string",
+            "description" : "Optional additional information you would like to include regarding this invoice."
+          },
+          "originating_counterparty_id" : {
+            "type" : "string",
+            "format" : "uuid",
+            "description" : "The ID of one of your organization's internal counterparties (Buyer) that will send payment."
+          },
+          "receiving_counterparty_id" : {
+            "type" : "string",
+            "format" : "uuid",
+            "description" : "The ID of one of your external counterparty (Supplier) that will receive invoice payment."
+          },
+          "metadata" : {
+            "type" : "object",
+            "description" : "Additional private data represented as key-value pairs. Both the key and value must be strings or integers."
+          },
+          "status" : {
+            "enum" : [ "pending", "in-progress", "sent", "complete", "failed" ],
+            "type" : "string",
+            "readOnly" : true,
+            "description" : "Current payment status:\n* pending: Invoice is being prepared for payment.\n* in-progress: Payment for this invoice is in-progress.\n* complete: Payment for this invoice has been resolved.\n* failed: An exception has occurred during payment processing.\n"
+          },
+          "status_detail" : {
+            "type" : "object",
+            "readOnly" : true,
+            "description" : "Additional information regarding current status expressed as key-value pairs."
+          },
+          "installments" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "id" : {
+                  "type" : "string",
+                  "readOnly" : true
+                },
+                "created" : {
+                  "type" : "string",
+                  "format" : "date-time",
+                  "readOnly" : true
+                },
+                "updated" : {
+                  "type" : "string",
+                  "format" : "date-time",
+                  "readOnly" : true
+                },
+                "amount_cents" : {
+                  "type" : "integer",
+                  "readOnly" : true,
+                  "description" : "Installment amount in specified currency's smallest unit. e.g. $10 would be represented as 1000."
+                },
+                "due_date" : {
+                  "type" : "string",
+                  "format" : "date",
+                  "readOnly" : true,
+                  "description" : "Installment due date"
+                },
+                "invoice_id" : {
+                  "type" : "string",
+                  "readOnly" : true,
+                  "description" : "The id of the Payment associated with this installment. (assigned when when associated invoice status transitions to in-progress)"
+                },
+                "payment_id" : {
+                  "type" : "string",
+                  "readOnly" : true,
+                  "description" : "The id of the Payment associated with this installment. (assigned when when associated invoice status transitions to in-progress)"
+                }
+              }
+            },
+            "readOnly" : true,
+            "description" : "List of payment installments for this invoice. Typically, each invoice has just one installment for the full-amount."
+          },
+          "payment_id" : {
+            "type" : "string",
+            "readOnly" : true,
+            "description" : "The id of the Payment associated with this invoice. (assigned when when invoice status transitions to in-progress). Note that when there are multiple installments associated with the invoice, this value represents the *most recent* payment only. DEPRECATION WARNING: This field will be depricated in-favor of referencing the associated payment(s) through the installments list."
+          }
+        },
+        "required" : [ "amount_cents", "invoice_date", "invoice_number", "originating_counterparty_id", "receiving_counterparty_id" ]
+      }
+    }
+  },
+  "tags" : [ {
+    "name" : "Counterparties",
+    "description" : "Counterparties management"
+  }, {
+    "name" : "Payments",
+    "description" : "Payments  management"
+  }, {
+    "name" : "Invoices",
+    "description" : "Invoices  management"
+  }, {
+    "name" : "Webhooks",
+    "description" : "Webhooks to be used by developers"
+  } ]
 }
