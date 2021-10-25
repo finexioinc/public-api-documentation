@@ -841,7 +841,6 @@
               "readOnly" : true
             },
             "bank_routing_number" : {
-              "type" : "string",
               "readOnly" : true
             },
             "address_1" : {
