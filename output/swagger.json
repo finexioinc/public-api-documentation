@@ -830,6 +830,27 @@
           "required" : [ "name", "type", "address_1", "city", "state", "zipcode", "country", "primary_contact_email" ]
         } ]
       },
+      "CounterpartyUpdate" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/CounterpartyBase"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "bank_account_number" : {
+              "type" : "string",
+              "readOnly" : true
+            },
+            "bank_routing_number" : {
+              "type" : "string",
+              "readOnly" : true
+            },
+            "address_1" : {
+              "type" : "string",
+              "readOnly" : true
+            }
+          }
+        } ]
+      },
       "CounterpartyBase" : {
         "type" : "object",
         "properties" : {
