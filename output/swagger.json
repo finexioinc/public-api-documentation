@@ -124,17 +124,17 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/CounterpartyBase"
+                "$ref" : "#/components/schemas/CounterpartyUpdate"
               }
             },
             "application/x-www-form-urlencoded" : {
               "schema" : {
-                "$ref" : "#/components/schemas/CounterpartyBase"
+                "$ref" : "#/components/schemas/CounterpartyUpdate"
               }
             },
             "multipart/form-data" : {
               "schema" : {
-                "$ref" : "#/components/schemas/CounterpartyBase"
+                "$ref" : "#/components/schemas/CounterpartyUpdate"
               }
             }
           }
@@ -171,17 +171,17 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/CounterpartyBase"
+                "$ref" : "#/components/schemas/CounterpartyUpdate"
               }
             },
             "application/x-www-form-urlencoded" : {
               "schema" : {
-                "$ref" : "#/components/schemas/CounterpartyBase"
+                "$ref" : "#/components/schemas/CounterpartyUpdate"
               }
             },
             "multipart/form-data" : {
               "schema" : {
-                "$ref" : "#/components/schemas/CounterpartyBase"
+                "$ref" : "#/components/schemas/CounterpartyUpdate"
               }
             }
           }
@@ -841,6 +841,7 @@
               "readOnly" : true
             },
             "bank_routing_number" : {
+              "type" : "string",
               "readOnly" : true
             },
             "address_1" : {
