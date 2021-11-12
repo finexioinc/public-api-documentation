@@ -850,6 +850,21 @@
             },
             "type" : {
               "enum" : [ "Supplier" ]
+            },
+            "address_2" : {
+              "readOnly" : true
+            },
+            "city" : {
+              "readOnly" : true
+            },
+            "state" : {
+              "readOnly" : true
+            },
+            "zipcode" : {
+              "readOnly" : true
+            },
+            "country" : {
+              "readOnly" : true
             }
           }
         } ]
