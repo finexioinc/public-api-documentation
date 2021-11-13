@@ -194,6 +194,36 @@
         "tags" : [ "Counterparties" ]
       }
     },
+    "/counterparties/history" : {
+      "get" : {
+        "summary" : "Counterparties History",
+        "operationId" : "Counterparties History",
+        "description" : "Change log for counterparties",
+        "parameters" : [ {
+          "name" : "page",
+          "required" : false,
+          "in" : "query",
+          "description" : "A page number within the paginated result set.",
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Try It to see the response"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "tags" : [ "Counterparties" ]
+      }
+    },
     "/payments/" : {
       "get" : {
         "operationId" : "List Payments",
