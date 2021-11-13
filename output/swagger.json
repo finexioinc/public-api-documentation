@@ -196,9 +196,9 @@
     },
     "/counterparties/history" : {
       "get" : {
-        "summary" : "Counterparties History",
+        "summary" : "Counterparties Changes History",
         "operationId" : "Counterparties History",
-        "description" : "Change log for counterparties",
+        "description" : "Changelog for counterparties",
         "parameters" : [ {
           "name" : "page",
           "required" : false,
