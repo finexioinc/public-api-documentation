@@ -288,7 +288,7 @@
       "get" : {
         "operationId" : "Get Payment Images",
         "summary" : "Payment Images",
-        "description" : "Payment Image in case of printed check. Empty array is returned in case of no image",
+        "description" : "Payment image url in case of printed check. Empty array is returned if there is no image.",
         "parameters" : [ {
           "name" : "key",
           "in" : "path",
