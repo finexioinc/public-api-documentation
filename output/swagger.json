@@ -196,9 +196,9 @@
     },
     "/counterparties/history" : {
       "get" : {
-        "summary" : "Counterparties History",
+        "summary" : "Counterparties Changes History",
         "operationId" : "Counterparties History",
-        "description" : "Change log for counterparties",
+        "description" : "Changelog for counterparties",
         "parameters" : [ {
           "name" : "page",
           "required" : false,
@@ -259,6 +259,36 @@
         "operationId" : "Get Payment",
         "summary" : "Get Payment Detail",
         "description" : "Get Details Of A Payment Specified By Key",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "required" : true,
+          "description" : "",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Try It to see the response"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "tags" : [ "Payments" ]
+      }
+    },
+    "/payments/{key}/images" : {
+      "get" : {
+        "operationId" : "Get Payment Images",
+        "summary" : "Payment Images",
+        "description" : "Payment Image in case of printed check. Empty array is returned in case of no image",
         "parameters" : [ {
           "name" : "key",
           "in" : "path",
