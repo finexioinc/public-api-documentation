@@ -284,6 +284,36 @@
         "tags" : [ "Payments" ]
       }
     },
+    "/payments/{key}/images" : {
+      "get" : {
+        "operationId" : "Get Payment Images",
+        "summary" : "Payment Images",
+        "description" : "Payment Image in case of printed check. Empty array is returned in case of no image",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "required" : true,
+          "description" : "",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Try It to see the response"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "tags" : [ "Payments" ]
+      }
+    },
     "/invoices/" : {
       "get" : {
         "operationId" : "List Invoices",
