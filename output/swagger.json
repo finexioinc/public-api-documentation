@@ -314,6 +314,36 @@
         "tags" : [ "Payments" ]
       }
     },
+    "/installments/" : {
+      "get" : {
+        "operationId" : "Installments List",
+        "summary" : "Installments List",
+        "description" : "Get A Paginated List Of Installments",
+        "parameters" : [ {
+          "name" : "page",
+          "required" : false,
+          "in" : "query",
+          "description" : "A page number within the paginated result set.",
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Try It to see the response"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "tags" : [ "Installments" ]
+      }
+    },
     "/invoices/" : {
       "get" : {
         "operationId" : "List Invoices",
@@ -877,6 +907,36 @@
       }
     },
     "schemas" : {
+      "Installments" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "readOnly" : true
+          },
+          "created" : {
+            "type" : "string",
+            "format" : "date-time",
+            "readOnly" : true
+          },
+          "amount_cents" : {
+            "type" : "integer"
+          },
+          "due_date" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "invoice_id" : {
+            "type" : "string",
+            "description" : "ID of invoice assosiated with this installment"
+          },
+          "payment_id" : {
+            "type" : "string",
+            "description" : "ID of payment assosiated with this installment"
+          }
+        },
+        "required" : [ "invoice_id", "due_date" ]
+      },
       "CounterpartyCreate" : {
         "allOf" : [ {
           "$ref" : "#/components/schemas/CounterpartyBase"
@@ -1404,6 +1464,9 @@
   }, {
     "name" : "Invoices",
     "description" : "Invoices  management"
+  }, {
+    "name" : "Installments",
+    "description" : "Counterparties management"
   }, {
     "name" : "Webhooks",
     "description" : "Webhooks to be used by developers"
