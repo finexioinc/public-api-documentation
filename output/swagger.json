@@ -316,8 +316,8 @@
     },
     "/installments/" : {
       "get" : {
-        "operationId" : "Installments List",
-        "summary" : "Installments List",
+        "operationId" : "List Installments",
+        "summary" : "List Installments",
         "description" : "Get A Paginated List Of Installments",
         "parameters" : [ {
           "name" : "page",
