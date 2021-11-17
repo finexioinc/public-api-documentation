@@ -1004,7 +1004,7 @@
             "description" : "ID of payment assosiated with this installment"
           }
         },
-        "required" : [ "invoice_id", "due_date" ]
+        "required" : [ "invoice_id", "amount_cents" ]
       },
       "CounterpartyCreate" : {
         "allOf" : [ {
