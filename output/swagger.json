@@ -342,6 +342,75 @@
           }
         },
         "tags" : [ "Installments" ]
+      },
+      "post" : {
+        "operationId" : "Create Installment",
+        "summary" : "Create Installment",
+        "description" : "Create A New Installment",
+        "parameters" : [ ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Installments"
+              }
+            },
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Installments"
+              }
+            },
+            "multipart/form-data" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Installments"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Try It to see the response"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "tags" : [ "Installments" ]
+      }
+    },
+    "/installments/{key}/" : {
+      "get" : {
+        "operationId" : "Get installment Details",
+        "summary" : "Get installments Details",
+        "description" : "Get Details Of An installments By Key",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "required" : true,
+          "description" : "",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Try It to see the response"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "tags" : [ "Installments" ]
       }
     },
     "/invoices/" : {
