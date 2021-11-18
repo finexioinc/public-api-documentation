@@ -81,7 +81,7 @@
     "/counterparties/{id}/" : {
       "get" : {
         "operationId" : "Get Counterparty",
-        "summary" : "Get Counterparty",
+        "summary" : "Get Counterparty Details",
         "description" : "Get Information Of A Single Counterparty",
         "parameters" : [ {
           "name" : "id",
@@ -385,8 +385,8 @@
     },
     "/installments/{key}/" : {
       "get" : {
-        "operationId" : "Get installment Details",
-        "summary" : "Get installments Details",
+        "operationId" : "Get installment Detail",
+        "summary" : "Get Installment Detail",
         "description" : "Get Details Of An installments By Key",
         "parameters" : [ {
           "name" : "key",
@@ -446,7 +446,7 @@
     "/invoices/{key}/" : {
       "get" : {
         "operationId" : "Get Invoice",
-        "summary" : "Get Invoice",
+        "summary" : "Get Invoice Detail",
         "description" : "Get Details Of An Invoice By Key",
         "parameters" : [ {
           "name" : "key",
@@ -670,7 +670,7 @@
       "get" : {
         "tags" : [ "Webhooks" ],
         "operationId" : "GetSubscriber",
-        "summary" : "Get Subscription",
+        "summary" : "Get Subscription Detail",
         "description" : "Get details for specific subscription.",
         "parameters" : [ {
           "name" : "uuid",
