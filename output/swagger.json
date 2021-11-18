@@ -1016,7 +1016,7 @@
               "enum" : [ "Supplier" ]
             }
           },
-          "required" : [ "name", "type", "address_1", "city", "state", "zipcode", "country", "primary_contact_email" ]
+          "required" : [ "name", "type", "address_1", "city", "state", "zipcode", "country" ]
         } ]
       },
       "CounterpartyUpdate" : {
