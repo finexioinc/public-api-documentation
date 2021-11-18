@@ -81,7 +81,7 @@
     "/counterparties/{id}/" : {
       "get" : {
         "operationId" : "Get Counterparty",
-        "summary" : "Get Counterparty Details",
+        "summary" : "Get Counterparty Detail",
         "description" : "Get Information Of A Single Counterparty",
         "parameters" : [ {
           "name" : "id",
