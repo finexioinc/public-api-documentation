@@ -12,7 +12,7 @@
     "/payments/" : {
       "get" : {
         "operationId" : "List of Payments",
-        "summary" : "List Payments",
+        "summary" : "List Payments v1.1",
         "description" : "Get A Paginated List Of Payments",
         "parameters" : [ {
           "name" : "page",
