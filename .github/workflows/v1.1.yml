@@ -2,7 +2,7 @@ name: Finexio API V1.1
 on:
   push:
     branches:
-      - swaggerhub-finexio-api_doc-v1_1
+      - swaggerhub-finexio-api_doc-v1.1
 jobs:
   build:
     runs-on: ubuntu-latest
