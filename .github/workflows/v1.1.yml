@@ -1,0 +1,17 @@
+name: Finexio API V1.1
+on:
+  push:
+    branches:
+      - swaggerhub-finexio-api_doc-v1_1
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: readmeio/github-readme-sync@v2
+        with:
+          readme-oas-key: bBcDCtTB0i7QyuIzI3JSlAzJgazDoo48:61b09e9b4f2d3ee233a5e0f6
+           
+          # OPTIONAL CONFIG, use if necessary
+          # oas-file-path: './swagger.json'
+          api-version: 'v1.1.0'
