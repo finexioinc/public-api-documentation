@@ -42,7 +42,7 @@
   },
   "servers" : [ {
     "description" : "Finexio API Staging",
-    "url" : "http://stage.api.finexio.com/v1"
+    "url" : "http://stage.api.finexio.com/v1_1"
   } ],
   "components" : {
     "securitySchemes" : {
