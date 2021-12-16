@@ -228,7 +228,7 @@
       "get" : {
         "operationId" : "List Payments",
         "summary" : "List Payments",
-        "description" : "Get A Paginated List Of *[Payments](https://finexio.readme.io/reference/payments-1)",
+        "description" : "Get A Paginated List Of [Payments](https://finexio.readme.io/reference/payments-1)",
         "parameters" : [ {
           "name" : "page",
           "required" : false,
