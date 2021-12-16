@@ -228,7 +228,7 @@
       "get" : {
         "operationId" : "List Payments",
         "summary" : "List Payments",
-        "description" : "Get A Paginated List Of Payments",
+        "description" : "Get A Paginated List Of *Payments*",
         "parameters" : [ {
           "name" : "page",
           "required" : false,
