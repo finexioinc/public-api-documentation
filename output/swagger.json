@@ -258,7 +258,7 @@
       "get" : {
         "operationId" : "Get Payment",
         "summary" : "Get Payment Detail",
-        "description" : "Get Details Of A [Payments](https://finexio.readme.io/reference/payments-1) Specified By Key",
+        "description" : "Get Details Of A [Payment](https://finexio.readme.io/reference/payments-1) Specified By Key",
         "parameters" : [ {
           "name" : "key",
           "in" : "path",
