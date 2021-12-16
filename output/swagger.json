@@ -258,7 +258,7 @@
       "get" : {
         "operationId" : "Get Payment",
         "summary" : "Get Payment Detail",
-        "description" : "Get Details Of A Payment Specified By Key",
+        "description" : "Get Details Of A [Payments](https://finexio.readme.io/reference/payments-1) Specified By Key",
         "parameters" : [ {
           "name" : "key",
           "in" : "path",
@@ -288,7 +288,7 @@
       "get" : {
         "operationId" : "Get Payment Images",
         "summary" : "Payment Images",
-        "description" : "Payment image url in case of printed check. Empty array is returned if there is no image.",
+        "description" : "Get [Payment](https://finexio.readme.io/reference/payments-1) image url in case of printed check. Empty array is returned if there is no image.",
         "parameters" : [ {
           "name" : "key",
           "in" : "path",
