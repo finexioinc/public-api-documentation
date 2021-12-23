@@ -528,6 +528,10 @@
         "tags" : [ "Webhooks" ],
         "operationId" : "listSubscribers",
         "summary" : "List Subscriptions",
+        "servers" : [ {
+          "description" : "Finexio API Staging Base",
+          "url" : "http://stage.api.finexio.com"
+        } ],
         "description" : "List  new subscriptions for the currently logged in user.",
         "parameters" : [ {
           "name" : "page",
