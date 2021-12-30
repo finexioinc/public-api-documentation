@@ -8,6 +8,10 @@
   "security" : [ {
     "BasicAuth" : [ ]
   } ],
+  "servers" : [ {
+    "description" : "Finexio API Staging",
+    "url" : "http://stage.api.finexio.com/v1"
+  } ],
   "paths" : {
     "/counterparties/" : {
       "get" : {
@@ -524,6 +528,7 @@
       }
     },
     "/webhooks/" : {
+      "description" : "Subscriptions related operations.",
       "servers" : [ {
         "url" : "http://stage.api.finexio.com",
         "description" : "Base Path Override for Webhooks"
@@ -968,10 +973,6 @@
       }
     }
   },
-  "servers" : [ {
-    "description" : "Finexio API Staging",
-    "url" : "http://stage.api.finexio.com/v1"
-  } ],
   "components" : {
     "securitySchemes" : {
       "BasicAuth" : {
