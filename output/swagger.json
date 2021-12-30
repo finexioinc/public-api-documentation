@@ -8,6 +8,10 @@
   "security" : [ {
     "BasicAuth" : [ ]
   } ],
+  "servers" : [ {
+    "description" : "Finexio API Staging",
+    "url" : "http://stage.api.finexio.com/v1"
+  } ],
   "paths" : {
     "/counterparties/" : {
       "get" : {
@@ -969,10 +973,6 @@
       }
     }
   },
-  "servers" : [ {
-    "description" : "Finexio API Staging",
-    "url" : "http://stage.api.finexio.com/v1"
-  } ],
   "components" : {
     "securitySchemes" : {
       "BasicAuth" : {
