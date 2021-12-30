@@ -525,8 +525,8 @@
     },
     "/webhooks/" : {
       "servers" : [ {
-        "description" : "Finexio API Staging Base",
-        "url" : "http://stage.api.finexio.com"
+        "url" : "http://stage.api.finexio.com",
+        "description" : "Base Path Override for Webhooks"
       } ],
       "get" : {
         "tags" : [ "Webhooks" ],
