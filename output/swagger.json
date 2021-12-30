@@ -524,6 +524,7 @@
       }
     },
     "/webhooks/" : {
+      "description" : "Subscriptions related operations.",
       "servers" : [ {
         "url" : "http://stage.api.finexio.com",
         "description" : "Base Path Override for Webhooks"
