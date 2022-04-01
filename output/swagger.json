@@ -318,105 +318,6 @@
         "tags" : [ "Payments" ]
       }
     },
-    "/installments/" : {
-      "get" : {
-        "operationId" : "List Installments",
-        "summary" : "List Installments",
-        "description" : "Get A Paginated List Of Installments",
-        "parameters" : [ {
-          "name" : "page",
-          "required" : false,
-          "in" : "query",
-          "description" : "A page number within the paginated result set.",
-          "schema" : {
-            "type" : "integer"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "string",
-                  "example" : "Try It to see the response"
-                }
-              }
-            },
-            "description" : ""
-          }
-        },
-        "tags" : [ "Installments" ]
-      },
-      "post" : {
-        "operationId" : "Create Installment",
-        "summary" : "Create Installment",
-        "description" : "Create A New Installment",
-        "parameters" : [ ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/Installments"
-              }
-            },
-            "application/x-www-form-urlencoded" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/Installments"
-              }
-            },
-            "multipart/form-data" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/Installments"
-              }
-            }
-          }
-        },
-        "responses" : {
-          "201" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "string",
-                  "example" : "Try It to see the response"
-                }
-              }
-            },
-            "description" : ""
-          }
-        },
-        "tags" : [ "Installments" ]
-      }
-    },
-    "/installments/{key}/" : {
-      "get" : {
-        "operationId" : "Get installment Detail",
-        "summary" : "Get Installment Detail",
-        "description" : "Get Details Of An installments By Key",
-        "parameters" : [ {
-          "name" : "key",
-          "in" : "path",
-          "required" : true,
-          "description" : "",
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "string",
-                  "example" : "Try It to see the response"
-                }
-              }
-            },
-            "description" : ""
-          }
-        },
-        "tags" : [ "Installments" ]
-      }
-    },
     "/invoices/" : {
       "get" : {
         "operationId" : "List Invoices",
@@ -529,11 +430,11 @@
     },
     "/webhooks/" : {
       "description" : "Subscriptions related operations.",
-      "servers" : [ {
-        "url" : "http://stage.api.finexio.com",
-        "description" : "Base Path Override for Webhooks"
-      } ],
       "get" : {
+        "servers" : [ {
+          "url" : "http://stage.api.finexio.com",
+          "description" : "Base Path Override for Webhooks"
+        } ],
         "tags" : [ "Webhooks" ],
         "operationId" : "listSubscribers",
         "summary" : "List Subscriptions",
@@ -1278,51 +1179,6 @@
                   "readOnly" : true,
                   "description" : "Additional information regarding current status expressed as key-value pairs."
                 },
-                "installments" : {
-                  "type" : "array",
-                  "items" : {
-                    "type" : "object",
-                    "properties" : {
-                      "id" : {
-                        "type" : "string",
-                        "readOnly" : true
-                      },
-                      "created" : {
-                        "type" : "string",
-                        "format" : "date-time",
-                        "readOnly" : true
-                      },
-                      "updated" : {
-                        "type" : "string",
-                        "format" : "date-time",
-                        "readOnly" : true
-                      },
-                      "amount_cents" : {
-                        "type" : "integer",
-                        "readOnly" : true,
-                        "description" : "Installment amount in specified currency's smallest unit. e.g. $10 would be represented as 1000."
-                      },
-                      "due_date" : {
-                        "type" : "string",
-                        "format" : "date",
-                        "readOnly" : true,
-                        "description" : "Installment due date"
-                      },
-                      "invoice_id" : {
-                        "type" : "string",
-                        "readOnly" : true,
-                        "description" : "The id of the Payment associated with this installment. (assigned when when associated invoice status transitions to in-progress)"
-                      },
-                      "payment_id" : {
-                        "type" : "string",
-                        "readOnly" : true,
-                        "description" : "The id of the Payment associated with this installment. (assigned when when associated invoice status transitions to in-progress)"
-                      }
-                    }
-                  },
-                  "readOnly" : true,
-                  "description" : "List of payment installments for this invoice. Typically, each invoice has just one installment for the full-amount."
-                },
                 "payment_id" : {
                   "type" : "string",
                   "readOnly" : true,
@@ -1473,51 +1329,6 @@
             "type" : "object",
             "readOnly" : true,
             "description" : "Additional information regarding current status expressed as key-value pairs."
-          },
-          "installments" : {
-            "type" : "array",
-            "items" : {
-              "type" : "object",
-              "properties" : {
-                "id" : {
-                  "type" : "string",
-                  "readOnly" : true
-                },
-                "created" : {
-                  "type" : "string",
-                  "format" : "date-time",
-                  "readOnly" : true
-                },
-                "updated" : {
-                  "type" : "string",
-                  "format" : "date-time",
-                  "readOnly" : true
-                },
-                "amount_cents" : {
-                  "type" : "integer",
-                  "readOnly" : true,
-                  "description" : "Installment amount in specified currency's smallest unit. e.g. $10 would be represented as 1000."
-                },
-                "due_date" : {
-                  "type" : "string",
-                  "format" : "date",
-                  "readOnly" : true,
-                  "description" : "Installment due date"
-                },
-                "invoice_id" : {
-                  "type" : "string",
-                  "readOnly" : true,
-                  "description" : "The id of the Payment associated with this installment. (assigned when when associated invoice status transitions to in-progress)"
-                },
-                "payment_id" : {
-                  "type" : "string",
-                  "readOnly" : true,
-                  "description" : "The id of the Payment associated with this installment. (assigned when when associated invoice status transitions to in-progress)"
-                }
-              }
-            },
-            "readOnly" : true,
-            "description" : "List of payment installments for this invoice. Typically, each invoice has just one installment for the full-amount."
           },
           "payment_id" : {
             "type" : "string",
