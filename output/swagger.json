@@ -1287,20 +1287,6 @@
             "description" : "Uniquely identifies this invoice for recipient.",
             "maxLength" : 49
           },
-          "line_items" : {
-            "type" : "array",
-            "items" : {
-              "type" : "object",
-              "properties" : {
-                "description" : {
-                  "type" : "string",
-                  "description" : "Describes invoice line item such as product, unit price, total, etc."
-                }
-              },
-              "required" : [ "description" ]
-            },
-            "description" : "Optional list of invoice line items to include in remittance data."
-          },
           "note" : {
             "type" : "string",
             "description" : "Optional additional information you would like to include regarding this invoice."
