@@ -1244,6 +1244,10 @@
             "type" : "string",
             "readOnly" : true
           },
+          "account_number" : {
+            "type" : "string",
+            "readOnly" : false
+          },
           "url" : {
             "type" : "string",
             "readOnly" : true
