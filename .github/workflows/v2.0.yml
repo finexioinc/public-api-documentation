@@ -1,0 +1,16 @@
+name: Finexio API v2
+on:
+  push:
+    branches:
+      - master
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: readmeio/github-readme-sync@v2
+        with:
+          readme-oas-key: bBcDCtTB0i7QyuIzI3JSlAzJgazDoo48:614b85b30c4560aaa46e8b1a
+          oas-file-path: './output/v2.0.json'
+          api-version: 'v2.0'
