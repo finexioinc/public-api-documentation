@@ -8,9 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: readmeio/github-readme-sync@v2
+      - uses: actions/checkout@v3
+      - uses: readmeio/rdme@7.5.0
         with:
-          readme-oas-key: bBcDCtTB0i7QyuIzI3JSlAzJgazDoo48:614b85b30c4560aaa46e8b1a
-          oas-file-path: './output/v2.0.json'
-          api-version: 'v2.0'
+          rdme: openapi output/v2.0.json --key=rdme_xn8s9h2e7eb6f2d6d7019cafd6b492fed2e0bbd93276f0ee9d82bdd87ebe0272227b42 --id=6272ada3f905240021181c4a
