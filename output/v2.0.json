@@ -139,10 +139,6 @@
             "type" : "string",
             "readOnly" : true
           },
-          "url" : {
-            "type" : "string",
-            "readOnly" : true
-          },
           "created" : {
             "type" : "string",
             "format" : "date-time",
@@ -182,20 +178,6 @@
             "description" : "Uniquely identifies this invoice for recipient.",
             "maxLength" : 49
           },
-          "line_items" : {
-            "type" : "array",
-            "items" : {
-              "type" : "object",
-              "properties" : {
-                "description" : {
-                  "type" : "string",
-                  "description" : "Describes invoice line item such as product, unit price, total, etc."
-                }
-              },
-              "required" : [ "description" ]
-            },
-            "description" : "Optional list of invoice line items to include in remittance data."
-          },
           "note" : {
             "type" : "string",
             "description" : "Optional additional information you would like to include regarding this invoice."
@@ -214,21 +196,20 @@
             "type" : "object",
             "description" : "Additional private data represented as key-value pairs. Both the key and value must be strings or integers."
           },
-          "status" : {
-            "enum" : [ "pending", "in-progress", "sent", "complete", "failed" ],
-            "type" : "string",
-            "readOnly" : true,
-            "description" : "Current payment status:\n* pending: Invoice is being prepared for payment.\n* in-progress: Payment for this invoice is in-progress.\n* complete: Payment for this invoice has been resolved.\n* failed: An exception has occurred during payment processing.\n"
-          },
-          "status_detail" : {
-            "type" : "object",
-            "readOnly" : true,
-            "description" : "Additional information regarding current status expressed as key-value pairs."
-          },
           "payment_id" : {
             "type" : "string",
             "readOnly" : true,
             "description" : "The id of the Payment associated with this invoice. (assigned when when invoice status transitions to in-progress). Note that when there are multiple installments associated with the invoice, this value represents the *most recent* payment only. DEPRECATION WARNING: This field will be depricated in-favor of referencing the associated payment(s) through the installments list."
+          },
+          "reconciliation_id" : {
+            "type" : "string",
+            "readOnly" : false,
+            "description" : "An string to identify the invoice in your accounting system."
+          },
+          "account_number" : {
+            "type" : "string",
+            "readOnly" : false,
+            "description" : "Account number. This sensitive information is stored encrypted and can only be retrieved through the API."
           }
         },
         "required" : [ "amount_cents", "invoice_date", "invoice_number", "originating_counterparty_id", "receiving_counterparty_id" ]
