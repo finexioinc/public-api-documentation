@@ -122,6 +122,66 @@
         },
         "tags" : [ "Invoices" ]
       }
+    },
+    "/payments/" : {
+      "get" : {
+        "operationId" : "List of Payments",
+        "summary" : "List Payments",
+        "description" : "Get A Paginated List Of Payments",
+        "parameters" : [ {
+          "name" : "page",
+          "required" : false,
+          "in" : "query",
+          "description" : "A page number within the paginated result set.",
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Try It to see the response"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "tags" : [ "Payments" ]
+      }
+    },
+    "/payments/{key}/" : {
+      "get" : {
+        "operationId" : "Get Payment",
+        "summary" : "Get Payment Detail",
+        "description" : "Get Details Of A Payment Specified By Key",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "required" : true,
+          "description" : "",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Try It to see the response"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "tags" : [ "Payments" ]
+      }
     }
   },
   "components" : {
