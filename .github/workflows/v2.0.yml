@@ -11,4 +11,4 @@ jobs:
       - uses: actions/checkout@v3
       - uses: readmeio/rdme@7.5.0
         with:
-          rdme: openapi output/v2.0.json --key=rdme_xn8s9h2e7eb6f2d6d7019cafd6b492fed2e0bbd93276f0ee9d82bdd87ebe0272227b42 --id=6272ada3f905240021181c4a
+          rdme: openapi output/v2.0.json --key=rdme_xn8s9hc6f3f2c800d8e764e5710e90fd176633f6176d42fd600ad5aa3c2cb6e33e4f2f --id=6272ada3f905240021181c4a
