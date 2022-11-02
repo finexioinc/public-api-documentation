@@ -407,6 +407,361 @@
       }
     },
     "schemas" : {
+      "Installments" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "readOnly" : true
+          },
+          "created" : {
+            "type" : "string",
+            "format" : "date-time",
+            "readOnly" : true
+          },
+          "amount_cents" : {
+            "type" : "integer"
+          },
+          "due_date" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "invoice_id" : {
+            "type" : "string",
+            "description" : "ID of invoice assosiated with this installment"
+          },
+          "payment_id" : {
+            "type" : "string",
+            "description" : "ID of payment assosiated with this installment"
+          }
+        },
+        "required" : [ "invoice_id", "amount_cents" ]
+      },
+      "CounterpartyCreate" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/CounterpartyBase"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "enum" : [ "Supplier" ]
+            }
+          },
+          "required" : [ "name", "type", "address_1", "city", "state", "zipcode", "country", "internal_id" ]
+        } ]
+      },
+      "CounterpartyUpdate" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/CounterpartyBase"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "bank_account_number" : {
+              "type" : "string",
+              "readOnly" : true
+            },
+            "bank_routing_number" : {
+              "type" : "string",
+              "readOnly" : true
+            },
+            "address_1" : {
+              "type" : "string",
+              "readOnly" : true
+            },
+            "type" : {
+              "enum" : [ "Supplier" ]
+            },
+            "address_2" : {
+              "readOnly" : true
+            },
+            "city" : {
+              "readOnly" : true
+            },
+            "state" : {
+              "readOnly" : true
+            },
+            "zipcode" : {
+              "readOnly" : true
+            },
+            "country" : {
+              "readOnly" : true
+            }
+          }
+        } ]
+      },
+      "CounterpartyBase" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "readOnly" : true
+          },
+          "name" : {
+            "type" : "string",
+            "maxLength" : 100
+          },
+          "type" : {
+            "enum" : [ "Buyer", "Supplier" ],
+            "type" : "string"
+          },
+          "created" : {
+            "type" : "string",
+            "format" : "date-time",
+            "readOnly" : true
+          },
+          "updated" : {
+            "type" : "string",
+            "format" : "date-time",
+            "readOnly" : true
+          },
+          "address_1" : {
+            "type" : "string"
+          },
+          "address_2" : {
+            "type" : "string"
+          },
+          "city" : {
+            "type" : "string"
+          },
+          "state" : {
+            "enum" : [ "AL", "AK", "AS", "AZ", "AR", "AA", "AE", "AP", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "GU", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "MP", "OH", "OK", "OR", "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VI", "VA", "WA", "WV", "WI", "WY", "AB", "BC", "MB", "NB", "NL", "NT", "NS", "NU", "ON", "PE", "QC", "SK", "YT" ],
+            "type" : "string"
+          },
+          "zipcode" : {
+            "type" : "string"
+          },
+          "country" : {
+            "enum" : [ "CAN", "UMI", "USA" ],
+            "type" : "string"
+          },
+          "primary_contact_email" : {
+            "type" : "string",
+            "format" : "email"
+          },
+          "primary_contact_name" : {
+            "type" : "string"
+          },
+          "primary_contact_phone" : {
+            "type" : "string",
+            "maxLength" : 63
+          },
+          "bank_account_number" : {
+            "type" : "string",
+            "maxLength" : 17
+          },
+          "bank_routing_number" : {
+            "type" : "string",
+            "maxLength" : 9
+          },
+          "internal_id" : {
+            "type" : "string",
+            "maxLength" : 100,
+            "description" : "Secondary identifier for this counterparty This value must be unique for counterparty type."
+          }
+        }
+      },
+      "Payment" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "readOnly" : true
+          },
+          "created" : {
+            "type" : "string",
+            "format" : "date-time",
+            "readOnly" : true
+          },
+          "updated" : {
+            "type" : "string",
+            "format" : "date-time",
+            "readOnly" : true
+          },
+          "amount_cents" : {
+            "type" : "integer",
+            "readOnly" : true
+          },
+          "originating_counterparty_id" : {
+            "type" : "string",
+            "format" : "uuid",
+            "readOnly" : true,
+            "description" : "The ID of one of your organization's internal counterparties (Buyer) that will send payment."
+          },
+          "receiving_counterparty_id" : {
+            "type" : "string",
+            "format" : "uuid",
+            "readOnly" : true,
+            "description" : "The ID of one of your external counterparties (Supplier) that will receive payment."
+          },
+          "payment_method" : {
+            "enum" : [ "PrintedCheck", "ACH", "Card", "Wire" ],
+            "type" : "string",
+            "readOnly" : true
+          },
+          "status" : {
+            "enum" : [ "in-progress", "sent", "complete", "failed" ],
+            "type" : "string",
+            "readOnly" : true,
+            "description" : "Current payment status"
+          },
+          "status_detail" : {
+            "type" : "object",
+            "readOnly" : true,
+            "description" : "Additional information regarding current status expressed as key-value pairs."
+          },
+          "invoices" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "id" : {
+                  "type" : "string",
+                  "readOnly" : true
+                },
+                "url" : {
+                  "type" : "string",
+                  "readOnly" : true
+                },
+                "created" : {
+                  "type" : "string",
+                  "format" : "date-time",
+                  "readOnly" : true
+                },
+                "updated" : {
+                  "type" : "string",
+                  "format" : "date-time",
+                  "readOnly" : true
+                },
+                "amount_cents" : {
+                  "type" : "integer",
+                  "description" : "Invoice amount in specified currency's smallest unit. e.g. $10 would be represented as 1000."
+                },
+                "currency" : {
+                  "enum" : [ "USD" ],
+                  "type" : "string"
+                },
+                "discount_amount_cents" : {
+                  "type" : "integer",
+                  "default" : 0,
+                  "description" : "Optional invoice discount amount in specified currency's smallest unit.",
+                  "minimum" : 0
+                },
+                "invoice_date" : {
+                  "type" : "string",
+                  "format" : "date",
+                  "description" : "Date of invoice provided by recipient. Must be +/- 365 days from today."
+                },
+                "invoice_due_date" : {
+                  "type" : "string",
+                  "format" : "date",
+                  "description" : "Optional invoice due date. If this is set to a date in the future, the system will initiate payment when the invoice is due."
+                },
+                "invoice_number" : {
+                  "type" : "string",
+                  "description" : "Uniquely identifies this invoice for recipient.",
+                  "maxLength" : 49
+                },
+                "line_items" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "properties" : {
+                      "description" : {
+                        "type" : "string",
+                        "description" : "Describes invoice line item such as product, unit price, total, etc."
+                      }
+                    },
+                    "required" : [ "description" ]
+                  },
+                  "description" : "Optional list of invoice line items to include in remittance data."
+                },
+                "note" : {
+                  "type" : "string",
+                  "description" : "Optional additional information you would like to include regarding this invoice."
+                },
+                "originating_counterparty_id" : {
+                  "type" : "string",
+                  "format" : "uuid",
+                  "description" : "The ID of one of your organization's internal counterparties (Buyer) that will send payment."
+                },
+                "receiving_counterparty_id" : {
+                  "type" : "string",
+                  "format" : "uuid",
+                  "description" : "The ID of one of your external counterparty (Supplier) that will receive invoice payment."
+                },
+                "metadata" : {
+                  "type" : "object",
+                  "description" : "Additional private data represented as key-value pairs. Both the key and value must be strings or integers."
+                },
+                "status" : {
+                  "enum" : [ "pending", "in-progress", "sent", "complete", "failed" ],
+                  "type" : "string",
+                  "readOnly" : true,
+                  "description" : "Current payment status:\n* pending: Invoice is being prepared for payment.\n* in-progress: Payment for this invoice is in-progress.\n* complete: Payment for this invoice has been resolved.\n* failed: An exception has occurred during payment processing.\n"
+                },
+                "status_detail" : {
+                  "type" : "object",
+                  "readOnly" : true,
+                  "description" : "Additional information regarding current status expressed as key-value pairs."
+                },
+                "payment_id" : {
+                  "type" : "string",
+                  "readOnly" : true,
+                  "description" : "The id of the Payment associated with this invoice. (assigned when when invoice status transitions to in-progress). DEPRECATION WARNING: This field will be depricated in-favor of referencing the associated payment(s) through the installments list."
+                }
+              },
+              "required" : [ "amount_cents", "invoice_date", "invoice_number", "originating_counterparty_id", "receiving_counterparty_id" ]
+            },
+            "readOnly" : true,
+            "description" : "List of invoices associated with this payment."
+          },
+          "installments" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "id" : {
+                  "type" : "string",
+                  "readOnly" : true
+                },
+                "created" : {
+                  "type" : "string",
+                  "format" : "date-time",
+                  "readOnly" : true
+                },
+                "updated" : {
+                  "type" : "string",
+                  "format" : "date-time",
+                  "readOnly" : true
+                },
+                "amount_cents" : {
+                  "type" : "integer",
+                  "readOnly" : true,
+                  "description" : "Installment amount in specified currency's smallest unit. e.g. $10 would be represented as 1000."
+                },
+                "due_date" : {
+                  "type" : "string",
+                  "format" : "date",
+                  "readOnly" : true,
+                  "description" : "Installment due date"
+                },
+                "invoice_id" : {
+                  "type" : "string",
+                  "readOnly" : true,
+                  "description" : "The id of the Payment associated with this installment. (assigned when when associated invoice status transitions to in-progress)"
+                },
+                "payment_id" : {
+                  "type" : "string",
+                  "readOnly" : true,
+                  "description" : "The id of the Payment associated with this installment. (assigned when when associated invoice status transitions to in-progress)"
+                }
+              }
+            },
+            "readOnly" : true,
+            "description" : "List of invoice installments associated with this payment."
+          }
+        }
+      },
       "Invoice" : {
         "type" : "object",
         "properties" : {
