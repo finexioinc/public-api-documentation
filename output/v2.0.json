@@ -556,6 +556,14 @@
             "type" : "string",
             "maxLength" : 100,
             "description" : "Secondary identifier for this counterparty This value must be unique for counterparty type."
+          },
+          "payment_terms" : {
+            "type" : "integer",
+            "description" : "Payment terms is optional field. This is an integer field and represents No. of days. Allowed values: min = 0, max = 365."
+          },
+          "tax_id" : {
+            "type" : "string",
+            "maxLength" : 12
           }
         }
       },
