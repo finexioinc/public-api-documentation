@@ -569,6 +569,12 @@
             "type": "boolean",
             "description": "Supplier conversion eligibility determines if Finexio SHOULD NOT reach out to this supplier due to high sensitivity or special payment arrangements or contracted terms.",
             "default": true
+          },
+          "twelve_month_payment_count" : {
+            "type" : "integer"
+          },
+          "twelve_month_spend" : {
+            "type" : "number"
           }
         }
       },
