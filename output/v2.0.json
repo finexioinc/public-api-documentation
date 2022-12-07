@@ -575,6 +575,10 @@
           },
           "twelve_month_spend" : {
             "type" : "number"
+          },
+          "business_type" : {
+            "type" : "string",
+            "description": "Business type of the counterparty. Allowed values: 'Employee', 'Business', 'Individual'"
           }
         }
       },
