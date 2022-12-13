@@ -457,7 +457,7 @@
               "enum" : [ "Supplier" ]
             }
           },
-          "required" : [ "name", "type", "address_1", "city", "state", "zipcode", "country", "internal_id" ]
+          "required" : [ "name", "type", "address_1", "city", "state", "zipcode", "country", "internal_id", "business_type" ]
         } ]
       },
       "CounterpartyUpdate" : {
