@@ -550,7 +550,7 @@
           "country" : {
             "enum" : [ "CAN", "UMI", "USA" ],
             "type" : "string",
-            "description" : "accepts one of these values: [ 'CAN', 'UMI', 'USA' ]"
+            "description" : "accepts one of these values: [ 'CAN', 'UMI', 'USA' ]. Default USA if no value specified."
           },
           "primary_contact_email" : {
             "type" : "string",
@@ -579,7 +579,7 @@
           "internal_id" : {
             "type" : "string",
             "maxLength" : 100,
-            "description" : "max length = 100. Secondary identifier for this counterparty This value must be unique for counterparty type."
+            "description" : "max length = 100. Square brackets not allowed. For example [supplier_123] is not valid. Secondary identifier for this counterparty This value must be unique for counterparty type."
           },
           "payment_terms" : {
             "type" : "integer",
@@ -686,7 +686,8 @@
                 },
                 "currency" : {
                   "enum" : [ "USD" ],
-                  "type" : "string"
+                  "type" : "string",
+                  "description": "Curently, only USD is accepted. Default USD if no value specified"
                 },
                 "discount_amount_cents" : {
                   "type" : "integer",
