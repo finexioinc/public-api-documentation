@@ -508,11 +508,13 @@
           },
           "name" : {
             "type" : "string",
-            "maxLength" : 100
+            "maxLength" : 100,
+            "description" : "max length = 100"
           },
           "type" : {
             "enum" : [ "Buyer", "Supplier" ],
-            "type" : "string"
+            "type" : "string",
+            "description" : "accepts one of these values: [ 'Buyer', 'Supplier' ]"
           },
           "created" : {
             "type" : "string",
@@ -525,56 +527,68 @@
             "readOnly" : true
           },
           "address_1" : {
-            "type" : "string"
+            "type" : "string",
+            "description" : "max length = 100"
           },
           "address_2" : {
-            "type" : "string"
+            "type" : "string",
+            "description" : "max length = 100"
           },
           "city" : {
-            "type" : "string"
+            "type" : "string",
+            "description" : "max length = 63"
           },
           "state" : {
             "enum" : [ "AL", "AK", "AS", "AZ", "AR", "AA", "AE", "AP", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "GU", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "MP", "OH", "OK", "OR", "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VI", "VA", "WA", "WV", "WI", "WY", "AB", "BC", "MB", "NB", "NL", "NT", "NS", "NU", "ON", "PE", "QC", "SK", "YT" ],
-            "type" : "string"
+            "type" : "string",
+            "description" : "accepts one of these values: [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'AA', 'AE', 'AP', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY', 'AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT' ]"
           },
           "zipcode" : {
-            "type" : "string"
+            "type" : "string",
+            "description" : "max length = 10"
           },
           "country" : {
             "enum" : [ "CAN", "UMI", "USA" ],
-            "type" : "string"
+            "type" : "string",
+            "description" : "accepts one of these values: [ 'CAN', 'UMI', 'USA' ]. Default USA if no value specified."
           },
           "primary_contact_email" : {
             "type" : "string",
-            "format" : "email"
+            "format" : "email",
+            "description" : "max length = 63"
           },
           "primary_contact_name" : {
-            "type" : "string"
+            "type" : "string",
+            "description" : "max length = 63"
           },
           "primary_contact_phone" : {
             "type" : "string",
-            "maxLength" : 63
+            "maxLength" : 63,
+            "description" : "max length = 63"
           },
           "bank_account_number" : {
             "type" : "string",
-            "maxLength" : 17
+            "maxLength" : 17,
+            "description" : "max length = 17"
           },
           "bank_routing_number" : {
             "type" : "string",
-            "maxLength" : 9
+            "maxLength" : 9,
+            "description" : "max length = 9"
           },
           "internal_id" : {
             "type" : "string",
             "maxLength" : 100,
-            "description" : "Secondary identifier for this counterparty This value must be unique for counterparty type."
+            "description" : "max length = 100. Square brackets not allowed. For example [supplier_123] is not valid. Secondary identifier for this counterparty This value must be unique for counterparty type."
           },
           "payment_terms" : {
             "type" : "integer",
-            "description" : "Payment terms is optional field. This is an integer field and represents No. of days. Allowed values: min = 0, max = 365."
+            "description" : "Allowed values: min = 0, max = 365. Payment terms is optional field. This is an integer field and represents No. of days."
           },
           "tax_id" : {
             "type" : "string",
-            "maxLength" : 12
+            "maxLength" : 12,
+            "description" : "max length = 12"
           },
           "eligible_for_conversion": {
             "type": "boolean",
@@ -588,8 +602,9 @@
             "type" : "number"
           },
           "business_type" : {
+            "enum" : [ "Employee", "Business", "Individual" ],
             "type" : "string",
-            "description": "Business type of the counterparty. Allowed values: 'Employee', 'Business', 'Individual'"
+            "description" : "accepts one of these values: [ 'Employee', 'Business', 'Individual' ]"
           }
         }
       },
@@ -671,7 +686,8 @@
                 },
                 "currency" : {
                   "enum" : [ "USD" ],
-                  "type" : "string"
+                  "type" : "string",
+                  "description": "Curently, only USD is accepted. Default USD if no value specified"
                 },
                 "discount_amount_cents" : {
                   "type" : "integer",
