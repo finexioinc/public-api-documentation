@@ -590,10 +590,10 @@
             "maxLength" : 12,
             "description" : "max length = 12"
           },
-          "eligible_for_conversion": {
+          "ineligible_for_conversion": {
             "type": "boolean",
             "description": "Supplier conversion eligibility determines if Finexio SHOULD NOT reach out to this supplier due to high sensitivity or special payment arrangements or contracted terms.",
-            "default": true
+            "default": false
           },
           "twelve_month_payment_count" : {
             "type" : "integer"
