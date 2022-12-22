@@ -460,9 +460,6 @@
                     "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
                     "description" : "Desired content type for requests to this callback."
                   },
-                  "user" : {
-                    "type" : "integer"
-                  },
                   "username" : {
                     "type" : "string",
                     "description" : "Basic Auth username",
@@ -495,9 +492,6 @@
                     "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
                     "description" : "Desired content type for requests to this callback."
                   },
-                  "user" : {
-                    "type" : "integer"
-                  },
                   "username" : {
                     "type" : "string",
                     "description" : "Basic Auth username",
@@ -529,9 +523,6 @@
                   "content_type" : {
                     "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
                     "description" : "Desired content type for requests to this callback."
-                  },
-                  "user" : {
-                    "type" : "integer"
                   },
                   "username" : {
                     "type" : "string",
@@ -611,9 +602,6 @@
                     "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
                     "description" : "Desired content type for requests to this callback."
                   },
-                  "user" : {
-                    "type" : "integer"
-                  },
                   "username" : {
                     "type" : "string",
                     "description" : "Basic Auth username",
@@ -646,9 +634,6 @@
                     "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
                     "description" : "Desired content type for requests to this callback."
                   },
-                  "user" : {
-                    "type" : "integer"
-                  },
                   "username" : {
                     "type" : "string",
                     "description" : "Basic Auth username",
@@ -680,9 +665,6 @@
                   "content_type" : {
                     "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
                     "description" : "Desired content type for requests to this callback."
-                  },
-                  "user" : {
-                    "type" : "integer"
                   },
                   "username" : {
                     "type" : "string",
@@ -740,9 +722,6 @@
                     "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
                     "description" : "Desired content type for requests to this callback."
                   },
-                  "user" : {
-                    "type" : "integer"
-                  },
                   "username" : {
                     "type" : "string",
                     "description" : "Basic Auth username",
@@ -774,9 +753,6 @@
                     "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
                     "description" : "Desired content type for requests to this callback."
                   },
-                  "user" : {
-                    "type" : "integer"
-                  },
                   "username" : {
                     "type" : "string",
                     "description" : "Basic Auth username",
@@ -807,9 +783,6 @@
                   "content_type" : {
                     "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
                     "description" : "Desired content type for requests to this callback."
-                  },
-                  "user" : {
-                    "type" : "integer"
                   },
                   "username" : {
                     "type" : "string",
