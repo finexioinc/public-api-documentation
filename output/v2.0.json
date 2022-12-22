@@ -407,6 +407,451 @@
         },
         "tags" : [ "Payments" ]
       }
+    },
+    "/webhooks/" : {
+      "description" : "Subscriptions related operations.",
+      "get" : {
+        "servers" : [ {
+          "url" : "http://stage.api.finexio.com",
+          "description" : "Base Path Override for Webhooks"
+        } ],
+        "tags" : [ "Webhooks" ],
+        "operationId" : "listSubscribers",
+        "summary" : "List Subscriptions",
+        "description" : "List  new subscriptions for the currently logged in user.",
+        "parameters" : [ {
+          "name" : "page",
+          "required" : false,
+          "in" : "query",
+          "description" : "A page number within the paginated result set.",
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Webhooks" ],
+        "operationId" : "CreateSubscriber",
+        "summary" : "Create Subscription",
+        "description" : "Create new subscriptions for the currently logged in user.",
+        "parameters" : [ ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "properties" : {
+                  "event" : {
+                    "enum" : [ "payment.changed" ],
+                    "description" : "Name of event to connect with"
+                  },
+                  "url" : {
+                    "type" : "string",
+                    "format" : "uri",
+                    "description" : "Callback URL",
+                    "maxLength" : 190,
+                    "pattern" : "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:\\.]+\\]|([a-z¡-￿0-9](?:[a-z¡-￿0-9-]{0,61}[a-z¡-￿0-9])?(?:\\.(?!-)[a-z¡-￿0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z¡-￿-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?"
+                  },
+                  "content_type" : {
+                    "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
+                    "description" : "Desired content type for requests to this callback."
+                  },
+                  "user" : {
+                    "type" : "integer"
+                  },
+                  "username" : {
+                    "type" : "string",
+                    "description" : "Basic Auth username",
+                    "maxLength" : 190
+                  },
+                  "password" : {
+                    "type" : "string",
+                    "description" : "Basic Auth password",
+                    "maxLength" : 190
+                  }
+                },
+                "required" : [ "event", "url", "username", "password" ]
+              }
+            },
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "properties" : {
+                  "event" : {
+                    "enum" : [ "payment.changed" ],
+                    "description" : "Name of event to connect with"
+                  },
+                  "url" : {
+                    "type" : "string",
+                    "format" : "uri",
+                    "description" : "Callback URL",
+                    "maxLength" : 190,
+                    "pattern" : "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:\\.]+\\]|([a-z¡-￿0-9](?:[a-z¡-￿0-9-]{0,61}[a-z¡-￿0-9])?(?:\\.(?!-)[a-z¡-￿0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z¡-￿-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?"
+                  },
+                  "content_type" : {
+                    "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
+                    "description" : "Desired content type for requests to this callback."
+                  },
+                  "user" : {
+                    "type" : "integer"
+                  },
+                  "username" : {
+                    "type" : "string",
+                    "description" : "Basic Auth username",
+                    "maxLength" : 190
+                  },
+                  "password" : {
+                    "type" : "string",
+                    "description" : "Basic Auth password",
+                    "maxLength" : 190
+                  }
+                },
+                "required" : [ "event", "url", "username", "password" ]
+              }
+            },
+            "multipart/form-data" : {
+              "schema" : {
+                "properties" : {
+                  "event" : {
+                    "enum" : [ "payment.changed" ],
+                    "description" : "Name of event to connect with"
+                  },
+                  "url" : {
+                    "type" : "string",
+                    "format" : "uri",
+                    "description" : "Callback URL",
+                    "maxLength" : 190,
+                    "pattern" : "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:\\.]+\\]|([a-z¡-￿0-9](?:[a-z¡-￿0-9-]{0,61}[a-z¡-￿0-9])?(?:\\.(?!-)[a-z¡-￿0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z¡-￿-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?"
+                  },
+                  "content_type" : {
+                    "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
+                    "description" : "Desired content type for requests to this callback."
+                  },
+                  "user" : {
+                    "type" : "integer"
+                  },
+                  "username" : {
+                    "type" : "string",
+                    "description" : "Basic Auth username",
+                    "maxLength" : 190
+                  },
+                  "password" : {
+                    "type" : "string",
+                    "description" : "Basic Auth password",
+                    "maxLength" : 190
+                  }
+                },
+                "required" : [ "event", "url", "username", "password" ]
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        }
+      }
+    },
+    "/webhooks/{uuid}/" : {
+      "get" : {
+        "tags" : [ "Webhooks" ],
+        "operationId" : "GetSubscriber",
+        "summary" : "Get Subscription Detail",
+        "description" : "Get details for specific subscription.",
+        "parameters" : [ {
+          "name" : "uuid",
+          "in" : "path",
+          "required" : true,
+          "description" : "",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Webhooks" ],
+        "operationId" : "UpdateSubscriber",
+        "summary" : "Update Subscription",
+        "description" : "Update details for specific subscription.",
+        "parameters" : [ {
+          "name" : "uuid",
+          "in" : "path",
+          "required" : true,
+          "description" : "",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "properties" : {
+                  "event" : {
+                    "enum" : [ "payment.changed" ],
+                    "description" : "Name of event to connect with"
+                  },
+                  "url" : {
+                    "type" : "string",
+                    "format" : "uri",
+                    "description" : "Callback URL",
+                    "maxLength" : 190,
+                    "pattern" : "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:\\.]+\\]|([a-z¡-￿0-9](?:[a-z¡-￿0-9-]{0,61}[a-z¡-￿0-9])?(?:\\.(?!-)[a-z¡-￿0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z¡-￿-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?"
+                  },
+                  "content_type" : {
+                    "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
+                    "description" : "Desired content type for requests to this callback."
+                  },
+                  "user" : {
+                    "type" : "integer"
+                  },
+                  "username" : {
+                    "type" : "string",
+                    "description" : "Basic Auth username",
+                    "maxLength" : 190
+                  },
+                  "password" : {
+                    "type" : "string",
+                    "description" : "Basic Auth password",
+                    "maxLength" : 190
+                  }
+                },
+                "required" : [ "event", "url", "username", "password" ]
+              }
+            },
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "properties" : {
+                  "event" : {
+                    "enum" : [ "payment.changed" ],
+                    "description" : "Name of event to connect with"
+                  },
+                  "url" : {
+                    "type" : "string",
+                    "format" : "uri",
+                    "description" : "Callback URL",
+                    "maxLength" : 190,
+                    "pattern" : "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:\\.]+\\]|([a-z¡-￿0-9](?:[a-z¡-￿0-9-]{0,61}[a-z¡-￿0-9])?(?:\\.(?!-)[a-z¡-￿0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z¡-￿-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?"
+                  },
+                  "content_type" : {
+                    "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
+                    "description" : "Desired content type for requests to this callback."
+                  },
+                  "user" : {
+                    "type" : "integer"
+                  },
+                  "username" : {
+                    "type" : "string",
+                    "description" : "Basic Auth username",
+                    "maxLength" : 190
+                  },
+                  "password" : {
+                    "type" : "string",
+                    "description" : "Basic Auth password",
+                    "maxLength" : 190
+                  }
+                },
+                "required" : [ "event", "url", "username", "password" ]
+              }
+            },
+            "multipart/form-data" : {
+              "schema" : {
+                "properties" : {
+                  "event" : {
+                    "enum" : [ "payment.changed" ],
+                    "description" : "Name of event to connect with"
+                  },
+                  "url" : {
+                    "type" : "string",
+                    "format" : "uri",
+                    "description" : "Callback URL",
+                    "maxLength" : 190,
+                    "pattern" : "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:\\.]+\\]|([a-z¡-￿0-9](?:[a-z¡-￿0-9-]{0,61}[a-z¡-￿0-9])?(?:\\.(?!-)[a-z¡-￿0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z¡-￿-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?"
+                  },
+                  "content_type" : {
+                    "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
+                    "description" : "Desired content type for requests to this callback."
+                  },
+                  "user" : {
+                    "type" : "integer"
+                  },
+                  "username" : {
+                    "type" : "string",
+                    "description" : "Basic Auth username",
+                    "maxLength" : 190
+                  },
+                  "password" : {
+                    "type" : "string",
+                    "description" : "Basic Auth password",
+                    "maxLength" : 190
+                  }
+                },
+                "required" : [ "event", "url", "username", "password" ]
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        }
+      },
+      "patch" : {
+        "tags" : [ "Webhooks" ],
+        "operationId" : "PartialUpdateSubscriber",
+        "summary" : "Partial Update Subscription",
+        "description" : "Partially update details for a specific subscription.",
+        "parameters" : [ {
+          "name" : "uuid",
+          "in" : "path",
+          "required" : true,
+          "description" : "",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "properties" : {
+                  "event" : {
+                    "enum" : [ "payment.changed" ],
+                    "description" : "Name of event to connect with"
+                  },
+                  "url" : {
+                    "type" : "string",
+                    "format" : "uri",
+                    "description" : "Callback URL",
+                    "maxLength" : 190,
+                    "pattern" : "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:\\.]+\\]|([a-z¡-￿0-9](?:[a-z¡-￿0-9-]{0,61}[a-z¡-￿0-9])?(?:\\.(?!-)[a-z¡-￿0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z¡-￿-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?"
+                  },
+                  "content_type" : {
+                    "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
+                    "description" : "Desired content type for requests to this callback."
+                  },
+                  "user" : {
+                    "type" : "integer"
+                  },
+                  "username" : {
+                    "type" : "string",
+                    "description" : "Basic Auth username",
+                    "maxLength" : 190
+                  },
+                  "password" : {
+                    "type" : "string",
+                    "description" : "Basic Auth password",
+                    "maxLength" : 190
+                  }
+                }
+              }
+            },
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "properties" : {
+                  "event" : {
+                    "enum" : [ "payment.changed" ],
+                    "description" : "Name of event to connect with"
+                  },
+                  "url" : {
+                    "type" : "string",
+                    "format" : "uri",
+                    "description" : "Callback URL",
+                    "maxLength" : 190,
+                    "pattern" : "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:\\.]+\\]|([a-z¡-￿0-9](?:[a-z¡-￿0-9-]{0,61}[a-z¡-￿0-9])?(?:\\.(?!-)[a-z¡-￿0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z¡-￿-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?"
+                  },
+                  "content_type" : {
+                    "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
+                    "description" : "Desired content type for requests to this callback."
+                  },
+                  "user" : {
+                    "type" : "integer"
+                  },
+                  "username" : {
+                    "type" : "string",
+                    "description" : "Basic Auth username",
+                    "maxLength" : 190
+                  },
+                  "password" : {
+                    "type" : "string",
+                    "description" : "Basic Auth password",
+                    "maxLength" : 190
+                  }
+                }
+              }
+            },
+            "multipart/form-data" : {
+              "schema" : {
+                "properties" : {
+                  "event" : {
+                    "enum" : [ "payment.changed" ],
+                    "description" : "Name of event to connect with"
+                  },
+                  "url" : {
+                    "type" : "string",
+                    "format" : "uri",
+                    "description" : "Callback URL",
+                    "maxLength" : 190,
+                    "pattern" : "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:\\.]+\\]|([a-z¡-￿0-9](?:[a-z¡-￿0-9-]{0,61}[a-z¡-￿0-9])?(?:\\.(?!-)[a-z¡-￿0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z¡-￿-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?"
+                  },
+                  "content_type" : {
+                    "enum" : [ "application/json", "application/x-www-form-urlencoded" ],
+                    "description" : "Desired content type for requests to this callback."
+                  },
+                  "user" : {
+                    "type" : "integer"
+                  },
+                  "username" : {
+                    "type" : "string",
+                    "description" : "Basic Auth username",
+                    "maxLength" : 190
+                  },
+                  "password" : {
+                    "type" : "string",
+                    "description" : "Basic Auth password",
+                    "maxLength" : 190
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Webhooks" ],
+        "operationId" : "DeleteSubscriber",
+        "summary" : "Delete Subscription",
+        "description" : "Delete details for a specific subscription.",
+        "parameters" : [ {
+          "name" : "uuid",
+          "in" : "path",
+          "required" : true,
+          "description" : "",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : ""
+          }
+        }
+      }
     }
   },
   "components" : {
