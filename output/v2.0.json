@@ -408,6 +408,36 @@
         "tags" : [ "Payments" ]
       }
     },
+    "/payments/{key}/images" : {
+      "get" : {
+        "operationId" : "Get Payment Images",
+        "summary" : "Payment Images",
+        "description" : "Get Payment image url in case of printed check. Empty array is returned if there is no image.",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "required" : true,
+          "description" : "",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Try It to see the response"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "tags" : [ "Payments" ]
+      }
+    },
     "/webhooks/" : {
       "description" : "Subscriptions related operations.",
       "get" : {
