@@ -976,15 +976,15 @@
           },
           "address_1" : {
             "type" : "string",
-            "description" : "max length = 100"
+            "description" : "max length = 40"
           },
           "address_2" : {
             "type" : "string",
-            "description" : "max length = 100"
+            "description" : "max length = 40"
           },
           "city" : {
             "type" : "string",
-            "description" : "max length = 63"
+            "description" : "max length = 40"
           },
           "state" : {
             "enum" : [ "AL", "AK", "AS", "AZ", "AR", "AA", "AE", "AP", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "GU", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "MP", "OH", "OK", "OR", "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VI", "VA", "WA", "WV", "WI", "WY", "AB", "BC", "MB", "NB", "NL", "NT", "NS", "NU", "ON", "PE", "QC", "SK", "YT" ],
@@ -1307,7 +1307,8 @@
           },
           "note" : {
             "type" : "string",
-            "description" : "Optional additional information you would like to include regarding this invoice."
+            "description" : "Optional additional information you would like to include regarding this invoice.",
+            "maxLength" : 1000
           },
           "originating_counterparty_id" : {
             "type" : "string",
@@ -1331,12 +1332,13 @@
           "reconciliation_id" : {
             "type" : "string",
             "readOnly" : false,
-            "description" : "An string to identify the invoice in your accounting system."
+            "description" : "A string to identify the invoice in your accounting system."
           },
           "account_number" : {
             "type" : "string",
             "readOnly" : false,
-            "description" : "Account number. This sensitive information is stored encrypted and can only be retrieved through the API."
+            "maxLength" : 250,
+            "description" : "Account number: max length = 250, this sensitive information is stored encrypted and can only be retrieved through the API."
           }
         },
         "required" : [ "amount_cents", "invoice_date", "invoice_number", "originating_counterparty_id", "receiving_counterparty_id" ]
