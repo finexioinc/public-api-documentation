@@ -956,8 +956,8 @@
           },
           "name" : {
             "type" : "string",
-            "maxLength" : 100,
-            "description" : "max length = 100"
+            "maxLength" : 40,
+            "description" : "max length = 40"
           },
           "type" : {
             "enum" : [ "Buyer", "Supplier" ],
@@ -1003,16 +1003,18 @@
           "primary_contact_email" : {
             "type" : "string",
             "format" : "email",
-            "description" : "max length = 63"
+            "maxLength" : 50,
+            "description" : "max length = 50"
           },
           "primary_contact_name" : {
             "type" : "string",
-            "description" : "max length = 63"
+            "maxLength" : 40,
+            "description" : "max length = 40"
           },
           "primary_contact_phone" : {
             "type" : "string",
-            "maxLength" : 63,
-            "description" : "max length = 63"
+            "maxLength" : 16,
+            "description" : "max length = 16"
           },
           "bank_account_number" : {
             "type" : "string",
