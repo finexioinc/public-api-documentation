@@ -969,7 +969,7 @@
             "format" : "date-time",
             "readOnly" : true
           },
-          "updated" : {
+          "last_modified" : {
             "type" : "string",
             "format" : "date-time",
             "readOnly" : true
