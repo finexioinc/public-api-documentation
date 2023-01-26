@@ -1055,6 +1055,11 @@
             "enum" : [ "Employee", "Business", "Individual" ],
             "type" : "string",
             "description" : "accepts one of these values: [ 'Employee', 'Business', 'Individual' ]"
+          },
+          "notes" : {
+            "type" : "string",
+            "maxLength" : 1000,
+            "description" : "max length = 1000. Optional information about supplier."
           }
         }
       },
