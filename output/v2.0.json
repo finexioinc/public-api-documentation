@@ -10,7 +10,7 @@
   } ],
   "servers" : [ {
     "description" : "Finexio API Staging",
-    "url" : "http://stage.api.finexio.com/v2"
+    "url" : "https://api.finexio-stage.com/v2"
   } ],
   "paths" : {
     "/counterparties/" : {
@@ -442,7 +442,7 @@
       "description" : "Subscriptions related operations.",
       "get" : {
         "servers" : [ {
-          "url" : "http://stage.api.finexio.com",
+          "url" : "https://api.finexio-stage.com",
           "description" : "Base Path Override for Webhooks"
         } ],
         "tags" : [ "Webhooks" ],
@@ -860,7 +860,7 @@
   "components" : {
     "securitySchemes" : {
       "BasicAuth" : {
-        "type" : "http",
+        "type" : "https",
         "scheme" : "basic"
       }
     },
