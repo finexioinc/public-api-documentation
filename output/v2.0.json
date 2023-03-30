@@ -860,7 +860,7 @@
   "components" : {
     "securitySchemes" : {
       "BasicAuth" : {
-        "type" : "https",
+        "type" : "http",
         "scheme" : "basic"
       }
     },
