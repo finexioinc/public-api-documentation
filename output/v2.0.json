@@ -74,7 +74,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CounterpartyBase"
+                  "$ref": "#/components/schemas/CounterpartyListReturn"
                 }
               }
             },
@@ -234,7 +234,7 @@
                 }
               }
             },
-            "description": "Not Found"
+            "description": "Bad Request"
           }
         },
         "tags": [
@@ -754,7 +754,7 @@
         },
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Updated"
           }
         }
       },
@@ -1128,6 +1128,29 @@
             "type": "string",
             "maxLength": 1000,
             "description": "max length = 1000. Optional information about supplier."
+          }
+        }
+      },
+      "CounterpartyListReturn": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "next": {
+            "type": "string",
+            "readOnly": true
+          },
+          "previous": {
+            "type": "string",
+            "readOnly": true
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CounterpartyBase"
+            }
           }
         }
       },

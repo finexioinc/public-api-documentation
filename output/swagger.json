@@ -65,8 +65,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string",
-                  "example": "Try It to see the response"
+                  "$ref": "#/components/schemas/CounterpartyListReturn"
                 }
               }
             },
@@ -76,8 +75,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string",
-                  "example": "Try It to see the response"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             },
@@ -114,14 +112,6 @@
         },
         "responses": {
           "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string",
-                  "example": "Try It to see the response"
-                }
-              }
-            },
             "description": "Success"
           }
         },
@@ -151,8 +141,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string",
-                  "example": "Try It to see the response"
+                  "$ref": "#/components/schemas/CounterpartyBase"
                 }
               }
             },
@@ -162,8 +151,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string",
-                  "example": "Try It to see the response"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             },
@@ -173,8 +161,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string",
-                  "example": "Try It to see the response"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             },
@@ -224,8 +211,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string",
-                  "example": "Try It to see the response"
+                  "$ref": "#/components/schemas/CounterpartyBase"
                 }
               }
             },
@@ -235,8 +221,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string",
-                  "example": "Try It to see the response"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             },
@@ -286,8 +271,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string",
-                  "example": "Try It to see the response"
+                  "$ref": "#/components/schemas/CounterpartyBase"
                 }
               }
             },
@@ -297,8 +281,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string",
-                  "example": "Try It to see the response"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             },
@@ -340,8 +323,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string",
-                  "example": "Try It to see the response"
+                  "$ref": "#/components/schemas/EntityHistoryModelListReturn"
                 }
               }
             },
@@ -351,8 +333,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string",
-                  "example": "Try It to see the response"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             },
@@ -394,8 +375,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string",
-                  "example": "Try It to see the response"
+                  "$ref": "#/components/schemas/PaymentListReturn"
                 }
               }
             },
@@ -405,8 +385,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string",
-                  "example": "Try It to see the response"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             },
@@ -439,8 +418,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string",
-                  "example": "Try It to see the response"
+                  "$ref": "#/components/schemas/Payment"
                 }
               }
             },
@@ -450,8 +428,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string",
-                  "example": "Try It to see the response"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             },
@@ -484,8 +461,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string",
-                  "example": "Try It to see the response"
+                  "$ref": "#/components/schemas/CheckImage"
                 }
               }
             },
@@ -518,8 +494,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string",
-                  "example": "Try It to see the response"
+                  "$ref": "#/components/schemas/InvoiceListReturn"
                 }
               }
             },
@@ -552,8 +527,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string",
-                  "example": "Try It to see the response"
+                  "$ref": "#/components/schemas/Invoice"
                 }
               }
             },
@@ -604,8 +578,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string",
-                  "example": "Try It to see the response"
+                  "$ref": "#/components/schemas/Invoice"
                 }
               }
             },
@@ -654,16 +627,17 @@
             }
           }
         ],
-        "200": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "string",
-                "example": "Try It to see the response"
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WebhookListReturn"
+                }
               }
-            }
-          },
-          "description": "Created"
+            },
+            "description": "Created"
+          }
         }
       },
       "post": {
@@ -678,17 +652,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Webhook"
+                "$ref": "#/components/schemas/WebhookRequestBodyModel"
               }
             },
             "application/x-www-form-urlencoded": {
               "schema": {
-                "$ref": "#/components/schemas/Webhook"
+                "$ref": "#/components/schemas/WebhookRequestBodyModel"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/Webhook"
+                "$ref": "#/components/schemas/WebhookRequestBodyModel"
               }
             }
           }
@@ -701,8 +675,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string",
-                  "example": "Try It to see the response"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             },
@@ -735,8 +708,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string",
-                  "example": "Try It to see the response"
+                  "$ref": "#/components/schemas/Webhook"
                 }
               }
             },
@@ -766,17 +738,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Webhook"
+                "$ref": "#/components/schemas/WebhookRequestBodyModel"
               }
             },
             "application/x-www-form-urlencoded": {
               "schema": {
-                "$ref": "#/components/schemas/Webhook"
+                "$ref": "#/components/schemas/WebhookRequestBodyModel"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/Webhook"
+                "$ref": "#/components/schemas/WebhookRequestBodyModel"
               }
             }
           }
@@ -791,7 +763,7 @@
                 }
               }
             },
-            "description": "Created"
+            "description": "Updated"
           }
         }
       },
@@ -817,17 +789,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Webhook"
+                "$ref": "#/components/schemas/WebhookRequestBodyModel"
               }
             },
             "application/x-www-form-urlencoded": {
               "schema": {
-                "$ref": "#/components/schemas/Webhook"
+                "$ref": "#/components/schemas/WebhookRequestBodyModel"
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/Webhook"
+                "$ref": "#/components/schemas/WebhookRequestBodyModel"
               }
             }
           }
@@ -842,7 +814,7 @@
                 }
               }
             },
-            "description": ""
+            "description": "Updated"
           }
         }
       },
@@ -869,12 +841,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string",
-                  "example": "Try It to see the response"
+                  "$ref": "#/components/schemas/Webhook"
                 }
               }
             },
-            "description": "No Content"
+            "description": ""
           }
         }
       }
@@ -888,34 +859,14 @@
       }
     },
     "schemas": {
-      "InvoicesInstallment": {
+      "CheckImage": {
         "type": "object",
         "properties": {
-          "id": {
+          "check_image_url": {
             "type": "string",
             "readOnly": true
-          },
-          "created": {
-            "type": "string",
-            "format": "date-time",
-            "readOnly": true
-          },
-          "amount_cents": {
-            "type": "integer"
-          },
-          "due_date": {
-            "type": "string",
-            "format": "date"
-          },
-          "payment_id": {
-            "type": "string",
-            "description": "ID of payment assosiated with this installment"
           }
-        },
-        "required": [
-          "invoice_id",
-          "amount_cents"
-        ]
+        }
       },
       "CounterpartyCreate": {
         "allOf": [
@@ -968,16 +919,16 @@
             "type": "string",
             "readOnly": true
           },
-          "name": {
-            "type": "string",
-            "maxLength": 100
-          },
           "type": {
             "enum": [
               "Buyer",
               "Supplier"
             ],
             "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 100
           },
           "created": {
             "type": "string",
@@ -1120,155 +1071,127 @@
               "Wire"
             ]
           },
+          "internal_id": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Secondary identifier for this counterparty This value must be unique for counterparty type."
+          },
           "twelve_month_spend": {
             "type": "number"
           },
           "twelve_month_payment_count": {
             "type": "integer"
-          },
-          "internal_id": {
-            "type": "string",
-            "maxLength": 100,
-            "description": "Secondary identifier for this counterparty This value must be unique for counterparty type."
           }
         }
       },
-      "Payment": {
+      "CounterpartyListReturn": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "next": {
+            "type": "string",
+            "readOnly": true
+          },
+          "previous": {
+            "type": "string",
+            "readOnly": true
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CounterpartyBase"
+            }
+          }
+        }
+      },
+      "EntityHistoryAction": {
+        "enum": [
+          "Create",
+          "Update",
+          "Delete",
+          "Invitation"
+        ],
+        "type": "string",
+        "readOnly": true
+      },
+      "EntityHistoryChangeModel": {
+        "type": "object",
+        "properties": {
+          "field": {
+            "type": "string",
+            "readOnly": true
+          },
+          "oldValue": {
+            "type": "object",
+            "readOnly": true
+          },
+          "newValue": {
+            "type": "object",
+            "readOnly": true
+          }
+        }
+      },
+      "EntityHistoryModel": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
             "readOnly": true
           },
-          "created": {
+          "objectId": {
+            "type": "string",
+            "readOnly": true
+          },
+          "date": {
             "type": "string",
             "format": "date-time",
             "readOnly": true
           },
-          "updated": {
-            "type": "string",
-            "format": "date-time",
-            "readOnly": true
-          },
-          "amount_cents": {
-            "type": "integer",
-            "readOnly": true
-          },
-          "originating_counterparty_id": {
-            "type": "string",
-            "format": "uuid",
-            "readOnly": true,
-            "description": "The ID of one of your organization's internal counterparties (Buyer) that will send payment."
-          },
-          "receiving_counterparty_id": {
-            "type": "string",
-            "format": "uuid",
-            "readOnly": true,
-            "description": "The ID of one of your external counterparties (Supplier) that will receive payment."
-          },
-          "payment_method": {
-            "enum": [
-              "PrintedCheck",
-              "ACH",
-              "Card",
-              "Wire"
-            ],
+          "username": {
             "type": "string",
             "readOnly": true
           },
-          "status": {
-            "$ref": "#/components/schemas/PaymentStatus"
-          },
-          "status_detail": {
-            "$ref": "#/components/schemas/StatusDetail"
-          },
-          "status_history": {
-            "$ref": "#/components/schemas/StatusHistory"
-          },
-          "tracking_id": {
+          "userIpAddress": {
             "type": "string",
             "readOnly": true
           },
-          "invoices": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Invoice"
-            }
+          "action": {
+            "$ref": "#/components/schemas/EntityHistoryAction"
           },
-          "installments": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/InvoicesInstallment"
-            }
+          "changes": {
+            "$ref": "#/components/schemas/EntityHistoryChangeModel"
+          },
+          "notes": {
+            "type": "string",
+            "readOnly": true
           }
         }
       },
-      "LegacyApiInvoice": {
+      "EntityHistoryModelListReturn": {
         "type": "object",
         "properties": {
-          "amount_cents": {
+          "count": {
             "type": "integer",
-            "description": "Invoice amount in specified currency's smallest unit. e.g. $10 would be represented as 1000."
+            "readOnly": true
           },
-          "currency": {
-            "enum": [
-              "USD"
-            ],
-            "type": "string"
-          },
-          "discount_amount_cents": {
-            "type": "integer",
-            "default": 0,
-            "description": "Optional invoice discount amount in specified currency's smallest unit.",
-            "minimum": 0
-          },
-          "invoice_date": {
+          "next": {
             "type": "string",
-            "format": "date",
-            "description": "Date of invoice provided by recipient. Must be +/- 365 days from today."
+            "readOnly": true
           },
-          "invoice_due_date": {
+          "previous": {
             "type": "string",
-            "format": "date",
-            "description": "Optional invoice due date"
+            "readOnly": true
           },
-          "invoice_number": {
-            "type": "string",
-            "description": "Uniquely identifies this invoice for recipient.",
-            "maxLength": 49
-          },
-          "note": {
-            "type": "string",
-            "description": "The optional additional information you would like to include regarding this invoice."
-          },
-          "originating_counterparty_id": {
-            "type": "string",
-            "format": "uuid",
-            "description": "The ID of one of your organization's internal counterparties (Buyer) that will send payment."
-          },
-          "receiving_counterparty_id": {
-            "type": "string",
-            "format": "uuid",
-            "description": "The ID of one of your external counterparty (Supplier) that will receive invoice payment."
-          },
-          "metadata": {
-            "type": "object",
-            "description": "Additional private data represented as key-value pairs. Both the key and value must be strings or integers."
-          },
-          "line_items": {
+          "results": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/InvoiceLineItem"
+              "$ref": "#/components/schemas/EntityHistoryModel"
             }
           }
-        },
-        "required": [
-          "amount_cents",
-          "invoice_date",
-          "invoice_number",
-          "originating_counterparty_id",
-          "receiving_counterparty_id"
-        ]
+        }
       },
       "Invoice": {
         "type": "object",
@@ -1367,76 +1290,225 @@
           "receiving_counterparty_id"
         ]
       },
-      "Webhook": {
+      "InvoiceLineItem": {
         "type": "object",
+        "readonly": true,
         "properties": {
-          "event": {
-            "enum": [
-              "payment.changed"
-            ],
-            "description": "Name of event to connect with"
-          },
-          "url": {
+          "description": {
             "type": "string",
-            "format": "uri",
-            "description": "Callback URL",
-            "maxLength": 190,
-            "pattern": "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:\\.]+\\]|([a-z¡-￿0-9](?:[a-z¡-￿0-9-]{0,61}[a-z¡-￿0-9])?(?:\\.(?!-)[a-z¡-￿0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z¡-￿-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?"
-          },
-          "content_type": {
-            "enum": [
-              "application/json",
-              "application/x-www-form-urlencoded"
-            ],
-            "description": "Desired content type for requests to this callback."
-          },
-          "user": {
-            "type": "integer"
-          },
-          "username": {
-            "type": "string",
-            "description": "Basic Auth username",
-            "maxLength": 190
-          },
-          "password": {
-            "type": "string",
-            "description": "Basic Auth password",
-            "maxLength": 190
-          }
-        },
-        "required": [
-          "event",
-          "url",
-          "username",
-          "password"
-        ]
-      },
-      "StatusDetail": {
-        "type": "object",
-        "readOnly": true,
-        "description": "Additional information regarding current status expressed as key-value pairs.",
-        "properties": {
-          "message": {
-            "type": "string",
-            "readOnly": true
-          },
-          "trace_number": {
-            "type": "string",
-            "readOnly": true
+            "readonly": true
           }
         }
       },
-      "StatusHistory": {
+      "InvoiceListReturn": {
         "type": "object",
         "readOnly": true,
         "properties": {
-          "datetime": {
+          "count": {
+            "type": "integer"
+          },
+          "next": {
+            "type": "string"
+          },
+          "previous": {
+            "type": "string"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Invoice"
+            }
+          }
+        }
+      },
+      "InvoiceStatus": {
+        "enum": [
+          "pending",
+          "in-progress",
+          "sent",
+          "complete",
+          "failed"
+        ],
+        "type": "string",
+        "readOnly": true,
+        "description": "Current payment status:\n* pending: Invoice is being prepared for payment.\n* in-progress: Payment for this invoice is in-progress.\n* complete: Payment for this invoice has been resolved.\n* failed: An exception has occurred during payment processing.\n"
+      },
+      "InvoicesInstallment": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string",
             "readOnly": true
           },
-          "status_detail": {
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "amountCents": {
+            "type": "integer"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "paymentId": {
+            "type": "string",
+            "description": "ID of payment assosiated with this installment"
+          }
+        }
+      },
+      "LegacyApiInvoice": {
+        "type": "object",
+        "properties": {
+          "amount_cents": {
+            "type": "integer",
+            "description": "Invoice amount in specified currency's smallest unit. e.g. $10 would be represented as 1000."
+          },
+          "invoice_date": {
+            "type": "string",
+            "format": "date",
+            "description": "Date of invoice provided by recipient. Must be +/- 365 days from today."
+          },
+          "invoice_number": {
+            "type": "string",
+            "description": "Uniquely identifies this invoice for recipient.",
+            "maxLength": 49
+          },
+          "invoice_due_date": {
+            "type": "string",
+            "format": "date",
+            "description": "Optional invoice due date"
+          },
+          "discount_amount_cents": {
+            "type": "integer",
+            "default": 0,
+            "description": "Optional invoice discount amount in specified currency's smallest unit.",
+            "minimum": 0
+          },
+          "note": {
+            "type": "string",
+            "description": "The optional additional information you would like to include regarding this invoice."
+          },
+          "originating_counterparty_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The ID of one of your organization's internal counterparties (Buyer) that will send payment."
+          },
+          "receiving_counterparty_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The ID of one of your external counterparty (Supplier) that will receive invoice payment."
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Additional private data represented as key-value pairs. Both the key and value must be strings or integers."
+          },
+          "currency": {
+            "enum": [
+              "USD"
+            ],
+            "type": "string"
+          },
+          "line_items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InvoiceLineItem"
+            }
+          }
+        },
+        "required": [
+          "amount_cents",
+          "invoice_date",
+          "invoice_number",
+          "originating_counterparty_id",
+          "receiving_counterparty_id"
+        ]
+      },
+      "Payment": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string",
             "readOnly": true
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "updated": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "amount_cents": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "originating_counterparty_id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true,
+            "description": "The ID of one of your organization's internal counterparties (Buyer) that will send payment."
+          },
+          "receiving_counterparty_id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true,
+            "description": "The ID of one of your external counterparties (Supplier) that will receive payment."
+          },
+          "payment_method": {
+            "$ref": "#/components/schemas/PaymentType"
+          },
+          "status": {
+            "$ref": "#/components/schemas/PaymentStatus"
+          },
+          "status_detail": {
+            "$ref": "#/components/schemas/StatusDetail"
+          },
+          "status_history": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StatusHistory"
+            }
+          },
+          "tracking_id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "invoices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Invoice"
+            }
+          },
+          "installments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InvoicesInstallment"
+            }
+          }
+        }
+      },
+      "PaymentListReturn": {
+        "type": "object",
+        "readOnly": true,
+        "properties": {
+          "count": {
+            "type": "integer"
+          },
+          "next": {
+            "type": "string"
+          },
+          "previous": {
+            "type": "string"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Payment"
+            }
           }
         }
       },
@@ -1464,27 +1536,150 @@
         "readOnly": true,
         "description": "Current payment status"
       },
-      "InvoiceStatus": {
-        "enum": [
-          "pending",
-          "in-progress",
-          "sent",
-          "complete",
-          "failed"
-        ],
-        "type": "string",
-        "readOnly": true,
-        "description": "Current payment status:\n* pending: Invoice is being prepared for payment.\n* in-progress: Payment for this invoice is in-progress.\n* complete: Payment for this invoice has been resolved.\n* failed: An exception has occurred during payment processing.\n"
-      },
-      "InvoiceLineItem": {
+      "ProblemDetails": {
         "type": "object",
-        "readonly": true,
         "properties": {
-          "description": {
-            "type": "string",
-            "readonly": true
+          "type": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "instance": {
+            "type": "string"
           }
         }
+      },
+      "StatusDetail": {
+        "type": "object",
+        "description": "Additional information regarding current status expressed as key-value pairs.",
+        "properties": {
+          "message": {
+            "type": "string",
+            "readOnly": true
+          },
+          "trace_number": {
+            "type": "string",
+            "readOnly": true
+          }
+        }
+      },
+      "StatusHistory": {
+        "type": "object",
+        "properties": {
+          "datetime": {
+            "type": "string",
+            "readOnly": true
+          },
+          "status_detail": {
+            "type": "string",
+            "readOnly": true
+          }
+        }
+      },
+      "Webhook": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WebhookRequestBodyModel"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "readOnly": true
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time",
+                "readOnly": true
+              },
+              "updated_at": {
+                "type": "string",
+                "format": "date-time",
+                "readOnly": true
+              },
+              "subscription": {
+                "type": "string",
+                "readOnly": true
+              }
+            }
+          }
+        ]
+      },
+      "WebhookListReturn": {
+        "type": "object",
+        "readOnly": true,
+        "properties": {
+          "count": {
+            "type": "integer"
+          },
+          "next": {
+            "type": "string"
+          },
+          "previous": {
+            "type": "string"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Webhook"
+            }
+          }
+        }
+      },
+      "WebhookRequestBodyModel": {
+        "type": "object",
+        "properties": {
+          "event": {
+            "enum": [
+              "payment.changed"
+            ],
+            "type": "string",
+            "description": "Name of event to connect with"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Callback URL",
+            "maxLength": 190,
+            "pattern": "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:\\.]+\\]|([a-z¡-￿0-9](?:[a-z¡-￿0-9-]{0,61}[a-z¡-￿0-9])?(?:\\.(?!-)[a-z¡-￿0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z¡-￿-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?"
+          },
+          "content_type": {
+            "enum": [
+              "application/json",
+              "application/x-www-form-urlencoded"
+            ],
+            "type": "string",
+            "description": "Desired content type for requests to this callback."
+          },
+          "user": {
+            "type": "integer"
+          },
+          "username": {
+            "type": "string",
+            "description": "Basic Auth username",
+            "maxLength": 190
+          },
+          "password": {
+            "type": "string",
+            "description": "Basic Auth password",
+            "maxLength": 190
+          }
+        },
+        "required": [
+          "event",
+          "url",
+          "username",
+          "password"
+        ]
       }
     }
   },
