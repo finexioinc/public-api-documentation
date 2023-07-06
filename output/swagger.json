@@ -1292,11 +1292,9 @@
       },
       "InvoiceLineItem": {
         "type": "object",
-        "readonly": true,
         "properties": {
           "description": {
-            "type": "string",
-            "readonly": true
+            "type": "string"
           }
         }
       },
