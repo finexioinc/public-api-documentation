@@ -1292,17 +1292,14 @@
       },
       "InvoiceLineItem": {
         "type": "object",
-        "readonly": true,
         "properties": {
           "description": {
-            "type": "string",
-            "readonly": true
+            "type": "string"
           }
         }
       },
       "InvoiceListReturn": {
         "type": "object",
-        "readOnly": true,
         "properties": {
           "count": {
             "type": "integer"
