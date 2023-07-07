@@ -1300,7 +1300,6 @@
       },
       "InvoiceListReturn": {
         "type": "object",
-        "readOnly": true,
         "properties": {
           "count": {
             "type": "integer"
@@ -1491,7 +1490,6 @@
       },
       "PaymentListReturn": {
         "type": "object",
-        "readOnly": true,
         "properties": {
           "count": {
             "type": "integer"
@@ -1614,7 +1612,6 @@
       },
       "WebhookListReturn": {
         "type": "object",
-        "readOnly": true,
         "properties": {
           "count": {
             "type": "integer"
