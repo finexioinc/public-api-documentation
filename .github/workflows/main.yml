@@ -9,10 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: readmeio/github-readme-sync@v2
+      - uses: readmeio/rdme@7.5.0
         with:
-          readme-oas-key: ${{ secrets.README_API_KEY }}:61b09c1232f6729907ed75f8
+          rdme: openapi output/swagger.json --key=${{ secrets.README_API_KEY }} --id=61b09c1232f6729907ed75f8
            
-          # OPTIONAL CONFIG, use if necessary
-          oas-file-path: './output/swagger.json'
-          # api-version: 'v1.0.0'
+       
