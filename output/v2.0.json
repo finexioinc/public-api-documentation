@@ -1062,7 +1062,7 @@
             ],
             "default": "USA",
             "type": "string",
-            "description": "required only if payment_method is PrintedCheck\naccepts one of these values: [ 'CAN', 'UMI', 'USA' ]. Default USA if no value specified."
+            "description": "accepts one of these values: [ 'CAN', 'UMI', 'USA' ]. Default USA if no value specified."
           },
           "primary_contact_email": {
             "type": "string",
