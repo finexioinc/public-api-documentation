@@ -931,7 +931,7 @@
                 "readOnly": true
               },
               "payment_method": {
-                "readonly": true
+                "readOnly": true
               }
             }
           }
