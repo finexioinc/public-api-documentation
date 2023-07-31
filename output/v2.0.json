@@ -682,17 +682,56 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WebhookRequestBodyModel"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/WebhookRequestBodyModel"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "event",
+                      "url",
+                      "username",
+                      "password"
+                    ]
+                  }
+                ]
               }
             },
             "application/x-www-form-urlencoded": {
               "schema": {
-                "$ref": "#/components/schemas/WebhookRequestBodyModel"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/WebhookRequestBodyModel"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "event",
+                      "url",
+                      "username",
+                      "password"
+                    ]
+                  }
+                ]
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/WebhookRequestBodyModel"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/WebhookRequestBodyModel"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "event",
+                      "url",
+                      "username",
+                      "password"
+                    ]
+                  }
+                ]
               }
             }
           }
@@ -778,17 +817,56 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WebhookRequestBodyModel"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/WebhookRequestBodyModel"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "event",
+                      "url",
+                      "username",
+                      "password"
+                    ]
+                  }
+                ]
               }
             },
             "application/x-www-form-urlencoded": {
               "schema": {
-                "$ref": "#/components/schemas/WebhookRequestBodyModel"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/WebhookRequestBodyModel"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "event",
+                      "url",
+                      "username",
+                      "password"
+                    ]
+                  }
+                ]
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/WebhookRequestBodyModel"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/WebhookRequestBodyModel"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "event",
+                      "url",
+                      "username",
+                      "password"
+                    ]
+                  }
+                ]
               }
             }
           }
@@ -811,7 +889,7 @@
             "name": "uuid",
             "in": "path",
             "required": true,
-            "description": "Subscription unique identifier",
+            "description": "Subscription unique identifer",
             "schema": {
               "type": "string"
             }
@@ -821,24 +899,63 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WebhookRequestBodyModel"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/WebhookRequestBodyModel"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "event",
+                      "url",
+                      "username",
+                      "password"
+                    ]
+                  }
+                ]
               }
             },
             "application/x-www-form-urlencoded": {
               "schema": {
-                "$ref": "#/components/schemas/WebhookRequestBodyModel"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/WebhookRequestBodyModel"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "event",
+                      "url",
+                      "username",
+                      "password"
+                    ]
+                  }
+                ]
               }
             },
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/WebhookRequestBodyModel"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/WebhookRequestBodyModel"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "event",
+                      "url",
+                      "username",
+                      "password"
+                    ]
+                  }
+                ]
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Updated"
           }
         }
       },
@@ -1690,7 +1807,6 @@
       },
       "WebhookListReturn": {
         "type": "object",
-        "readOnly": true,
         "properties": {
           "count": {
             "type": "integer"
@@ -1747,13 +1863,7 @@
             "description": "Basic Auth password",
             "maxLength": 190
           }
-        },
-        "required": [
-          "event",
-          "url",
-          "username",
-          "password"
-        ]
+        }
       }
     }
   },
