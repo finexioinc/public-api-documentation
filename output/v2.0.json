@@ -375,6 +375,591 @@
         ]
       }
     },
+    "/counterparties/suppliers": {
+      "get": {
+        "summary": "List Suppliers",
+        "operationId": "List Suppliers",
+        "description": "Get A Paginated List Of All Suppliers",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "reference_id",
+            "required": false,
+            "in": "query",
+            "description": "internal_id of Supplier",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "updated_after",
+            "required": false,
+            "in": "query",
+            "description": "An ISO 8601 formatted date. The result list will be filtered for suppliers that have been updated since the supplied date.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "enabled",
+            "required": false,
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupplierListReturn"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            },
+            "description": "Not Found"
+          }
+        },
+        "tags": [
+          "Suppliers"
+        ]
+      },
+      "post": {
+        "operationId": "Create Supplier",
+        "summary": "Create Supplier",
+        "description": "Create A New Supplier",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SupplierCreate"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/SupplierCreate"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/SupplierCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "tags": [
+          "Suppliers"
+        ]
+      }
+    },
+    "/counterparties/suppliers/{id}/": {
+      "get": {
+        "operationId": "Get Supplier",
+        "summary": "Get Supplier Detail",
+        "description": "Get Information Of A Single Supplier",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupplierBase"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            },
+            "description": "Not Found"
+          }
+        },
+        "tags": [
+          "Suppliers"
+        ]
+      },
+      "put": {
+        "operationId": "Update Supplier",
+        "summary": "Update Supplier",
+        "description": "Update An Existing Supplier",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SupplierUpdate"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/SupplierUpdate"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/SupplierUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupplierBase"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            },
+            "description": "Not Found"
+          }
+        },
+        "tags": [
+          "Suppliers"
+        ]
+      },
+      "patch": {
+        "operationId": "Partial Update Supplier",
+        "summary": "Partial Update Supplier",
+        "description": "Partially update an existing Supplier",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SupplierUpdate"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/SupplierUpdate"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/SupplierUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupplierBase"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "Try It to see the response"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            },
+            "description": "Not Found"
+          }
+        },
+        "tags": [
+          "Suppliers"
+        ]
+      }
+    },
+    "/counterparties/buyers": {
+      "get": {
+        "summary": "List Buyers",
+        "operationId": "List Buyers",
+        "description": "Get A Paginated List Of All Buyers",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "reference_id",
+            "required": false,
+            "in": "query",
+            "description": "internal_id of Buyer",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "updated_after",
+            "required": false,
+            "in": "query",
+            "description": "An ISO 8601 formatted date. The result list will be filtered for buyers that have been updated since the supplied date.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BuyerListReturn"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            },
+            "description": "Not Found"
+          }
+        },
+        "tags": [
+          "Buyers"
+        ]
+      },
+      "post": {
+        "operationId": "Create Buyer",
+        "summary": "Create Buyer",
+        "description": "Create A New Buyer",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BuyerCreate"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/BuyerCreate"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/BuyerCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "tags": [
+          "Buyers"
+        ]
+      }
+    },
+    "/counterparties/buyers/{id}/": {
+      "get": {
+        "operationId": "Get Buyer",
+        "summary": "Get Buyer Detail",
+        "description": "Get Information Of A Single Buyer",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BuyerBase"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            },
+            "description": "Not Found"
+          }
+        },
+        "tags": [
+          "Buyers"
+        ]
+      },
+      "put": {
+        "operationId": "Update Buyer",
+        "summary": "Update Buyer",
+        "description": "Update An Existing Buyer",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BuyerUpdate"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/BuyerUpdate"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/BuyerUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BuyerBase"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            },
+            "description": "Not Found"
+          }
+        },
+        "tags": [
+          "Buyers"
+        ]
+      },
+      "patch": {
+        "operationId": "Partial Update Buyer",
+        "summary": "Partial Update Buyer",
+        "description": "Partially update an existing Buyer",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BuyerUpdate"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/BuyerUpdate"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/BuyerUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BuyerBase"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "Try It to see the response"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            },
+            "description": "Not Found"
+          }
+        },
+        "tags": [
+          "Buyers"
+        ]
+      }
+    },
     "/invoices/": {
       "get": {
         "operationId": "List Invoices",
@@ -1000,6 +1585,282 @@
       }
     },
     "schemas": {
+      "BuyerBase": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "max length = 120"
+          },
+          "address_1": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "max length = 40"
+          },
+          "address_2": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "max length = 40"
+          },
+          "city": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "max length = 40"
+          },
+          "state": {
+            "enum": [
+              "AL",
+              "AK",
+              "AS",
+              "AZ",
+              "AR",
+              "AA",
+              "AE",
+              "AP",
+              "CA",
+              "CO",
+              "CT",
+              "DE",
+              "DC",
+              "FL",
+              "GA",
+              "GU",
+              "HI",
+              "ID",
+              "IL",
+              "IN",
+              "IA",
+              "KS",
+              "KY",
+              "LA",
+              "ME",
+              "MD",
+              "MA",
+              "MI",
+              "MN",
+              "MS",
+              "MO",
+              "MT",
+              "NE",
+              "NV",
+              "NH",
+              "NJ",
+              "NM",
+              "NY",
+              "NC",
+              "ND",
+              "MP",
+              "OH",
+              "OK",
+              "OR",
+              "PA",
+              "PR",
+              "RI",
+              "SC",
+              "SD",
+              "TN",
+              "TX",
+              "UT",
+              "VT",
+              "VI",
+              "VA",
+              "WA",
+              "WV",
+              "WI",
+              "WY",
+              "AB",
+              "BC",
+              "MB",
+              "NB",
+              "NL",
+              "NT",
+              "NS",
+              "NU",
+              "ON",
+              "PE",
+              "QC",
+              "SK",
+              "YT"
+            ],
+            "type": "string",
+            "maxLength": 2,
+            "description": "accepts one of these values: [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'AA', 'AE', 'AP', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY', 'AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT' ]"
+          },
+          "zipcode": {
+            "type": "string",
+            "maxLength": 10,
+            "description": "max length = 10"
+          },
+          "country": {
+            "enum": [
+              "CAN",
+              "UMI",
+              "USA"
+            ],
+            "default": "USA",
+            "type": "string",
+            "description": "accepts one of these values: [ 'CAN', 'UMI', 'USA' ]. Default USA if no value specified."
+          },
+          "corporate_phone_number": {
+            "type": "string",
+            "maxLength": 16,
+            "description": "max length = 16"
+          },
+          "internal_id": {
+            "type": "string",
+            "maxLength": 200,
+            "description": "max length = 200. Secondary identifier. This value must be unique."
+          },
+          "remit_data": {
+            "type": "string",
+            "maxLength": 70,
+            "description": "max length = 70"
+          },
+          "tax_id": {
+            "type": "string",
+            "maxLength": 12,
+            "description": "max length = 12"
+          },
+          "funding_method": {
+            "type": "string",
+            "enum": [
+              "ach_debit",
+              "ach_credit",
+              "wire",
+              "reverse_wire"
+            ],
+            "description": "accepts one of these values: [ 'ach_debit', 'ach_credit', 'wire','reverse_wire' ]."
+          },
+          "drawdown_bank_account_number": {
+            "type": "string",
+            "maxLength": 17,
+            "description": "max length = 17\nrequired only if funding_method is 'ach_debit' or 'reverse_wire'"
+          },
+          "drawdown_bank_routing_number": {
+            "type": "string",
+            "maxLength": 9,
+            "description": "max length = 9\nrequired only if funding_method is 'ach_debit' or 'reverse_wire'"
+          },
+          "refund_bank_account_number": {
+            "type": "string",
+            "maxLength": 17,
+            "description": "max length = 17"
+          },
+          "refund_bank_routing_number": {
+            "type": "string",
+            "maxLength": 9,
+            "description": "max length = 9"
+          },
+          "contacts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BuyerContact"
+            }
+          },
+          "ready_for_use": {
+            "type": "boolean",
+            "default": false,
+            "readOnly": true
+          },
+          "reason_not_usable": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "max length = 40",
+            "readOnly": true
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Array of name/value pairs.The name can be any character string not beginning with _ with a max length of 25 characters, The value can have a max length of 100 chars and can be null."
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "updated": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      },
+      "BuyerCreate": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BuyerBase"
+          },
+          {
+            "required": [
+              "name",
+              "internal_id",
+              "tax_id",
+              "funding_method",
+              "address_1",
+              "city",
+              "state",
+              "zipcode",
+              "country"
+            ]
+          }
+        ]
+      },
+      "BuyerUpdate": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BuyerBase"
+          }
+        ]
+      },
+      "BuyerListReturn": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "next": {
+            "type": "string",
+            "readOnly": true
+          },
+          "previous": {
+            "type": "string",
+            "readOnly": true
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BuyerBase"
+            }
+          }
+        }
+      },
+      "BuyerContact": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ContactBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "funding_notification": {
+                "type": "boolean",
+                "default": false,
+                "description": "Indicates if this contact should receive funding notifications."
+              },
+              "refund_notification": {
+                "type": "boolean",
+                "default": false,
+                "description": "Indicates if this contact should receive refund notifications."
+              }
+            }
+          }
+        ]
+      },
       "CheckImage": {
         "type": "object",
         "properties": {
@@ -1008,6 +1869,44 @@
             "readOnly": true
           }
         }
+      },
+      "ContactBase": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "This will be generated by Finexio.",
+            "readOnly": true
+          },
+          "reference_id": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "max length = 100\nThis value must be unique."
+          },
+          "contact_name": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "max length = 40"
+          },
+          "contact_email": {
+            "type": "string",
+            "format": "email",
+            "maxLength": 50,
+            "description": "max length = 50"
+          },
+          "contact_phone": {
+            "type": "string",
+            "maxLength": 17,
+            "description": "max length = 17"
+          },
+          "primary": {
+            "type": "boolean",
+            "description": "Indicates whether the contact is the primary contact."
+          }
+        },
+        "required": [
+          "primary"
+        ]
       },
       "CounterpartyCreate": {
         "allOf": [
@@ -1191,7 +2090,7 @@
             "type": "string",
             "maxLength": 50,
             "format": "email",
-            "description":"required only if payment_method is Card"
+            "description": "required only if payment_method is Card"
           },
           "primary_contact_name": {
             "type": "string",
@@ -1774,6 +2673,415 @@
           }
         }
       },
+      "SupplierBase": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "max length = 100"
+          },
+          "care_of": {
+            "type": "string",
+            "maxLength": 36,
+            "description": "max length = 36"
+          },
+          "remit_address_1": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "max length = 40\nrequired only if payment_method is 'Check'"
+          },
+          "remit_address_2": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "max length = 40"
+          },
+          "remit_city": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "max length = 40\nrequired only if payment_method is 'Check'"
+          },
+          "remit_state": {
+            "enum": [
+              "AL",
+              "AK",
+              "AS",
+              "AZ",
+              "AR",
+              "AA",
+              "AE",
+              "AP",
+              "CA",
+              "CO",
+              "CT",
+              "DE",
+              "DC",
+              "FL",
+              "GA",
+              "GU",
+              "HI",
+              "ID",
+              "IL",
+              "IN",
+              "IA",
+              "KS",
+              "KY",
+              "LA",
+              "ME",
+              "MD",
+              "MA",
+              "MI",
+              "MN",
+              "MS",
+              "MO",
+              "MT",
+              "NE",
+              "NV",
+              "NH",
+              "NJ",
+              "NM",
+              "NY",
+              "NC",
+              "ND",
+              "MP",
+              "OH",
+              "OK",
+              "OR",
+              "PA",
+              "PR",
+              "RI",
+              "SC",
+              "SD",
+              "TN",
+              "TX",
+              "UT",
+              "VT",
+              "VI",
+              "VA",
+              "WA",
+              "WV",
+              "WI",
+              "WY",
+              "AB",
+              "BC",
+              "MB",
+              "NB",
+              "NL",
+              "NT",
+              "NS",
+              "NU",
+              "ON",
+              "PE",
+              "QC",
+              "SK",
+              "YT"
+            ],
+            "type": "string",
+            "maxLength": 2,
+            "description": "accepts one of these values: [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'AA', 'AE', 'AP', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY', 'AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT' ].\nrequired only if payment_method is 'Check'"
+          },
+          "remit_zipcode": {
+            "type": "string",
+            "maxLength": 10,
+            "description": "max length = 10\nrequired only if payment_method is 'Check'"
+          },
+          "remit_country": {
+            "enum": [
+              "CAN",
+              "UMI",
+              "USA"
+            ],
+            "default": "USA",
+            "type": "string",
+            "description": "accepts one of these values: [ 'CAN', 'UMI', 'USA' ]. Default USA if no value specified.\nrequired only if payment_method is 'Check'"
+          },
+          "corporate_address_1": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "max length = 40"
+          },
+          "corporate_address_2": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "max length = 40"
+          },
+          "corporate_city": {
+            "type": "string",
+            "maxLength": 40,
+            "description": "max length = 40"
+          },
+          "corporate_state": {
+            "enum": [
+              "AL",
+              "AK",
+              "AS",
+              "AZ",
+              "AR",
+              "AA",
+              "AE",
+              "AP",
+              "CA",
+              "CO",
+              "CT",
+              "DE",
+              "DC",
+              "FL",
+              "GA",
+              "GU",
+              "HI",
+              "ID",
+              "IL",
+              "IN",
+              "IA",
+              "KS",
+              "KY",
+              "LA",
+              "ME",
+              "MD",
+              "MA",
+              "MI",
+              "MN",
+              "MS",
+              "MO",
+              "MT",
+              "NE",
+              "NV",
+              "NH",
+              "NJ",
+              "NM",
+              "NY",
+              "NC",
+              "ND",
+              "MP",
+              "OH",
+              "OK",
+              "OR",
+              "PA",
+              "PR",
+              "RI",
+              "SC",
+              "SD",
+              "TN",
+              "TX",
+              "UT",
+              "VT",
+              "VI",
+              "VA",
+              "WA",
+              "WV",
+              "WI",
+              "WY",
+              "AB",
+              "BC",
+              "MB",
+              "NB",
+              "NL",
+              "NT",
+              "NS",
+              "NU",
+              "ON",
+              "PE",
+              "QC",
+              "SK",
+              "YT"
+            ],
+            "type": "string",
+            "maxLength": 2,
+            "description": "accepts one of these values: [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'AA', 'AE', 'AP', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY', 'AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT' ]"
+          },
+          "corporate_zipcode": {
+            "type": "string",
+            "maxLength": 10,
+            "description": "max length = 10"
+          },
+          "corporate_country": {
+            "enum": [
+              "CAN",
+              "UMI",
+              "USA"
+            ],
+            "default": "USA",
+            "type": "string",
+            "description": "accepts one of these values: [ 'CAN', 'UMI', 'USA' ]. Default USA if no value specified."
+          },
+          "corporate_phone_number": {
+            "type": "string",
+            "maxLength": 16,
+            "description": "max length = 16"
+          },
+          "internal_id": {
+            "type": "string",
+            "maxLength": 200,
+            "description": "max length = 200. Secondary identifier. This value must be unique."
+          },
+          "tax_id": {
+            "type": "string",
+            "maxLength": 12,
+            "description": "max length = 12"
+          },
+          "contacts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SupplierContact"
+            }
+          },
+          "remit_email": {
+            "type": "string",
+            "format": "email",
+            "description": "required only if payment_method is 'Card' and delivery_method is 'Email'."
+          },
+          "bank_account_number": {
+            "type": "string",
+            "maxLength": 17,
+            "description": "max length = 17\nrequired only if payment_method is 'ACH' or 'Wire'."
+          },
+          "bank_routing_number": {
+            "type": "string",
+            "maxLength": 9,
+            "description": "max length = 9\nrequired only if payment_method is 'ACH' or 'Wire'."
+          },
+          "payment_method": {
+            "type": "string",
+            "enum": [
+              "ACH",
+              "Card",
+              "Check",
+              "Wire"
+            ],
+            "description": "accepts one of these values: [ 'ACH', 'Card', 'Check','Wire' ]."
+          },
+          "delivery_method": {
+            "type": "string",
+            "description": "accepts one of these values: [ 'Mail', 'Email', 'Portal','Phone' ] and can be null."
+          },
+          "notification_method": {
+            "type": "string",
+            "enum": [
+              "Mail",
+              "Email"
+            ],
+            "description": "accepts one of these values: [ 'Mail', 'Email' ]."
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "updated": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "payment_terms": {
+            "type": "integer",
+            "description": "Allowed values: min = 0, max = 365. Payment terms is optional field. This is an integer field and represents No. of days."
+          },
+          "ineligible_for_conversion": {
+            "type": "boolean",
+            "description": "Supplier conversion eligibility determines if Finexio SHOULD NOT reach out to this supplier due to high sensitivity or special payment arrangements or contracted terms.",
+            "default": false
+          },
+          "payee_type": {
+            "enum": [
+              "Employee",
+              "Business",
+              "InternalTransfer",
+              "Student",
+              "Individual"
+            ],
+            "type": "string",
+            "description": "Accepts one of these values: [ 'Employee', 'Business','InternalTransfer','Student', 'Individual' ]"
+          },
+          "twelve_month_payment_count": {
+            "type": "integer",
+            "description": "This is related to spend data and indicates the number of payments made to that supplier over the last 12 months."
+          },
+          "twelve_month_spend": {
+            "type": "integer",
+            "description": "This is related to spend data and indicates the total dollar amount paid to that supplier over the last 12 months."
+          },
+          "notes": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "max length = 1000\nOptional information about supplier."
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Array of name/value pairs.The name can be any character string not beginning with _ with a max length of 25 characters, The value can have a max length of 100 chars and can be null."
+          },
+          "enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "Used to indicate if the supplier is enabled and therefore payable."
+          }
+        }
+      },
+      "SupplierCreate": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SupplierBase"
+          },
+          {
+            "required": [
+              "name",
+              "internal_id",
+              "tax_id",
+              "payment_method"
+            ]
+          }
+        ]
+      },
+      "SupplierUpdate": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SupplierBase"
+          }
+        ]
+      },
+      "SupplierListReturn": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "next": {
+            "type": "string",
+            "readOnly": true
+          },
+          "previous": {
+            "type": "string",
+            "readOnly": true
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SupplierBase"
+            }
+          }
+        }
+      },
+      "SupplierContact": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ContactBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "payment_notification": {
+                "type": "boolean",
+                "default": false,
+                "description": "Indicates whether notifications of payments need to be sent using the contact_email value."
+              }
+            }
+          }
+        ]
+      },
       "Webhook": {
         "allOf": [
           {
@@ -1873,12 +3181,20 @@
       "description": "Counterparties management"
     },
     {
+      "name": "Buyers",
+      "description": "Buyers management"
+    },
+    {
+      "name": "Suppliers",
+      "description": "Suppliers management"
+    },
+    {
       "name": "Payments",
-      "description": "Payments  management"
+      "description": "Payments management"
     },
     {
       "name": "Invoices",
-      "description": "Invoices  management"
+      "description": "Invoices management"
     },
     {
       "name": "Webhooks",
