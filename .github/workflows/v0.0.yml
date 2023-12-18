@@ -1,0 +1,14 @@
+name: Finexio API Internal
+on:
+  push:
+    branches:
+      - master
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: readmeio/rdme@7.5.0
+        with:
+          rdme: openapi output/v0.0.json --key=${{ secrets.README_API_KEY }} --id=65806b4b71242e0038f97f33
