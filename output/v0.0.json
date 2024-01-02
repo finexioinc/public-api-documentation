@@ -1723,8 +1723,8 @@
                     },
                     "tax_id": {
                         "type": "string",
-                        "maxLength": 12,
-                        "description": "max length = 12"
+                        "maxLength": 11,
+                        "description": "max length = 11"
                     },
                     "funding_method": {
                         "type": "string",
@@ -2133,8 +2133,8 @@
                     },
                     "tax_id": {
                         "type": "string",
-                        "maxLength": 12,
-                        "description": "max length = 12"
+                        "maxLength": 11,
+                        "description": "max length = 11"
                     },
                     "ineligible_for_conversion": {
                         "type": "boolean",
@@ -2920,8 +2920,8 @@
                     },
                     "tax_id": {
                         "type": "string",
-                        "maxLength": 12,
-                        "description": "max length = 12"
+                        "maxLength": 11,
+                        "description": "max length = 11"
                     },
                     "contacts": {
                         "type": "array",
