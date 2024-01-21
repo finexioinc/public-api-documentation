@@ -3028,7 +3028,7 @@
                     {
                         "required": [
                             "name",
-                            "internal_id",
+                            "external_reference_id",
                             "tax_id",
                             "payment_method"
                         ]
