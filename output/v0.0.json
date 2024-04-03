@@ -2432,10 +2432,6 @@
                         "type": "string",
                         "readOnly": true
                     },
-                    "disbursement_statuc": {
-                        "type": "string",
-                        "readOnly": true
-                    },
                     "reconciliation_account_id": {
                         "type": "string",
                         "readOnly": true
