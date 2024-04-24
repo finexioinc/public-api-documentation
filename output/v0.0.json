@@ -1940,14 +1940,23 @@
                         "properties": {
                             "bank_account_number": {
                                 "type": "string",
-                                "readOnly": true
+                                "maxLength": 17,
+                                "description": "max length = 17\nrequired when payment_method is ACH or Wire\nUpdate allowed only with permission."
                             },
                             "bank_routing_number": {
                                 "type": "string",
-                                "readOnly": true
+                                "maxLength": 9,
+                                "description": "max length = 9\nrequired when payment_method is ACH or Wire\nUpdate allowed only with permission."
                             },
                             "payment_method": {
-                                "readOnly": true
+                                "type": "string",
+                                "enum": [
+                                    "ACH",
+                                    "Card",
+                                    "PrintedCheck",
+                                    "Wire"
+                                ],
+                                "description": "accepts one of these values: [ 'ACH', 'Card', 'PrintedCheck','Wire' ]. Default ACH if no value specified.\nUpdate allowed only with permission."
                             }
                         }
                     }
@@ -2090,7 +2099,7 @@
                         "type": "string",
                         "maxLength": 50,
                         "format": "email",
-                        "description": "required only if payment_method is Card"
+                        "description": "required if payment_method is Card/ACH or payment_method is PrintedCheck and country is CAN."
                     },
                     "primary_contact_name": {
                         "type": "string",
@@ -2160,9 +2169,6 @@
                         "type": "string",
                         "maxLength": 1000,
                         "description": "max length = 1000. Optional information about supplier."
-                    },
-                    "issue_one_disbursement_per_invoice": {
-                        "type": "boolean"
                     }
                 }
             },
