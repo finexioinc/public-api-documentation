@@ -1730,11 +1730,12 @@
                         "type": "string",
                         "enum": [
                             "ach_debit",
+                            "ach_same_day_debit",
                             "ach_credit",
                             "wire",
                             "reverse_wire"
                         ],
-                        "description": "accepts one of these values: [ 'ach_debit', 'ach_credit', 'wire','reverse_wire' ]."
+                        "description": "accepts one of these values: [ 'ach_debit', 'ach_credit', 'wire', 'reverse_wire', 'ach_same_day_debit' ]."
                     },
                     "drawdown_bank_account_number": {
                         "type": "string",
@@ -2965,7 +2966,7 @@
                     },
                     "delivery_method": {
                         "type": "string",
-                        "description": "accepts one of these values: [ 'Mail', 'Email', 'Portal','Phone' ] and can be null."
+                        "description": "accepts one of these values: [ 'Mail', 'Email', 'Portal','Phone' ] and can be null.\nRequired only if payment_method is other than ACH and Wire."
                     },
                     "notification_method": {
                         "type": "string",
@@ -3029,7 +3030,7 @@
                     },
                     "internal_payments": {
                         "type": "boolean",
-                        "description": "",
+                        "description": "Payments will be made by Finexio staff using the Phone or Portal delivery method.",
                         "default": false
                     }
                 }
@@ -3043,7 +3044,6 @@
                         "required": [
                             "name",
                             "external_reference_id",
-                            "tax_id",
                             "payment_method"
                         ]
                     }
