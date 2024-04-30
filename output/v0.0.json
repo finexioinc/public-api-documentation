@@ -2170,12 +2170,11 @@
                         "type": "string",
                         "enum": [
                             "ach_debit",
-                            "ach_same_day_debit",
                             "ach_credit",
                             "wire",
                             "reverse_wire"
                         ],
-                        "description": "accepts one of these values: [ 'ach_debit', 'ach_credit', 'wire', 'reverse_wire', 'ach_same_day_debit' ]."
+                        "description": "accepts one of these values: [ 'ach_debit', 'ach_credit', 'wire', 'reverse_wire' ]."
                     },
                     "drawdown_bank_account_number": {
                         "type": "string",
