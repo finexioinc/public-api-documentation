@@ -120,8 +120,8 @@
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "Success"
+                    "201": {
+                        "description": "Created"
                     }
                 },
                 "tags": [
@@ -672,6 +672,226 @@
                 ]
             }
         },
+        "/counterparties/suppliers/{supplier_id}/contacts": {
+            "get": {
+                "summary": "List Supplier Contacts",
+                "operationId": "List Supplier Contacts",
+                "description": "Get A List Of Supplier Contacts",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/SupplierContact"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    }
+                },
+                "tags": [
+                    "Suppliers"
+                ]
+            },
+            "post": {
+                "operationId": "Add Supplier Contacts",
+                "summary": "Add Supplier Contacts",
+                "description": "Add contacts to an existing Supplier",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SupplierContact"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SupplierContact"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SupplierContact"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "tags": [
+                    "Suppliers"
+                ]
+            }
+        },
+        "/counterparties/suppliers/{supplier_id}/contacts/{contact_external_reference_id}": {
+            "put": {
+                "operationId": "Update Supplier Contact",
+                "summary": "Update Supplier Contact",
+                "description": "Update Supplier's exsiting Contact",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "external_reference_id",
+                        "in": "path",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SupplierContact"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SupplierContact"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SupplierContact"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SupplierContact"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProblemDetails"
+                                }
+                            }
+                        },
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProblemDetails"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "tags": [
+                    "Suppliers"
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Suppliers"
+                ],
+                "operationId": "Delete Supplier Contact",
+                "summary": "Delete Supplier Contact",
+                "description": "Delete contacts for a Supplier.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "external_reference_id",
+                        "in": "path",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProblemDetails"
+                                }
+                            }
+                        },
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProblemDetails"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
         "/counterparties/buyers": {
             "get": {
                 "summary": "List Buyers",
@@ -958,6 +1178,226 @@
                 "tags": [
                     "Buyers"
                 ]
+            }
+        },
+        "/counterparties/suppliers/{buyer_id}/contacts": {
+            "get": {
+                "summary": "List Buyer Contacts",
+                "operationId": "List Buyer Contacts",
+                "description": "Get A List Of Buyer Contacts",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/BuyerContact"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    }
+                },
+                "tags": [
+                    "Buyers"
+                ]
+            },
+            "post": {
+                "operationId": "Add Buyer Contacts",
+                "summary": "Add Buyer Contacts",
+                "description": "Add contacts to an existing Buyer",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BuyerContact"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BuyerContact"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BuyerContact"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "tags": [
+                    "Buyers"
+                ]
+            }
+        },
+        "/counterparties/suppliers/{buyer_id}/contacts/{contact_external_reference_id}": {
+            "put": {
+                "operationId": "Update Buyer Contact",
+                "summary": "Update Buyer Contact",
+                "description": "Update Buyer's exsiting Contact",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "external_reference_id",
+                        "in": "path",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BuyerContact"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BuyerContact"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BuyerContact"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BuyerContact"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProblemDetails"
+                                }
+                            }
+                        },
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProblemDetails"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "tags": [
+                    "Buyers"
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Buyers"
+                ],
+                "operationId": "Delete Buyer Contact",
+                "summary": "Delete Buyer Contact",
+                "description": "Delete contacts for a Buyer.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "external_reference_id",
+                        "in": "path",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProblemDetails"
+                                }
+                            }
+                        },
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProblemDetails"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                }
             }
         },
         "/invoices/": {
@@ -1913,7 +2353,7 @@
                         ],
                         "default": "USA",
                         "type": "string",
-                        "description": "accepts one of these values: [ 'CAN', 'UMI', 'USA' ]. Default USA if no value specified."
+                        "description": "accepts one of these values: [ 'CAN', 'UMI', 'USA' ]."
                     },
                     "corporate_phone_number": {
                         "type": "string",
@@ -1943,7 +2383,7 @@
                             "wire",
                             "reverse_wire"
                         ],
-                        "description": "accepts one of these values: [ 'ach_debit', 'ach_credit', 'wire','reverse_wire' ]."
+                        "description": "accepts one of these values: [ 'ach_debit', 'ach_credit', 'wire', 'reverse_wire' ]."
                     },
                     "drawdown_bank_account_number": {
                         "type": "string",
@@ -2149,14 +2589,23 @@
                         "properties": {
                             "bank_account_number": {
                                 "type": "string",
-                                "readOnly": true
+                                "maxLength": 17,
+                                "description": "max length = 17\nrequired when payment_method is ACH or Wire\nUpdate allowed only with permission."
                             },
                             "bank_routing_number": {
                                 "type": "string",
-                                "readOnly": true
+                                "maxLength": 9,
+                                "description": "max length = 9\nrequired when payment_method is ACH or Wire\nUpdate allowed only with permission."
                             },
                             "payment_method": {
-                                "readOnly": true
+                                "type": "string",
+                                "enum": [
+                                    "ACH",
+                                    "Card",
+                                    "PrintedCheck",
+                                    "Wire"
+                                ],
+                                "description": "accepts one of these values: [ 'ACH', 'Card', 'PrintedCheck','Wire' ]. Default ACH if no value specified.\nUpdate allowed only with permission."
                             }
                         }
                     }
@@ -2171,8 +2620,8 @@
                     },
                     "name": {
                         "type": "string",
-                        "maxLength": 40,
-                        "description": "max length = 40"
+                        "maxLength": 100,
+                        "description": "max length = 100"
                     },
                     "created": {
                         "type": "string",
@@ -2299,7 +2748,7 @@
                         "type": "string",
                         "maxLength": 50,
                         "format": "email",
-                        "description": "required only if payment_method is Card"
+                        "description": "required if payment_method is Card/ACH or payment_method is PrintedCheck and country is CAN."
                     },
                     "primary_contact_name": {
                         "type": "string",
@@ -2314,12 +2763,12 @@
                     "bank_account_number": {
                         "type": "string",
                         "maxLength": 17,
-                        "description": "max length = 17\nrequired only if payment_method is ACH"
+                        "description": "max length = 17\nrequired when payment_method is ACH or Wire"
                     },
                     "bank_routing_number": {
                         "type": "string",
                         "maxLength": 9,
-                        "description": "max length = 9\nrequired only if payment_method is ACH"
+                        "description": "max length = 9\nrequired when payment_method is ACH or Wire"
                     },
                     "payment_method": {
                         "type": "string",
@@ -2354,7 +2803,7 @@
                         "type": "integer"
                     },
                     "twelve_month_spend": {
-                        "type": "string"
+                        "type": "decimal"
                     },
                     "business_type": {
                         "enum": [
@@ -3144,7 +3593,7 @@
                         ],
                         "default": "USA",
                         "type": "string",
-                        "description": "accepts one of these values: [ 'CAN', 'UMI', 'USA' ]. Default USA if no value specified.\nrequired only if payment_method is 'Check'"
+                        "description": "accepts one of these values: [ 'CAN', 'UMI', 'USA' ].\nrequired only if payment_method is 'Check'"
                     },
                     "corporate_address_1": {
                         "type": "string",
@@ -3284,12 +3733,12 @@
                     "bank_account_number": {
                         "type": "string",
                         "maxLength": 17,
-                        "description": "max length = 17\nrequired only if payment_method is 'ACH' or 'Wire'."
+                        "description": "max length = 17\nrequired only if payment_method is 'ACH' or 'Wire' or 'FinexioExpress'.\nIt can't contain non-numeric characters."
                     },
                     "bank_routing_number": {
                         "type": "string",
                         "maxLength": 9,
-                        "description": "max length = 9\nrequired only if payment_method is 'ACH' or 'Wire'."
+                        "description": "max length = 9\nrequired only if payment_method is 'ACH' or 'Wire' or 'FinexioExpress'."
                     },
                     "payment_method": {
                         "type": "string",
@@ -3303,7 +3752,7 @@
                     },
                     "delivery_method": {
                         "type": "string",
-                        "description": "accepts one of these values: [ 'Mail', 'Email', 'Portal','Phone' ] and can be null."
+                        "description": "accepts one of these values: [ 'Mail', 'Email', 'Portal','Phone' ] and can be null.\nRequired only if payment_method is other than ACH and Wire."
                     },
                     "notification_method": {
                         "type": "string",
@@ -3364,6 +3813,11 @@
                         "type": "boolean",
                         "default": true,
                         "description": "Used to indicate if the supplier is enabled and therefore payable."
+                    },
+                    "internal_payments": {
+                        "type": "boolean",
+                        "description": "Payments will be made by Finexio staff using the Phone or Portal delivery method.",
+                        "default": false
                     }
                 }
             },
@@ -3376,7 +3830,6 @@
                         "required": [
                             "name",
                             "external_reference_id",
-                            "tax_id",
                             "payment_method"
                         ]
                     }
