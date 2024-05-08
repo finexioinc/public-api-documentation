@@ -1575,6 +1575,215 @@
                     }
                 }
             }
+        },
+        "/reconciliation/drawdown": {
+            "description": "Reconciliation",
+            "get": {
+                "tags": [
+                    "Reconciliation"
+                ],
+                "operationId": "getDrawdownInfo",
+                "summary": "Get Drawdown Information",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "required": false,
+                        "in": "query",
+                        "description": "A page number within the paginated result set.",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "buyer_ref_id",
+                        "required": false,
+                        "in": "query",
+                        "description": "Buyer external_reference_id.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "supplier_ref_id",
+                        "required": false,
+                        "in": "query",
+                        "description": "Supplier external_reference_id.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "rc",
+                        "required": false,
+                        "in": "query",
+                        "description": "Payment tracking_id.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "invoice_number",
+                        "required": false,
+                        "in": "query",
+                        "description": "Invoice number.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "payment_status",
+                        "required": false,
+                        "in": "query",
+                        "description": "Status of the funding request.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "order_create_date_start",
+                        "required": false,
+                        "in": "query",
+                        "description": "Upper limit of order create date.",
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    },
+                    {
+                        "name": "order_create_date_end",
+                        "required": false,
+                        "in": "query",
+                        "description": "Lower limit of order create date.",
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    },
+                    {
+                        "name": "drawdown_amount_start",
+                        "required": false,
+                        "in": "query",
+                        "description": "Upper limit of drawdown amount.",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "drawdown_amount_end",
+                        "required": false,
+                        "in": "query",
+                        "description": "Lower limit of drawdown amount.",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DrawdownInfo"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/reconciliation/drawdown/{drawdown_request_id}": {
+            "description": "Reconciliation",
+            "get": {
+                "tags": [
+                    "Reconciliation"
+                ],
+                "operationId": "getDrawdownInfo",
+                "summary": "Get Drawdown Information by funding drawdown request id",
+                "parameters": [
+                    {
+                        "name": "drawdown_request_id",
+                        "required": true,
+                        "in": "path",
+                        "description": "Funding drawdown request id.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "required": false,
+                        "in": "query",
+                        "description": "A page number within the paginated result set.",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DrawdownInfo"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/reconciliation/drawdown/{drawdown_request_id}/payments": {
+            "description": "Reconciliation",
+            "get": {
+                "tags": [
+                    "Reconciliation"
+                ],
+                "operationId": "getDrawdownDetail",
+                "summary": "Get Drawdown Detail by funding drawdown request id",
+                "parameters": [
+                    {
+                        "name": "drawdown_request_id",
+                        "required": true,
+                        "in": "path",
+                        "description": "Funding drawdown request id.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "required": false,
+                        "in": "query",
+                        "description": "A page number within the paginated result set.",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DrawdownDetail"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -2195,6 +2404,144 @@
                 ],
                 "type": "string",
                 "readOnly": true
+            },
+            "DrawdownDetail": {
+                "type": "object",
+                "properties": {
+                    "supplier_id": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "supplier_name": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "invoices": {
+                        "type": "array",
+                        "description": "List of invoices.",
+                        "items": {
+                            "$ref": "#/components/schemas/DrawdownDetailInvoice"
+                        },
+                        "readOnly": true
+                    },
+                    "payment_amount": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "payment_method": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "reconciliation_account_id": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "rc_number": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "remittance_address_line_1": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "remittance_address_line_2": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "remittance_city": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "remittance_state": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "remittance_zip": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "remittance_email_address": {
+                        "type": "string",
+                        "readOnly": true
+                    }
+                }
+            },
+            "DrawdownInfo": {
+                "type": "object",
+                "properties": {
+                    "processor_request_id": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "reconciliation_id": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "bank_account_last_4": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "order_create_date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true
+                    },
+                    "payment_status": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "drawdown_amount": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "funding_complete_date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true
+                    },
+                    "buyer_reference_id": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "buyer_name": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "trace_id": {
+                        "type": "string",
+                        "readOnly": true
+                    }
+                }
+            },
+            "DrawdownDetailInvoice": {
+                "type": "object",
+                "properties": {
+                    "invoice_amount": {
+                        "type": "integer",
+                        "readOnly": true
+                    },
+                    "discount_amount": {
+                        "type": "integer",
+                        "readOnly": true
+                    },
+                    "invoice_date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true
+                    },
+                    "invoice_number": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "accounting_id": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "readOnly": true
+                    }
+                }
             },
             "EntityHistoryAction": {
                 "enum": [
@@ -3199,6 +3546,10 @@
         {
             "name": "Webhooks",
             "description": "Webhooks to be used by developers"
+        },
+        {
+            "name": "Reconciliation",
+            "description": ""
         }
     ]
 }
