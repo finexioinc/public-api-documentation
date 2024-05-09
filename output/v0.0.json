@@ -2141,7 +2141,7 @@
                 "tags": [
                     "Reconciliation"
                 ],
-                "operationId": "getDrawdownInfo",
+                "operationId": "getDrawdownInfoByFundingRequest",
                 "summary": "Get Drawdown Information by funding drawdown request id",
                 "parameters": [
                     {
