@@ -672,7 +672,7 @@
                 ]
             }
         },
-        "/counterparties/suppliers/{supplier_id}/contacts": {
+        "/counterparties/suppliers/{id}/contacts": {
             "get": {
                 "summary": "List Supplier Contacts",
                 "operationId": "List Supplier Contacts",
@@ -751,7 +751,7 @@
                 ]
             }
         },
-        "/counterparties/suppliers/{supplier_id}/contacts/{contact_external_reference_id}": {
+        "/counterparties/suppliers/{id}/contacts/{contact_external_reference_id}": {
             "put": {
                 "operationId": "Update Supplier Contact",
                 "summary": "Update Supplier Contact",
@@ -767,7 +767,7 @@
                         }
                     },
                     {
-                        "name": "external_reference_id",
+                        "name": "contact_external_reference_id",
                         "in": "path",
                         "required": true,
                         "description": "",
@@ -849,7 +849,7 @@
                         }
                     },
                     {
-                        "name": "external_reference_id",
+                        "name": "contact_external_reference_id",
                         "in": "path",
                         "required": true,
                         "description": "",
@@ -1180,7 +1180,7 @@
                 ]
             }
         },
-        "/counterparties/suppliers/{buyer_id}/contacts": {
+        "/counterparties/buyers/{id}/contacts": {
             "get": {
                 "summary": "List Buyer Contacts",
                 "operationId": "List Buyer Contacts",
@@ -1259,7 +1259,7 @@
                 ]
             }
         },
-        "/counterparties/suppliers/{buyer_id}/contacts/{contact_external_reference_id}": {
+        "/counterparties/buyers/{id}/contacts/{contact_external_reference_id}": {
             "put": {
                 "operationId": "Update Buyer Contact",
                 "summary": "Update Buyer Contact",
@@ -1275,7 +1275,7 @@
                         }
                     },
                     {
-                        "name": "external_reference_id",
+                        "name": "contact_external_reference_id",
                         "in": "path",
                         "required": true,
                         "description": "",
@@ -1357,7 +1357,7 @@
                         }
                     },
                     {
-                        "name": "external_reference_id",
+                        "name": "contact_external_reference_id",
                         "in": "path",
                         "required": true,
                         "description": "",
@@ -2594,7 +2594,7 @@
                         "type": "integer"
                     },
                     "twelve_month_spend": {
-                        "type": "decimal"
+                        "type": "number"
                     },
                     "business_type": {
                         "enum": [
