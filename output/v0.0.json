@@ -488,7 +488,7 @@
                         "name": "id",
                         "in": "path",
                         "required": true,
-                        "description": "",
+                        "description": "uuid of supplier",
                         "schema": {
                             "type": "string"
                         }
@@ -539,7 +539,7 @@
                         "name": "id",
                         "in": "path",
                         "required": true,
-                        "description": "",
+                        "description": "uuid of supplier",
                         "schema": {
                             "type": "string"
                         }
@@ -609,7 +609,7 @@
                         "name": "id",
                         "in": "path",
                         "required": true,
-                        "description": "",
+                        "description": "uuid of supplier",
                         "schema": {
                             "type": "string"
                         }
@@ -682,7 +682,7 @@
                         "name": "id",
                         "in": "path",
                         "required": true,
-                        "description": "",
+                        "description": "uuid of supplier",
                         "schema": {
                             "type": "string"
                         }
@@ -716,7 +716,7 @@
                         "name": "id",
                         "in": "path",
                         "required": true,
-                        "description": "",
+                        "description": "uuid of supplier",
                         "schema": {
                             "type": "string"
                         }
@@ -751,7 +751,7 @@
                 ]
             }
         },
-        "/counterparties/suppliers/{id}/contacts/{contact_external_reference_id}": {
+        "/counterparties/suppliers/{id}/contacts/{external_reference_id}": {
             "put": {
                 "operationId": "Update Supplier Contact",
                 "summary": "Update Supplier Contact",
@@ -761,16 +761,16 @@
                         "name": "id",
                         "in": "path",
                         "required": true,
-                        "description": "",
+                        "description": "uuid of supplier",
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "contact_external_reference_id",
+                        "name": "external_reference_id",
                         "in": "path",
                         "required": true,
-                        "description": "",
+                        "description": "external_reference_id of contact",
                         "schema": {
                             "type": "string"
                         }
@@ -843,16 +843,16 @@
                         "name": "id",
                         "in": "path",
                         "required": true,
-                        "description": "",
+                        "description": "uuid of supplier",
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "contact_external_reference_id",
+                        "name": "external_reference_id",
                         "in": "path",
                         "required": true,
-                        "description": "",
+                        "description": "external_reference_id of contact",
                         "schema": {
                             "type": "string"
                         }
@@ -996,7 +996,7 @@
                         "name": "id",
                         "in": "path",
                         "required": true,
-                        "description": "",
+                        "description": "uuid of buyer",
                         "schema": {
                             "type": "string"
                         }
@@ -1047,7 +1047,7 @@
                         "name": "id",
                         "in": "path",
                         "required": true,
-                        "description": "",
+                        "description": "uuid of buyer",
                         "schema": {
                             "type": "string"
                         }
@@ -1117,7 +1117,7 @@
                         "name": "id",
                         "in": "path",
                         "required": true,
-                        "description": "",
+                        "description": "uuid of buyer",
                         "schema": {
                             "type": "string"
                         }
@@ -1190,7 +1190,7 @@
                         "name": "id",
                         "in": "path",
                         "required": true,
-                        "description": "",
+                        "description": "uuid of buyer",
                         "schema": {
                             "type": "string"
                         }
@@ -1224,7 +1224,7 @@
                         "name": "id",
                         "in": "path",
                         "required": true,
-                        "description": "",
+                        "description": "uuid of buyer",
                         "schema": {
                             "type": "string"
                         }
@@ -1259,7 +1259,7 @@
                 ]
             }
         },
-        "/counterparties/buyers/{id}/contacts/{contact_external_reference_id}": {
+        "/counterparties/buyers/{id}/contacts/{external_reference_id}": {
             "put": {
                 "operationId": "Update Buyer Contact",
                 "summary": "Update Buyer Contact",
@@ -1269,16 +1269,16 @@
                         "name": "id",
                         "in": "path",
                         "required": true,
-                        "description": "",
+                        "description": "uuid of buyer",
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "contact_external_reference_id",
+                        "name": "external_reference_id",
                         "in": "path",
                         "required": true,
-                        "description": "",
+                        "description": "external_reference_id of contact",
                         "schema": {
                             "type": "string"
                         }
@@ -1351,16 +1351,16 @@
                         "name": "id",
                         "in": "path",
                         "required": true,
-                        "description": "",
+                        "description": "uuid of buyer",
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "contact_external_reference_id",
+                        "name": "external_reference_id",
                         "in": "path",
                         "required": true,
-                        "description": "",
+                        "description": "external_reference_id of contact",
                         "schema": {
                             "type": "string"
                         }
