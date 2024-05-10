@@ -36,7 +36,7 @@
                         "name": "name",
                         "required": false,
                         "in": "query",
-                        "description": "",
+                        "description": "Case insensitive search for the value you pass appearing anywhere within the name of a counterparty.",
                         "schema": {
                             "type": "string"
                         }
@@ -45,16 +45,20 @@
                         "name": "type",
                         "required": false,
                         "in": "query",
-                        "description": "",
+                        "description": "Only return counterparties of the type specified.",
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "enum": [
+                                "Buyer",
+                                "Supplier"
+                            ]
                         }
                     },
                     {
                         "name": "internal_id",
                         "required": false,
                         "in": "query",
-                        "description": "",
+                        "description": "Search for a counterparty with a secondary indentifier exactly matching the value passed.",
                         "schema": {
                             "type": "string"
                         }
@@ -2616,34 +2620,40 @@
                 "properties": {
                     "id": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Unique identifier"
                     },
                     "name": {
                         "type": "string",
                         "maxLength": 100,
-                        "description": "max length = 100"
+                        "description": "max length = 100\nCounterpary's name"
                     },
                     "created": {
                         "type": "string",
                         "format": "date-time",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Date and time the counterparty was created"
                     },
                     "updated": {
                         "type": "string",
                         "format": "date-time",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Date and time the counterparty was last modified"
                     },
                     "address_1": {
                         "type": "string",
-                        "description": "max length = 40\nrequired only if payment_method is PrintedCheck"
+                        "maxLength": 40,
+                        "description": "max length = 40\nRequired when `payment_method` is `PrintedCheck`"                        
                     },
                     "address_2": {
                         "type": "string",
+                        "maxLength": 40,
                         "description": "max length = 40"
                     },
                     "city": {
                         "type": "string",
-                        "description": "max length = 40\nrequired only if payment_method is PrintedCheck"
+                        "maxLength": 40,
+                        "description": "max length = 40\nRequired when `payment_method` is `PrintedCheck`"
                     },
                     "state": {
                         "enum": [
@@ -2721,12 +2731,12 @@
                             "YT"
                         ],
                         "type": "string",
-                        "description": "required only if payment_method is PrintedCheck\naccepts one of these values: [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'AA', 'AE', 'AP', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY', 'AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT' ]"
+                        "description": "Required when `payment_method` is `PrintedCheck`"
                     },
                     "zipcode": {
                         "type": "string",
                         "maxLength": 10,
-                        "description": "max length = 10\nrequired only if payment_method is PrintedCheck"
+                        "description": "max length = 10\nRequired when `payment_method` is `PrintedCheck`"
                     },
                     "country": {
                         "enum": [
@@ -2736,7 +2746,7 @@
                         ],
                         "default": "USA",
                         "type": "string",
-                        "description": "accepts one of these values: [ 'CAN', 'UMI', 'USA' ]. Default USA if no value specified."
+                        "description": "Country."
                     },
                     "primary_contact_email": {
                         "type": "string",
@@ -2748,7 +2758,7 @@
                         "type": "string",
                         "maxLength": 50,
                         "format": "email",
-                        "description": "required if payment_method is Card/ACH or payment_method is PrintedCheck and country is CAN."
+                        "description": "Required if `payment_method` is Card/ACH or payment_method is PrintedCheck and country is CAN."
                     },
                     "primary_contact_name": {
                         "type": "string",
@@ -2826,15 +2836,18 @@
                 "properties": {
                     "count": {
                         "type": "integer",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Total number of counterparties found across all pages."
                     },
                     "next": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "URL to GET in order to retrieve the next page of counterparties in the paginated results."
                     },
                     "previous": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "URL to GET in order to retrieve the next previous of counterparties in the paginated results."
                     },
                     "results": {
                         "type": "array",
