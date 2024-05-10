@@ -2107,7 +2107,7 @@
                         "name": "drawdown_amount_start",
                         "required": false,
                         "in": "query",
-                        "description": "Upper limit of drawdown amount.",
+                        "description": "Inclusive upper limit of drawdown amount.",
                         "schema": {
                             "type": "integer"
                         }
@@ -2116,7 +2116,7 @@
                         "name": "drawdown_amount_end",
                         "required": false,
                         "in": "query",
-                        "description": "Lower limit of drawdown amount.",
+                        "description": "Inclusive lower limit of drawdown amount.",
                         "schema": {
                             "type": "integer"
                         }
@@ -2746,7 +2746,7 @@
                         ],
                         "default": "USA",
                         "type": "string",
-                        "description": "Country."
+                        "description": "Country.\nDefaults to `USA` if no value specified."
                     },
                     "primary_contact_email": {
                         "type": "string",
@@ -2758,27 +2758,27 @@
                         "type": "string",
                         "maxLength": 50,
                         "format": "email",
-                        "description": "Required if `payment_method` is Card/ACH or payment_method is PrintedCheck and country is CAN."
+                        "description": "max length = 50\nEmail address that remittance emails will be sent to. Required if `payment_method` is `Card` or `ACH`, or `payment_method` is `PrintedCheck` and `country` is `CAN`."
                     },
                     "primary_contact_name": {
                         "type": "string",
                         "maxLength": 40,
-                        "description": "max length = 40"
+                        "description": "max length = 40\nPrimary contact's name."
                     },
                     "primary_contact_phone": {
                         "type": "string",
                         "maxLength": 16,
-                        "description": "max length = 16"
+                        "description": "max length = 16\nPrimary contact's phone number."
                     },
                     "bank_account_number": {
                         "type": "string",
                         "maxLength": 17,
-                        "description": "max length = 17\nrequired when payment_method is ACH or Wire"
+                        "description": "max length = 17\nAccount number of the bank account funds will be drawn from or sent to. Required when `payment_method` is `ACH` or `Wire`."
                     },
                     "bank_routing_number": {
                         "type": "string",
                         "maxLength": 9,
-                        "description": "max length = 9\nrequired when payment_method is ACH or Wire"
+                        "description": "max length = 9\nRouting number of the bank account funds will be drawn from or sent to. Required when `payment_method` is `ACH` or `Wire`."
                     },
                     "payment_method": {
                         "type": "string",
@@ -2788,7 +2788,8 @@
                             "PrintedCheck",
                             "Wire"
                         ],
-                        "description": "accepts one of these values: [ 'ACH', 'Card', 'PrintedCheck','Wire' ]. Default ACH if no value specified."
+                        "default": "ACH",
+                        "description": "accepts one of these values: [ 'ACH', 'Card', 'PrintedCheck','Wire' ].\nDefaults to `ACH` if no value specified."
                     },
                     "internal_id": {
                         "type": "string",
@@ -2797,7 +2798,9 @@
                     },
                     "payment_terms": {
                         "type": "integer",
-                        "description": "Allowed values: min = 0, max = 365. Payment terms is optional field. This is an integer field and represents No. of days."
+                        "mininmum": 0,
+                        "maximum": 365,
+                        "description": "Allowed values: min = 0, max = 365. Payment terms is an optional field. This is an integer field and represents number of days."
                     },
                     "tax_id": {
                         "type": "string",
@@ -2822,12 +2825,12 @@
                             "Individual"
                         ],
                         "type": "string",
-                        "description": "Accepts one of these values: [ 'Employee', 'Business', 'Individual' ]"
+                        "description": "Type of business structure."
                     },
                     "notes": {
                         "type": "string",
                         "maxLength": 1000,
-                        "description": "max length = 1000. Optional information about supplier."
+                        "description": "max length = 1000. Optional information about a supplier."
                     }
                 }
             },
@@ -2946,7 +2949,8 @@
                     "order_create_date": {
                         "type": "string",
                         "format": "date-time",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Date "
                     },
                     "payment_status": {
                         "type": "string",
@@ -2963,11 +2967,13 @@
                     },
                     "buyer_reference_id": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Unique identifier of the buyer from which the funds were drawn down."
                     },
                     "buyer_name": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Name of the buyer from which the funds were drawn down."
                     },
                     "trace_id": {
                         "type": "string",
