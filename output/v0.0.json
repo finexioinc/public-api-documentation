@@ -2230,6 +2230,12 @@
                         "type": "string",
                         "format": "date-time",
                         "readOnly": true
+                    },
+                    "owners": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/BuyerOwner"
+                        }
                     }
                 }
             },
@@ -2303,6 +2309,172 @@
                             }
                         }
                     }
+                ]
+            },
+            "BuyerOwner": {
+                "type": "object",
+                "properties": {
+                    "controlling_owner": {
+                        "type": "boolean",
+                        "description": "\nmust be set to true."
+                    },
+                    "first_name": {
+                        "type": "string",
+                        "description": "Owner's first name."
+                    },
+                    "last_name": {
+                        "type": "string",
+                        "description": "Owner's last name."
+                    },
+                    "country_code": {
+                        "type": "string",
+                        "description": "Owner's country.",
+                        "enum": [
+                            "USA",
+                            "CAN"
+                        ]
+                    },
+                    "address1": {
+                        "type": "string",
+                        "maxLength": 40,
+                        "description": "Owner's address line 1.\nmax length = 40"
+                    },
+                    "address2": {
+                        "type": "string",
+                        "maxLength": 40,
+                        "description": "Owner's address line 2.\nmax length = 40"
+                    },
+                    "city": {
+                        "type": "string",
+                        "maxLength": 40,
+                        "description": "Owner's city.\nmax length = 40"
+                    },
+                    "state": {
+                        "type": "string",
+                        "description": "State of the owner. 2 letter state abbreviation.",
+                        "enum": [
+                            "AL",
+                            "AK",
+                            "AS",
+                            "AZ",
+                            "AR",
+                            "AA",
+                            "AE",
+                            "AP",
+                            "CA",
+                            "CO",
+                            "CT",
+                            "DE",
+                            "DC",
+                            "FL",
+                            "GA",
+                            "GU",
+                            "HI",
+                            "ID",
+                            "IL",
+                            "IN",
+                            "IA",
+                            "KS",
+                            "KY",
+                            "LA",
+                            "ME",
+                            "MD",
+                            "MA",
+                            "MI",
+                            "MN",
+                            "MS",
+                            "MO",
+                            "MT",
+                            "NE",
+                            "NV",
+                            "NH",
+                            "NJ",
+                            "NM",
+                            "NY",
+                            "NC",
+                            "ND",
+                            "MP",
+                            "OH",
+                            "OK",
+                            "OR",
+                            "PA",
+                            "PR",
+                            "RI",
+                            "SC",
+                            "SD",
+                            "TN",
+                            "TX",
+                            "UT",
+                            "VT",
+                            "VI",
+                            "VA",
+                            "WA",
+                            "WV",
+                            "WI",
+                            "WY",
+                            "AB",
+                            "BC",
+                            "MB",
+                            "NB",
+                            "NL",
+                            "NT",
+                            "NS",
+                            "NU",
+                            "ON",
+                            "PE",
+                            "QC",
+                            "SK",
+                            "YT"
+                        ]
+                    },
+                    "postal_code": {
+                        "type": "string",
+                        "maxLength": 10,
+                        "description": "Owner's zipcode.\nmax length = 10"
+                    },
+                    "date_of_birth": {
+                        "type": "string",
+                        "description": "Owner's date of birth.\nacceptable format: yyyy-mm-dd",
+                        "pattern":"^\\d{4}-\\d{2}-\\d{2}$"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "description": "Owner's email address."
+                    },
+                    "ssn": {
+                        "type": "string",
+                        "description": "Owner's social security number.\n required only if owner's country is USA."
+                    },
+                    "passport": {
+                        "type": "string",
+                        "description": "Owner's passport."
+                    },
+                    "passport_country": {
+                        "type": "string",
+                        "description": "Owner's passport country.\nequired only if passport is entered."
+                    },
+                    "drivers_license_number": {
+                        "type": "string",
+                        "description": "Driver's license of the owner."
+                    },
+                    "drivers_license_state": {
+                        "type": "string",
+                        "description": "2 alpha State issuing the driver's license.",
+                        "length": 2
+                    }
+                },
+                "required": [
+                    "controlling_owner",
+                    "first_name",
+                    "last_name",
+                    "country_code",
+                    "address1",
+                    "city",
+                    "state",
+                    "postal_code",
+                    "date_of_birth",
+                    "email"
                 ]
             },
             "CheckImage": {
@@ -2434,7 +2606,7 @@
                     "address_1": {
                         "type": "string",
                         "maxLength": 40,
-                        "description": "max length = 40\nRequired when `payment_method` is `PrintedCheck`"                        
+                        "description": "max length = 40\nRequired when `payment_method` is `PrintedCheck`"
                     },
                     "address_2": {
                         "type": "string",
