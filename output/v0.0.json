@@ -3478,7 +3478,7 @@
                     "enabled": {
                         "type": "boolean",
                         "default": true,
-                        "description": "Used to indicate if the supplier is enabled and therefore payable."
+                        "description": "For internal use only. Defaults to true if not passed. If passed, you should always set it to true."
                     },
                     "internal_payments": {
                         "type": "boolean",
