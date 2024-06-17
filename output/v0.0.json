@@ -2661,7 +2661,7 @@
                     },
                     "passport_country": {
                         "type": "string",
-                        "description": "Owner's passport country.\nequired only if passport is entered."
+                        "description": "Owner's passport country.\n required only if passport is entered."
                     },
                     "drivers_license_number": {
                         "type": "string",
