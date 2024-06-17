@@ -3966,6 +3966,11 @@
                         "description": "Supplier conversion eligibility determines if Finexio SHOULD NOT reach out to this supplier due to high sensitivity or special payment arrangements or contracted terms.",
                         "default": false
                     },
+                    "ineligible_for_cbm": {
+                        "type": "boolean",
+                        "description": "Indicates if the supplier is ineligible to receive payments using Card by Mail. If true the supplier will not be offered the Card by Mail program. Defaults to false if not passed.",
+                        "default": false
+                    },
                     "payee_type": {
                         "enum": [
                             "Employee",
