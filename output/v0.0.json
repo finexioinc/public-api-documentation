@@ -2669,8 +2669,7 @@
                     },
                     "drivers_license_state": {
                         "type": "string",
-                        "description": "2 alpha State issuing the driver's license.",
-                        "length": 2
+                        "description": "2 alpha State issuing the driver's license."
                     }
                 },
                 "required": [
