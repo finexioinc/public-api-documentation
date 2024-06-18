@@ -2139,17 +2139,17 @@
                 }
             }
         },
-        "/reconciliation/drawdown/{drawdown_request_id}": {
+        "/reconciliation/drawdown/{processor_request_id}": {
             "description": "Reconciliation",
             "get": {
                 "tags": [
                     "Reconciliation"
                 ],
                 "operationId": "getDrawdownInfoByFundingRequest",
-                "summary": "Get Drawdown Information by funding drawdown request id",
+                "summary": "Get Drawdown Information by processor_request_id",
                 "parameters": [
                     {
-                        "name": "drawdown_request_id",
+                        "name": "processor_request_id",
                         "required": true,
                         "in": "path",
                         "description": "Funding drawdown request id.",
@@ -2184,17 +2184,17 @@
                 }
             }
         },
-        "/reconciliation/drawdown/{drawdown_request_id}/payments": {
+        "/reconciliation/drawdown/{processor_request_id}/payments": {
             "description": "Reconciliation",
             "get": {
                 "tags": [
                     "Reconciliation"
                 ],
                 "operationId": "getDrawdownDetail",
-                "summary": "Get Drawdown Detail by funding drawdown request id",
+                "summary": "Get Drawdown Detail by processor_request_id",
                 "parameters": [
                     {
-                        "name": "drawdown_request_id",
+                        "name": "processor_request_id",
                         "required": true,
                         "in": "path",
                         "description": "Funding drawdown request id.",
@@ -3041,13 +3041,15 @@
             "DrawdownDetail": {
                 "type": "object",
                 "properties": {
-                    "supplier_id": {
+                    "supplier_ref_id": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "External identifier of the supplier that was paid."
                     },
                     "supplier_name": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Name of the supplier that was paid."
                     },
                     "invoices": {
                         "type": "array",
@@ -3059,43 +3061,52 @@
                     },
                     "payment_amount": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Payment's dollar amount."
                     },
                     "payment_method": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Method of payment."
                     },
                     "reconciliation_account_id": {
                         "type": "string",
                         "readOnly": true
                     },
-                    "rc_number": {
+                    "rc": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Unique tracking id of the payment."
                     },
-                    "remittance_address_line_1": {
+                    "address_1": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "The supplier's street address the payment was sent to if the payment's delivery method was 'mail'."
                     },
-                    "remittance_address_line_2": {
+                    "address_2": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Supplier address line 2."
                     },
-                    "remittance_city": {
+                    "city": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Supplier address city."
                     },
-                    "remittance_state": {
+                    "state": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Supplier address state."
                     },
-                    "remittance_zip": {
+                    "zip": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Supplier address zip code."
                     },
-                    "remittance_email_address": {
+                    "email": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "The supplier's email address the payment was sent to if the payment's delivery method was 'email'."
                     }
                 }
             },
@@ -3104,45 +3115,55 @@
                 "properties": {
                     "processor_request_id": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Unique request id at the funding processor."
                     },
                     "reconciliation_id": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "External id provided when the order was created."
                     },
-                    "bank_account_last_4": {
+                    "bank_account_last_four": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Last four digits of the bank account the funds were drawn down from when using the ACH Debit funding method."
                     },
                     "order_create_date": {
                         "type": "string",
                         "format": "date-time",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Date the order was created for which the drawdown was performed."
                     },
                     "payment_status": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Status of the funding request."
                     },
                     "drawdown_amount": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Total dollar amount of the drawdown."
                     },
                     "funding_complete_date": {
                         "type": "string",
                         "format": "date-time",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Date the drawdown was completed and funds were received."
                     },
-                    "buyer_reference_id": {
+                    "buyer_ref_id": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "External identifier of the buyer the funds were drawn down from."
                     },
                     "buyer_name": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Name of the buyer."
                     },
                     "trace_id": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Trace id which can be used to track the drawdown back to the buyer's bank statement."
                     }
                 }
             },
