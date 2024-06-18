@@ -3071,7 +3071,8 @@
                     },
                     "reconciliation_account_id": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Account number provided with the invoice when the order was created."
                     },
                     "rc": {
                         "type": "string",
