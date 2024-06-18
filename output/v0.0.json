@@ -2152,7 +2152,7 @@
                         "name": "processor_request_id",
                         "required": true,
                         "in": "path",
-                        "description": "Funding drawdown request id.",
+                        "description": "Funding drawdown's processor_request_id.",
                         "schema": {
                             "type": "string"
                         }
@@ -2197,7 +2197,7 @@
                         "name": "processor_request_id",
                         "required": true,
                         "in": "path",
-                        "description": "Funding drawdown request id.",
+                        "description": "Funding drawdown's processor_request_id.",
                         "schema": {
                             "type": "string"
                         }
@@ -3071,7 +3071,8 @@
                     },
                     "reconciliation_account_id": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Account number provided with the invoice when the order was created."
                     },
                     "rc": {
                         "type": "string",
