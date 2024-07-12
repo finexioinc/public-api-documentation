@@ -2644,7 +2644,7 @@
                     "date_of_birth": {
                         "type": "string",
                         "description": "Owner's date of birth.\nacceptable format: yyyy-mm-dd",
-                        "pattern":"^\\d{4}-\\d{2}-\\d{2}$"
+                        "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
                     },
                     "email": {
                         "type": "string",
@@ -2990,10 +2990,16 @@
                         "enum": [
                             "Employee",
                             "Business",
-                            "Individual"
+                            "Individual",
+                            "InternalTransfer",
+                            "Student",
+                            "BankingInstitution",
+                            "Insurance",
+                            "Government",
+                            "Unknown"
                         ],
                         "type": "string",
-                        "description": "Accepts one of these values: [ 'Employee', 'Business', 'Individual' ]"
+                        "description": "Accepts one of these values: [ 'Employee', 'Business', 'Individual', 'InternalTransfer', 'Student', 'BankingInstitution', 'Insurance', 'Government', 'Unknown' ]"
                     },
                     "notes": {
                         "type": "string",
@@ -3995,12 +4001,16 @@
                         "enum": [
                             "Employee",
                             "Business",
+                            "Individual",
                             "InternalTransfer",
                             "Student",
-                            "Individual"
+                            "BankingInstitution",
+                            "Insurance",
+                            "Government",
+                            "Unknown"
                         ],
                         "type": "string",
-                        "description": "Accepts one of these values: [ 'Employee', 'Business','InternalTransfer','Student', 'Individual' ]"
+                        "description": "Accepts one of these values: [ 'Employee', 'Business', 'Individual', 'InternalTransfer', 'Student', 'BankingInstitution', 'Insurance', 'Government', 'Unknown' ]"
                     },
                     "twelve_month_payment_count": {
                         "type": "integer",
