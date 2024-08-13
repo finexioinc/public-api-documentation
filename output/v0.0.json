@@ -3376,6 +3376,21 @@
                         "readOnly": false,
                         "maxLength": 250,
                         "description": "This sensitive information is stored encrypted and can only be retrieved through the API."
+                    },
+                    "payment_group_id": {
+                        "type": "string",
+                        "description": "",
+                        "maxLength": 100
+                    },
+                    "can_be_resubmitted": {
+                        "type": "boolean",
+                        "description": ""
+                    },
+                    "accounting_id": {
+                        "type": "string",
+                        "readOnly": false,
+                        "maxLength": 70,
+                        "description": ""
                     }
                 }
             },
@@ -3560,6 +3575,68 @@
                     "adjustments": {
                         "type": "object",
                         "readOnly": true
+                    },
+                    "funding_drawdown_request_id": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "reissue_payment_method": {
+                        "$ref": "#/components/schemas/PaymentType"
+                    },
+                    "reconciliation_id": {
+                        "type": "string"
+                    },
+                    "refund_user": {
+                        "type": "string",
+                        "description": "Name of the user who initiated the refund.",
+                        "readOnly": true
+                    },
+                    "refund_timestamp": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Timestamp of when the refund was initiated.",
+                        "readOnly": true
+                    },
+                    "refund_reason": {
+                        "type": "string",
+                        "description": "Reason for the refund selected from a predefined list.",
+                        "readOnly": true
+                    },
+                    "refund_comment": {
+                        "type": "string",
+                        "description": "Additional comments provided by the user at the time of refund.",
+                        "readOnly": true
+                    },
+                    "refund_ticket_number": {
+                        "type": "string",
+                        "description": "Optional field for tracking ticket numbers associated with the refund.",
+                        "readOnly": true
+                    },
+                    "reissue_user": {
+                        "type": "string",
+                        "description": "Name of the user who initiated the reissue.",
+                        "readOnly": true
+                    },
+                    "reissue_timestamp": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Timestamp of when the reissue was initiated.",
+                        "readOnly": true
+                    },
+                    "reissue_reason": {
+                        "type": "string",
+                        "description": "Reason for the reissue selected from a predefined list.",
+                        "readOnly": true
+                    },
+                    "reissue_comment": {
+                        "type": "string",
+                        "description": "Additional comments provided by the user at the time of reissue.",
+                        "readOnly": true
+                    },
+                    "reissue_ticket_number": {
+                        "type": "string",
+                        "description": "Optional field for tracking ticket numbers associated with the reissue.",
+                        "readOnly": true
                     }
                 }
             },
@@ -3614,6 +3691,23 @@
                     },
                     "payment_amount_cents": {
                         "type": "integer",
+                        "readOnly": true
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "readOnly": true,
+                        "description": "Additional private data represented as key-value pairs."
+                    },
+                    "reconciliation_id": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "payment_group_id": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "public_account_number": {
+                        "type": "string",
                         "readOnly": true
                     }
                 }
