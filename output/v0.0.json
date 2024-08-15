@@ -3379,12 +3379,12 @@
                     },
                     "payment_group_id": {
                         "type": "string",
-                        "description": "",
+                        "description": "Optional value that will be used to group invoices into payments. When specified, only invoices with the same value will be included in a single payment.",
                         "maxLength": 100
                     },
                     "can_be_resubmitted": {
                         "type": "boolean",
-                        "description": ""
+                        "description": "Indicates if the same invoice number can be submitted again. Resubmitting the same invoice number for a specific buyer and supplier is only allowed if the prior payment was refunded."
                     },
                     "accounting_id": {
                         "type": "string",
@@ -3584,7 +3584,9 @@
                         "$ref": "#/components/schemas/PaymentType"
                     },
                     "reconciliation_id": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "A string to identify the invoice in your accounting system.",
+                        "maxLength": 50
                     },
                     "refund_user": {
                         "type": "string",
@@ -3700,11 +3702,13 @@
                     },
                     "reconciliation_id": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "A string to identify the invoice in your accounting system."
                     },
                     "payment_group_id": {
                         "type": "string",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Optional value that will be used to group invoices into payments. When specified, only invoices with the same value will be included in a single payment."
                     },
                     "public_account_number": {
                         "type": "string",
