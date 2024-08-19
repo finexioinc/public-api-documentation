@@ -2075,48 +2075,76 @@
                         }
                     },
                     {
-                        "name": "payment_status",
+                        "name": "status",
                         "required": false,
                         "in": "query",
                         "description": "Status of the funding request.",
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "enum": [
+                                "Open",
+                                "Fund",
+                                "Sending",
+                                "Sent",
+                                "Complete",
+                                "Error"
+                            ]
                         }
                     },
                     {
-                        "name": "order_create_date_start",
+                        "name": "created_start",
                         "required": false,
                         "in": "query",
-                        "description": "Upper limit of order create date.",
+                        "description": "Upper limit of drawdown create date.",
                         "schema": {
                             "type": "string",
                             "format": "date-time"
                         }
                     },
                     {
-                        "name": "order_create_date_end",
+                        "name": "created_end",
                         "required": false,
                         "in": "query",
-                        "description": "Lower limit of order create date.",
+                        "description": "Lower limit of drawdown create date.",
                         "schema": {
                             "type": "string",
                             "format": "date-time"
                         }
                     },
                     {
-                        "name": "drawdown_amount_start",
+                        "name": "completed_start",
                         "required": false,
                         "in": "query",
-                        "description": "Upper limit of drawdown amount.",
+                        "description": "Upper limit of drawdown complete date.",
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    },
+                    {
+                        "name": "completed_end",
+                        "required": false,
+                        "in": "query",
+                        "description": "Lower limit of drawdown complete date.",
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    },
+                    {
+                        "name": "amount_cents_start",
+                        "required": false,
+                        "in": "query",
+                        "description": "Upper limit of drawdown amount in cents.",
                         "schema": {
                             "type": "integer"
                         }
                     },
                     {
-                        "name": "drawdown_amount_end",
+                        "name": "amount_cents_end",
                         "required": false,
                         "in": "query",
-                        "description": "Lower limit of drawdown amount.",
+                        "description": "Lower limit of drawdown amount in cents.",
                         "schema": {
                             "type": "integer"
                         }
@@ -3075,9 +3103,15 @@
                         "readOnly": true,
                         "description": "Method of payment."
                     },
-                    "reconciliation_account_id": {
+                    "payment_group_id": {
                         "type": "string",
+                        "description": "Value used to include multiple invoices in a single payment.",
                         "readOnly": true
+                    },
+                    "payment_status": {
+                        "type": "string",
+                        "readOnly": true,
+                        "description": "Status of the payment."
                     },
                     "rc": {
                         "type": "string",
@@ -3124,31 +3158,26 @@
                         "readOnly": true,
                         "description": "Unique request id at the funding processor."
                     },
-                    "reconciliation_id": {
-                        "type": "string",
-                        "readOnly": true,
-                        "description": "External id provided when the order was created."
-                    },
                     "bank_account_last_four": {
                         "type": "string",
                         "readOnly": true,
                         "description": "Last four digits of the bank account the funds were drawn down from when using the ACH Debit funding method."
                     },
-                    "order_create_date": {
+                    "created": {
                         "type": "string",
                         "format": "date-time",
                         "readOnly": true,
                         "description": "Date the order was created for which the drawdown was performed."
                     },
-                    "payment_status": {
+                    "status": {
                         "type": "string",
                         "readOnly": true,
                         "description": "Status of the funding request."
                     },
-                    "drawdown_amount": {
+                    "amount_cents": {
                         "type": "string",
                         "readOnly": true,
-                        "description": "Total dollar amount of the drawdown."
+                        "description": "Total cents amount of the drawdown."
                     },
                     "funding_complete_date": {
                         "type": "string",
@@ -3199,6 +3228,14 @@
                     },
                     "metadata": {
                         "type": "object",
+                        "readOnly": true
+                    },
+                    "reconciliation_id": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "account_number": {
+                        "type": "string",
                         "readOnly": true
                     }
                 }
