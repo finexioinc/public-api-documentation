@@ -2101,7 +2101,7 @@
                         "name": "created_start",
                         "required": false,
                         "in": "query",
-                        "description": "Upper limit of drawdown create date.",
+                        "description": "Starting date to find drawdown's that were created within a date range.",
                         "schema": {
                             "type": "string",
                             "format": "date-time"
@@ -2111,7 +2111,7 @@
                         "name": "created_end",
                         "required": false,
                         "in": "query",
-                        "description": "Lower limit of drawdown create date.",
+                        "description": "Ending date to find drawdown's that were created within a date range.",
                         "schema": {
                             "type": "string",
                             "format": "date-time"
@@ -2121,7 +2121,7 @@
                         "name": "completed_start",
                         "required": false,
                         "in": "query",
-                        "description": "Upper limit of drawdown complete date.",
+                        "description": "Starting date to find drawdown's that were completed within a date range.",
                         "schema": {
                             "type": "string",
                             "format": "date-time"
@@ -2131,7 +2131,7 @@
                         "name": "completed_end",
                         "required": false,
                         "in": "query",
-                        "description": "Lower limit of drawdown complete date.",
+                        "description": "Ending date to find drawdown's that were completed within a date range.",
                         "schema": {
                             "type": "string",
                             "format": "date-time"
@@ -2141,7 +2141,7 @@
                         "name": "amount_cents_start",
                         "required": false,
                         "in": "query",
-                        "description": "Upper limit of drawdown amount in cents.",
+                        "description": "Lowest drawdown amount in cents to find drawdown's in a range of drawdown amounts,",
                         "schema": {
                             "type": "integer"
                         }
@@ -2150,7 +2150,7 @@
                         "name": "amount_cents_end",
                         "required": false,
                         "in": "query",
-                        "description": "Lower limit of drawdown amount in cents.",
+                        "description": "Highest drawdown amount in cents to find drawdown's in a range of drawdown amounts,",
                         "schema": {
                             "type": "integer"
                         }
