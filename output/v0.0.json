@@ -2053,7 +2053,8 @@
                         "in": "query",
                         "description": "Buyer uuid.",
                         "schema": {
-                            "type": "uuid"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     },
                     {
