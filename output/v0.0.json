@@ -2048,6 +2048,15 @@
                         }
                     },
                     {
+                        "name": "originating_counterparty_id",
+                        "required": false,
+                        "in": "query",
+                        "description": "Buyer uuid.",
+                        "schema": {
+                            "type": "uuid"
+                        }
+                    },
+                    {
                         "name": "supplier_ref_id",
                         "required": false,
                         "in": "query",
@@ -2057,7 +2066,7 @@
                         }
                     },
                     {
-                        "name": "rc",
+                        "name": "tracking_id",
                         "required": false,
                         "in": "query",
                         "description": "Payment tracking_id.",
@@ -2075,48 +2084,73 @@
                         }
                     },
                     {
-                        "name": "payment_status",
+                        "name": "status",
                         "required": false,
                         "in": "query",
                         "description": "Status of the funding request.",
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "enum": [
+                                "requested",
+                                "received",
+                                "error"
+                            ]
                         }
                     },
                     {
-                        "name": "order_create_date_start",
+                        "name": "created_start",
                         "required": false,
                         "in": "query",
-                        "description": "Upper limit of order create date.",
+                        "description": "Upper limit of drawdown create date.",
                         "schema": {
                             "type": "string",
                             "format": "date-time"
                         }
                     },
                     {
-                        "name": "order_create_date_end",
+                        "name": "created_end",
                         "required": false,
                         "in": "query",
-                        "description": "Lower limit of order create date.",
+                        "description": "Lower limit of drawdown create date.",
                         "schema": {
                             "type": "string",
                             "format": "date-time"
                         }
                     },
                     {
-                        "name": "drawdown_amount_start",
+                        "name": "completed_start",
                         "required": false,
                         "in": "query",
-                        "description": "Upper limit of drawdown amount.",
+                        "description": "Upper limit of drawdown complete date.",
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    },
+                    {
+                        "name": "completed_end",
+                        "required": false,
+                        "in": "query",
+                        "description": "Lower limit of drawdown complete date.",
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    },
+                    {
+                        "name": "amount_cents_start",
+                        "required": false,
+                        "in": "query",
+                        "description": "Upper limit of drawdown amount in cents.",
                         "schema": {
                             "type": "integer"
                         }
                     },
                     {
-                        "name": "drawdown_amount_end",
+                        "name": "amount_cents_end",
                         "required": false,
                         "in": "query",
-                        "description": "Lower limit of drawdown amount.",
+                        "description": "Lower limit of drawdown amount in cents.",
                         "schema": {
                             "type": "integer"
                         }
@@ -2644,7 +2678,7 @@
                     "date_of_birth": {
                         "type": "string",
                         "description": "Owner's date of birth.\nacceptable format: yyyy-mm-dd",
-                        "pattern":"^\\d{4}-\\d{2}-\\d{2}$"
+                        "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
                     },
                     "email": {
                         "type": "string",
@@ -2990,10 +3024,16 @@
                         "enum": [
                             "Employee",
                             "Business",
-                            "Individual"
+                            "Individual",
+                            "InternalTransfer",
+                            "Student",
+                            "BankingInstitution",
+                            "Insurance",
+                            "Government",
+                            "Unknown"
                         ],
                         "type": "string",
-                        "description": "Accepts one of these values: [ 'Employee', 'Business', 'Individual' ]"
+                        "description": "Accepts one of these values: [ 'Employee', 'Business', 'Individual', 'InternalTransfer', 'Student', 'BankingInstitution', 'Insurance', 'Government', 'Unknown' ]"
                     },
                     "notes": {
                         "type": "string",
@@ -3041,6 +3081,21 @@
             "DrawdownDetail": {
                 "type": "object",
                 "properties": {
+                    "id": {
+                        "type": "string",
+                        "readOnly": true,
+                        "description": "Payment uuid."
+                    },
+                    "originating_counterparty_id": {
+                        "type": "string",
+                        "readOnly": true,
+                        "description": ""
+                    },
+                    "receiving_counterparty_id": {
+                        "type": "string",
+                        "readOnly": true,
+                        "description": ""
+                    },
                     "supplier_ref_id": {
                         "type": "string",
                         "readOnly": true,
@@ -3059,22 +3114,32 @@
                         },
                         "readOnly": true
                     },
-                    "payment_amount": {
+                    "amount_cents": {
                         "type": "string",
                         "readOnly": true,
-                        "description": "Payment's dollar amount."
+                        "description": "Total cents amount of the payment."
                     },
                     "payment_method": {
                         "type": "string",
                         "readOnly": true,
                         "description": "Method of payment."
                     },
-                    "reconciliation_account_id": {
+                    "delivery_method": {
                         "type": "string",
                         "readOnly": true,
-                        "description": "Account number provided with the invoice when the order was created."
+                        "description": "Delivery method of payment."
                     },
-                    "rc": {
+                    "status": {
+                        "type": "string",
+                        "readOnly": true,
+                        "description": "Status of the payment."
+                    },
+                    "payment_group_id": {
+                        "type": "string",
+                        "description": "Value used to include multiple invoices in a single payment.",
+                        "readOnly": true
+                    },
+                    "tracking_id": {
                         "type": "string",
                         "readOnly": true,
                         "description": "Unique tracking id of the payment."
@@ -3119,37 +3184,37 @@
                         "readOnly": true,
                         "description": "Unique request id at the funding processor."
                     },
-                    "reconciliation_id": {
-                        "type": "string",
-                        "readOnly": true,
-                        "description": "External id provided when the order was created."
-                    },
                     "bank_account_last_four": {
                         "type": "string",
                         "readOnly": true,
                         "description": "Last four digits of the bank account the funds were drawn down from when using the ACH Debit funding method."
                     },
-                    "order_create_date": {
+                    "created": {
                         "type": "string",
                         "format": "date-time",
                         "readOnly": true,
                         "description": "Date the order was created for which the drawdown was performed."
                     },
-                    "payment_status": {
+                    "status": {
                         "type": "string",
                         "readOnly": true,
                         "description": "Status of the funding request."
                     },
-                    "drawdown_amount": {
+                    "amount_cents": {
                         "type": "string",
                         "readOnly": true,
-                        "description": "Total dollar amount of the drawdown."
+                        "description": "Total cents amount of the drawdown."
                     },
                     "funding_complete_date": {
                         "type": "string",
                         "format": "date-time",
                         "readOnly": true,
                         "description": "Date the drawdown was completed and funds were received."
+                    },
+                    "originating_counterparty_id": {
+                        "type": "string",
+                        "readOnly": true,
+                        "description": ""
                     },
                     "buyer_ref_id": {
                         "type": "string",
@@ -3171,13 +3236,20 @@
             "DrawdownDetailInvoice": {
                 "type": "object",
                 "properties": {
-                    "invoice_amount": {
-                        "type": "integer",
-                        "readOnly": true
+                    "id": {
+                        "type": "string",
+                        "readOnly": true,
+                        "description": "Invoice uuid."
                     },
-                    "discount_amount": {
+                    "payment_amount_cents": {
                         "type": "integer",
-                        "readOnly": true
+                        "readOnly": true,
+                        "description": "Total cents amount of the invoice."
+                    },
+                    "discount_amount_cents": {
+                        "type": "integer",
+                        "readOnly": true,
+                        "description": "Total cents amount of the invoice discountF."
                     },
                     "invoice_date": {
                         "type": "string",
@@ -3188,7 +3260,15 @@
                         "type": "string",
                         "readOnly": true
                     },
+                    "reconciliation_id": {
+                        "type": "string",
+                        "readOnly": true
+                    },
                     "accounting_id": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "account_number": {
                         "type": "string",
                         "readOnly": true
                     },
@@ -3371,6 +3451,21 @@
                         "readOnly": false,
                         "maxLength": 250,
                         "description": "This sensitive information is stored encrypted and can only be retrieved through the API."
+                    },
+                    "payment_group_id": {
+                        "type": "string",
+                        "description": "Optional value that will be used to group invoices into payments. When specified, only invoices with the same value will be included in a single payment.",
+                        "maxLength": 100
+                    },
+                    "can_be_resubmitted": {
+                        "type": "boolean",
+                        "description": "Indicates if the same invoice number can be submitted again. Resubmitting the same invoice number for a specific buyer and supplier is only allowed if the prior payment was refunded."
+                    },
+                    "accounting_id": {
+                        "type": "string",
+                        "readOnly": false,
+                        "maxLength": 70,
+                        "description": ""
                     }
                 }
             },
@@ -3555,6 +3650,70 @@
                     "adjustments": {
                         "type": "object",
                         "readOnly": true
+                    },
+                    "funding_drawdown_request_id": {
+                        "type": "string",
+                        "readOnly": true
+                    },
+                    "reissue_payment_method": {
+                        "$ref": "#/components/schemas/PaymentType"
+                    },
+                    "reconciliation_id": {
+                        "type": "string",
+                        "description": "A string to identify the invoice in your accounting system.",
+                        "maxLength": 50
+                    },
+                    "refund_user": {
+                        "type": "string",
+                        "description": "Name of the user who initiated the refund.",
+                        "readOnly": true
+                    },
+                    "refund_timestamp": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Timestamp of when the refund was initiated.",
+                        "readOnly": true
+                    },
+                    "refund_reason": {
+                        "type": "string",
+                        "description": "Reason for the refund selected from a predefined list.",
+                        "readOnly": true
+                    },
+                    "refund_comment": {
+                        "type": "string",
+                        "description": "Additional comments provided by the user at the time of refund.",
+                        "readOnly": true
+                    },
+                    "refund_ticket_number": {
+                        "type": "string",
+                        "description": "Optional field for tracking ticket numbers associated with the refund.",
+                        "readOnly": true
+                    },
+                    "reissue_user": {
+                        "type": "string",
+                        "description": "Name of the user who initiated the reissue.",
+                        "readOnly": true
+                    },
+                    "reissue_timestamp": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Timestamp of when the reissue was initiated.",
+                        "readOnly": true
+                    },
+                    "reissue_reason": {
+                        "type": "string",
+                        "description": "Reason for the reissue selected from a predefined list.",
+                        "readOnly": true
+                    },
+                    "reissue_comment": {
+                        "type": "string",
+                        "description": "Additional comments provided by the user at the time of reissue.",
+                        "readOnly": true
+                    },
+                    "reissue_ticket_number": {
+                        "type": "string",
+                        "description": "Optional field for tracking ticket numbers associated with the reissue.",
+                        "readOnly": true
                     }
                 }
             },
@@ -3609,6 +3768,25 @@
                     },
                     "payment_amount_cents": {
                         "type": "integer",
+                        "readOnly": true
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "readOnly": true,
+                        "description": "Additional private data represented as key-value pairs."
+                    },
+                    "reconciliation_id": {
+                        "type": "string",
+                        "readOnly": true,
+                        "description": "A string to identify the invoice in your accounting system."
+                    },
+                    "payment_group_id": {
+                        "type": "string",
+                        "readOnly": true,
+                        "description": "Optional value that will be used to group invoices into payments. When specified, only invoices with the same value will be included in a single payment."
+                    },
+                    "public_account_number": {
+                        "type": "string",
                         "readOnly": true
                     }
                 }
@@ -3996,12 +4174,16 @@
                         "enum": [
                             "Employee",
                             "Business",
+                            "Individual",
                             "InternalTransfer",
                             "Student",
-                            "Individual"
+                            "BankingInstitution",
+                            "Insurance",
+                            "Government",
+                            "Unknown"
                         ],
                         "type": "string",
-                        "description": "Accepts one of these values: [ 'Employee', 'Business','InternalTransfer','Student', 'Individual' ]"
+                        "description": "Accepts one of these values: [ 'Employee', 'Business', 'Individual', 'InternalTransfer', 'Student', 'BankingInstitution', 'Insurance', 'Government', 'Unknown' ]"
                     },
                     "twelve_month_payment_count": {
                         "type": "integer",
