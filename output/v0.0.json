@@ -3718,7 +3718,7 @@
                     },
                     "finexio_express": {
                         "type": "boolean",
-                        "description": "",
+                        "description": "Indicates if the ACH payment was sent using Finexio Express.",
                         "readOnly": true
                     }
                 }
