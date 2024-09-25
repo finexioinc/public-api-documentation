@@ -1641,6 +1641,19 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "checkImageType",
+                        "in": "query",
+                        "required": false,
+                        "description": "",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "Issued",
+                                "Deposited"
+                            ]
+                        }
                     }
                 ],
                 "responses": {
