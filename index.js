@@ -1,7 +1,7 @@
 const express = require('express')
 const redoc = require('redoc-express')
 
-const port = 3000
+const port = 3002
 const app = express()
 
 app.get('/v0.0.json', (req, res) => {
