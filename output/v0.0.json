@@ -3715,6 +3715,11 @@
                         "type": "string",
                         "description": "Optional field for tracking ticket numbers associated with the reissue.",
                         "readOnly": true
+                    },
+                    "finexio_express": {
+                        "type": "boolean",
+                        "description": "Indicates if the ACH payment was sent using Finexio Express.",
+                        "readOnly": true
                     }
                 }
             },
