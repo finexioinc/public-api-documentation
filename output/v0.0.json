@@ -1941,56 +1941,17 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/components/schemas/WebhookRequestBodyModel"
-                                    },
-                                    {
-                                        "type": "object",
-                                        "required": [
-                                            "event",
-                                            "url",
-                                            "username",
-                                            "password"
-                                        ]
-                                    }
-                                ]
+                                "$ref": "#/components/schemas/WebhookRequestBodyModel"
                             }
                         },
                         "application/x-www-form-urlencoded": {
                             "schema": {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/components/schemas/WebhookRequestBodyModel"
-                                    },
-                                    {
-                                        "type": "object",
-                                        "required": [
-                                            "event",
-                                            "url",
-                                            "username",
-                                            "password"
-                                        ]
-                                    }
-                                ]
+                                "$ref": "#/components/schemas/WebhookRequestBodyModel"
                             }
                         },
                         "multipart/form-data": {
                             "schema": {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/components/schemas/WebhookRequestBodyModel"
-                                    },
-                                    {
-                                        "type": "object",
-                                        "required": [
-                                            "event",
-                                            "url",
-                                            "username",
-                                            "password"
-                                        ]
-                                    }
-                                ]
+                                "$ref": "#/components/schemas/WebhookRequestBodyModel"
                             }
                         }
                     }
@@ -4359,7 +4320,6 @@
                         "type": "string",
                         "format": "uri",
                         "description": "Callback URL",
-                        "maxLength": 190,
                         "pattern": "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:\\.]+\\]|([a-z¡-￿0-9](?:[a-z¡-￿0-9-]{0,61}[a-z¡-￿0-9])?(?:\\.(?!-)[a-z¡-￿0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z¡-￿-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\.?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?"
                     },
                     "content_type": {
@@ -4370,18 +4330,38 @@
                         "type": "string",
                         "description": "Desired content type for requests to this callback."
                     },
-                    "user": {
-                        "type": "integer"
-                    },
                     "username": {
                         "type": "string",
-                        "description": "Basic Auth username",
-                        "maxLength": 190
+                        "description": "Basic Auth username"
                     },
                     "password": {
                         "type": "string",
-                        "description": "Basic Auth password",
-                        "maxLength": 190
+                        "description": "Basic Auth password"
+                    },
+                    "invoice_ids": {
+                        "type": "boolean",
+                        "description": "Include invoice ids in the webhook payload",
+                        "default": false
+                    },
+                    "payment_status": {
+                        "type": "boolean",
+                        "description": "Include payment status in the webhook payload",
+                        "default": false
+                    },
+                    "payment_events": {
+                        "type": "boolean",
+                        "description": "Include payment events in the webhook payload",
+                        "default": false
+                    },
+                    "refund_reason": {
+                        "type": "boolean",
+                        "description": "Include refund reason (if it was initiated) in the webhook payload",
+                        "default": false
+                    },
+                    "instrument_number": {
+                        "type": "boolean",
+                        "description": "Include instrument number (if available) in the webhook payload",
+                        "default": false
                     }
                 }
             }
