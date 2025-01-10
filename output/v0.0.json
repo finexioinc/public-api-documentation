@@ -420,6 +420,26 @@
                         "schema": {
                             "type": "boolean"
                         }
+                    },
+                    {
+                        "name": "cbm_optout_date_start",
+                        "required": false,
+                        "in": "query",
+                        "description": "An ISO 8601 formatted date. The result list will be Filtered for suppliers that opted out of CBM on or after the specified date",
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    },
+                    {
+                        "name": "cbm_optout_date_end",
+                        "required": false,
+                        "in": "query",
+                        "description": "An ISO 8601 formatted date. The result list will be Filtered for suppliers that opted out of CBM on or before the specified date",
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
                     }
                 ],
                 "responses": {
