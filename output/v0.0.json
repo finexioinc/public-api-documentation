@@ -1565,6 +1565,69 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "created_start",
+                        "required": false,
+                        "in": "query",
+                        "description": "Filters payments created on or after the specified date",
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    },
+                    {
+                        "name": "created_end",
+                        "required": false,
+                        "in": "query",
+                        "description": "Filters payments created on or before the specified date",
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    },
+                    {
+                        "name": "updated_start",
+                        "required": false,
+                        "in": "query",
+                        "description": "Filters payments updated on or after the specified date",
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    },
+                    {
+                        "name": "updated_end",
+                        "required": false,
+                        "in": "query",
+                        "description": "Filters payments updated on or before the specified date",
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "required": false,
+                        "in": "query",
+                        "description": "Filters payments by their current status",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "pending",
+                                "in-progress",
+                                "settled"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "refunded",
+                        "required": false,
+                        "in": "query",
+                        "description": "If set to True, filters payments associated with a refund",
+                        "schema": {
+                            "type": "boolean"
+                        }
                     }
                 ],
                 "responses": {
