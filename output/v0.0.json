@@ -2259,6 +2259,11 @@
                         "maxLength": 120,
                         "description": "max length = 120"
                     },
+                    "dba_name": {
+                        "type": "string",
+                        "maxLength": 100,
+                        "description": "doing business as name (max length = 100)"
+                    },
                     "address_1": {
                         "type": "string",
                         "maxLength": 40,
