@@ -19,6 +19,7 @@
     "paths": {
         "/counterparties/": {
             "get": {
+                "deprecated": true,
                 "summary": "List Counterparties",
                 "operationId": "List Counterparties",
                 "description": "Get A Paginated List Of All Counterparties",
@@ -100,6 +101,7 @@
                 ]
             },
             "post": {
+                "deprecated": true,
                 "operationId": "Create Counterparty",
                 "summary": "Create Counterparty",
                 "description": "Create A New Counterparty",
@@ -135,6 +137,7 @@
         },
         "/counterparties/{id}/": {
             "get": {
+                "deprecated": true,
                 "operationId": "Get Counterparty",
                 "summary": "Get Counterparty Detail",
                 "description": "Get Information Of A Single Counterparty",
@@ -186,6 +189,7 @@
                 ]
             },
             "put": {
+                "deprecated": true,
                 "operationId": "Update Counterparty",
                 "summary": "Update Counterparty",
                 "description": "Update An Existing Counterparty",
@@ -256,6 +260,7 @@
                 ]
             },
             "patch": {
+                "deprecated": true,
                 "operationId": "Partial Update Counterparty",
                 "summary": "Partial Update Counterparty",
                 "description": "Partially update an existing counterparty",
