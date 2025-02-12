@@ -2204,7 +2204,7 @@
                         "name": "amount_cents_start",
                         "required": false,
                         "in": "query",
-                        "description": "Lowest drawdown amount in cents to find drawdown's in a range of drawdown amounts,",
+                        "description": "Lowest drawdown amount in cents to find drawdowns in a range of drawdown amounts.",
                         "schema": {
                             "type": "integer"
                         }
@@ -2213,7 +2213,7 @@
                         "name": "amount_cents_end",
                         "required": false,
                         "in": "query",
-                        "description": "Highest drawdown amount in cents to find drawdown's in a range of drawdown amounts,",
+                        "description": "Highest drawdown amount in cents to find drawdowns in a range of drawdown amounts.",
                         "schema": {
                             "type": "integer"
                         }
