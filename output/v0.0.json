@@ -4284,6 +4284,14 @@
                         "type": "boolean",
                         "description": "Payments will be made by Finexio staff using the Phone or Portal delivery method.",
                         "default": false
+                    },
+                    "category": {
+                        "type": "string",
+                        "description": "Optional: Category name for supplier. Must be a valid category from the list of available categories."
+                    },
+                    "sub_category": {
+                        "type": "string",
+                        "description": "Optional: Subcategory name for supplier. Must be a valid subcategory from the list of available subcategories, available subcategories depend on the provided category value."
                     }
                 }
             },
