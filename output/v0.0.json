@@ -4463,6 +4463,11 @@
                         "type": "boolean",
                         "description": "Include instrument number (if available) in the webhook payload",
                         "default": false
+                    },
+                    "all_payment_details": {
+                        "type": "boolean",
+                        "description": "Include all payment details in the webhook payload",
+                        "default": false
                     }
                 }
             }
