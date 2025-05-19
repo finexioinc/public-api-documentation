@@ -3141,7 +3141,7 @@
                     "email",
                     "mail",
                     "phone",
-                    "portal",
+                    // "portal",
                     "null"
                 ],
                 "type": "string",
