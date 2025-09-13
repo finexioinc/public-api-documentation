@@ -3031,7 +3031,7 @@
                         "type": "string",
                         "maxLength": 50,
                         "format": "email",
-                        "description": "Required if `payment_method` is Card/ACH or payment_method is PrintedCheck and country is CAN."
+                        "description": "Required if `payment_method` is Card/ACH"
                     },
                     "primary_contact_name": {
                         "type": "string",
