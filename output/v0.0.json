@@ -3535,6 +3535,9 @@
                         "readOnly": false,
                         "maxLength": 70,
                         "description": ""
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/InvoiceStatus"
                     }
                 }
             },
@@ -3566,6 +3569,19 @@
                         }
                     }
                 }
+            },
+            "InvoiceStatus": {
+                "enum": [
+                    "pending",
+                    "in-progress",
+                    "sent",
+                    "complete",
+                    "failed",
+                    "canceled"
+                ],
+                "type": "string",
+                "readOnly": true,
+                "description": "Current invoice status"
             },
             "LegacyApiInvoice": {
                 "type": "object",
@@ -3891,7 +3907,7 @@
                     "pending",
                     "in-progress",
                     "settled",
-                    "cancelled"
+                    "canceled"
                 ],
                 "type": "string",
                 "readOnly": true,
