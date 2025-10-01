@@ -3265,6 +3265,12 @@
                     },
                     "status": {
                         "type": "string",
+                        "enum": [
+                            "requested",
+                            "received",
+                            "error",
+                            "canceled"
+                        ],
                         "readOnly": true,
                         "description": "Status of the funding request."
                     },
