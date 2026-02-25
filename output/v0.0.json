@@ -2882,7 +2882,7 @@
                                     "PrintedCheck",
                                     "Wire"
                                 ],
-                                "description": "accepts one of these values: [ 'ACH', 'Card', 'PrintedCheck','Wire' ]. Default ACH if no value specified.\nUpdate allowed only with permission."
+                                "description": "accepts one of these values: [ 'ACH', 'Card', 'PrintedCheck', 'Wire' ]. Default ACH if no value specified.\nUpdate allowed only with permission."
                             }
                         }
                     }
@@ -3061,7 +3061,7 @@
                             "PrintedCheck",
                             "Wire"
                         ],
-                        "description": "accepts one of these values: [ 'ACH', 'Card', 'PrintedCheck','Wire' ]. Default ACH if no value specified."
+                        "description": "accepts one of these values: [ 'ACH', 'Card', 'PrintedCheck', 'Wire' ]. Default ACH if no value specified."
                     },
                     "internal_id": {
                         "type": "string",
@@ -4225,9 +4225,10 @@
                             "ACH",
                             "Card",
                             "Check",
-                            "Wire"
+                            "Wire",
+                            "FinexioExpress"
                         ],
-                        "description": "accepts one of these values: [ 'ACH', 'Card', 'Check','Wire' ]."
+                        "description": "accepts one of these values: [ 'ACH', 'Card', 'Check', 'Wire', 'FinexioExpress' ]."
                     },
                     "delivery_method": {
                         "type": "string",
