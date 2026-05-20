@@ -498,8 +498,8 @@
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "Success"
+                    "201": {
+                        "description": "Created"
                     }
                 },
                 "tags": [
@@ -4226,9 +4226,10 @@
                             "Card",
                             "Check",
                             "Wire",
-                            "FinexioExpress"
+                            "FinexioExpress",
+                            "International"
                         ],
-                        "description": "accepts one of these values: [ 'ACH', 'Card', 'Check', 'Wire', 'FinexioExpress' ]."
+                        "description": "accepts one of these values: [ 'ACH', 'Card', 'Check', 'Wire', 'FinexioExpress', 'International' ]."
                     },
                     "delivery_method": {
                         "type": "string",
@@ -4315,6 +4316,54 @@
                     "sub_category": {
                         "type": "string",
                         "description": "Optional: Subcategory name for supplier. Must be a valid subcategory from the list of available subcategories, available subcategories depend on the provided category value."
+                    },
+                    "international_iban": {
+                        "type": "string",
+                        "description": "IBAN number for international banking. Only applicable when payment_method is 'International'."
+                    },
+                    "international_swift_bic": {
+                        "type": "string",
+                        "description": "SWIFT/BIC code for international banking. Only applicable when payment_method is 'International'."
+                    },
+                    "international_account_number": {
+                        "type": "string",
+                        "description": "Account number for international banking. Only applicable when payment_method is 'International'."
+                    },
+                    "international_routing_number": {
+                        "type": "string",
+                        "description": "Routing number or sort code for international banking. Only applicable when payment_method is 'International'."
+                    },
+                    "international_bank_name": {
+                        "type": "string",
+                        "description": "Name of the international bank. Only applicable when payment_method is 'International'."
+                    },
+                    "international_bank_country": {
+                        "type": "string",
+                        "description": "Country of the international bank (ISO 3166 alpha-3). Only applicable when payment_method is 'International'."
+                    },
+                    "international_currency": {
+                        "type": "string",
+                        "description": "Currency code (ISO 4217) for international payments. Required when payment_method is 'International'."
+                    },
+                    "international_purpose_of_payment": {
+                        "type": "string",
+                        "description": "Purpose of payment for international banking. Only applicable when payment_method is 'International'."
+                    },
+                    "international_payee_type": {
+                        "type": "string",
+                        "enum": [
+                            "Business",
+                            "Individual"
+                        ],
+                        "description": "Payee type for international banking. Required when payment_method is 'International'. Accepts one of these values: [ 'Business', 'Individual' ]."
+                    },
+                    "international_account_type": {
+                        "type": "string",
+                        "enum": [
+                            "Savings",
+                            "Checking"
+                        ],
+                        "description": "Bank account type for international banking. Accepts one of these values: [ 'Savings', 'Checking' ]. Only applicable when payment_method is 'International'."
                     }
                 }
             },
