@@ -498,8 +498,8 @@
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "Success"
+                    "201": {
+                        "description": "Created"
                     }
                 },
                 "tags": [
@@ -3968,7 +3968,7 @@
                     "remit_address_1": {
                         "type": "string",
                         "maxLength": 40,
-                        "description": "max length = 40\nrequired only if payment_method is 'Check'"
+                        "description": "max length = 40\nrequired only if payment_method is 'Check' or 'International'"
                     },
                     "remit_address_2": {
                         "type": "string",
@@ -3978,7 +3978,7 @@
                     "remit_city": {
                         "type": "string",
                         "maxLength": 40,
-                        "description": "max length = 40\nrequired only if payment_method is 'Check'"
+                        "description": "max length = 40\nrequired only if payment_method is 'Check' or 'International'"
                     },
                     "remit_state": {
                         "enum": [
@@ -4065,14 +4065,9 @@
                         "description": "max length = 10\nrequired only if payment_method is 'Check'"
                     },
                     "remit_country": {
-                        "enum": [
-                            "CAN",
-                            "UMI",
-                            "USA"
-                        ],
                         "default": "USA",
                         "type": "string",
-                        "description": "accepts one of these values: [ 'CAN', 'UMI', 'USA' ].\nrequired only if payment_method is 'Check'"
+                        "description": "ISO 3166-1 alpha-3 country code.\n required only if payment_method is 'Check' or 'International'."
                     },
                     "corporate_address_1": {
                         "type": "string",
@@ -4195,8 +4190,8 @@
                     },
                     "tax_id": {
                         "type": "string",
-                        "maxLength": 11,
-                        "description": "max length = 11"
+                        "maxLength": 50,
+                        "description": "max length = 11 for domestic suppliers, 50 when payment_method is 'International'"
                     },
                     "contacts": {
                         "type": "array",
@@ -4207,7 +4202,7 @@
                     "remit_email": {
                         "type": "string",
                         "format": "email",
-                        "description": "required only if payment_method is 'Card' and delivery_method is 'Email'."
+                        "description": "required only if payment_method is 'Card' and delivery_method is 'Email', or if payment_method is 'International'."
                     },
                     "bank_account_number": {
                         "type": "string",
@@ -4226,13 +4221,14 @@
                             "Card",
                             "Check",
                             "Wire",
-                            "FinexioExpress"
+                            "FinexioExpress",
+                            "International"
                         ],
-                        "description": "accepts one of these values: [ 'ACH', 'Card', 'Check', 'Wire', 'FinexioExpress' ]."
+                        "description": "accepts one of these values: [ 'ACH', 'Card', 'Check', 'Wire', 'FinexioExpress', 'International' ]."
                     },
                     "delivery_method": {
                         "type": "string",
-                        "description": "accepts one of these values: [ 'Mail', 'Email', 'Portal','Phone' ] and can be null.\nRequired only if payment_method is other than ACH and Wire."
+                        "description": "accepts one of these values: [ 'Mail', 'Email', 'Portal','Phone' ] and can be null.\nRequired only if payment_method is other than ACH and Wire.\nNot applicable when payment_method is 'International'."
                     },
                     "notification_method": {
                         "type": "string",
@@ -4258,12 +4254,12 @@
                     },
                     "ineligible_for_conversion": {
                         "type": "boolean",
-                        "description": "Supplier conversion eligibility determines if Finexio SHOULD NOT reach out to this supplier due to high sensitivity or special payment arrangements or contracted terms.",
+                        "description": "Supplier conversion eligibility determines if Finexio SHOULD NOT reach out to this supplier due to high sensitivity or special payment arrangements or contracted terms.\nNot applicable when payment_method is 'International'.",
                         "default": false
                     },
                     "ineligible_for_cbm": {
                         "type": "boolean",
-                        "description": "Indicates if the supplier is ineligible to receive payments using Card by Mail. If true the supplier will not be offered the Card by Mail program. Defaults to false if not passed.",
+                        "description": "Indicates if the supplier is ineligible to receive payments using Card by Mail. If true the supplier will not be offered the Card by Mail program. Defaults to false if not passed.\nNot applicable when payment_method is 'International'.",
                         "default": false
                     },
                     "payee_type": {
@@ -4279,7 +4275,7 @@
                             "Unknown"
                         ],
                         "type": "string",
-                        "description": "Accepts one of these values: [ 'Employee', 'Business', 'Individual', 'InternalTransfer', 'Student', 'BankingInstitution', 'Insurance', 'Government', 'Unknown' ]"
+                        "description": "Accepts one of these values: [ 'Employee', 'Business', 'Individual', 'InternalTransfer', 'Student', 'BankingInstitution', 'Insurance', 'Government', 'Unknown' ]\nNot applicable when payment_method is 'International' (use international.payee_type instead)."
                     },
                     "twelve_month_payment_count": {
                         "type": "integer",
@@ -4315,6 +4311,80 @@
                     "sub_category": {
                         "type": "string",
                         "description": "Optional: Subcategory name for supplier. Must be a valid subcategory from the list of available subcategories, available subcategories depend on the provided category value."
+                    },
+                    "date_of_birth": {
+                        "type": "string",
+                        "description": "Date of birth in YYYY-MM-DD format. Required when payment_method is 'International'."
+                    },
+                    "international": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/International"
+                            }
+                        ],
+                        "description": "International banking details."
+                    }
+                }
+            },
+            "International": {
+                "type": "object",
+                "description": "International banking details. Only applicable when payment_method is 'International'.",
+                "properties": {
+                    "iban": {
+                        "type": "string",
+                        "maxLength": 34,
+                        "description": "max length = 34\nIBAN. Must pass ISO 13616 mod-97 validation."
+                    },
+                    "swift_bic": {
+                        "type": "string",
+                        "description": "SWIFT/BIC code of the supplier's bank. Must be 8 or 11 alphanumeric characters (e.g. BARCGB22 or BARCGB22XXX)."
+                    },
+                    "account_number": {
+                        "type": "string",
+                        "maxLength": 34,
+                        "description": "max length = 34\nBank account number."
+                    },
+                    "routing_number": {
+                        "type": "string",
+                        "description": "Country-specific bank routing code. Required for certain countries, with country-specific formats. Examples: GBR Sort Code (6 digits), AUS BSB (6 digits)."
+                    },
+                    "bank_name": {
+                        "type": "string",
+                        "maxLength": 100,
+                        "description": "max length = 100\nName of the supplier's bank."
+                    },
+                    "bank_country": {
+                        "type": "string",
+                        "description": "Country of the supplier's bank as an ISO 3166-1 alpha-3 code (e.g. 'GBR', 'AUS')."
+                    },
+                    "currency": {
+                        "type": "string",
+                        "description": "Currency for payments to this supplier as an ISO 4217 code (e.g. 'GBP', 'EUR'). Required for international suppliers."
+                    },
+                    "purpose_of_payment": {
+                        "type": "string",
+                        "maxLength": 100,
+                        "description": "max length = 100\nPurpose of payments made to this supplier."
+                    },
+                    "payee_type": {
+                        "type": "string",
+                        "enum": [
+                            "Business",
+                            "Individual"
+                        ],
+                        "description": "Payee type for international banking. Required for international suppliers. Accepts one of these values: [ 'Business', 'Individual' ]."
+                    },
+                    "account_type": {
+                        "type": "string",
+                        "description": "Bank account type."
+                    },
+                    "branch_code": {
+                        "type": "string",
+                        "description": "Country-specific bank branch identifier."
+                    },
+                    "payment_reference": {
+                        "type": "string",
+                        "description": "Payment/bill reference included with payments to this supplier."
                     }
                 }
             },
@@ -4363,6 +4433,7 @@
                 }
             },
             "SupplierContact": {
+                "description": "When the supplier's payment_method is 'International', a primary contact with name, email, and phone is required. The phone number must be in E.164 format with a country dial code (e.g. '+441632960000', max 15 digits after the '+'). When international.payee_type is 'Business', the primary contact name cannot be the same as the supplier name.",
                 "allOf": [
                     {
                         "$ref": "#/components/schemas/ContactBase"
