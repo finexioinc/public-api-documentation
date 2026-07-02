@@ -3185,12 +3185,28 @@
                     "amount_cents": {
                         "type": "string",
                         "readOnly": true,
-                        "description": "Total cents amount of the payment."
+                        "description": "Total cents amount of the payment. Always in USD; for international payments this is the USD amount drawn down to fund the payment."
+                    },
+                    "foreign_amount_minor_units": {
+                        "type": "integer",
+                        "format": "int64",
+                        "readOnly": true,
+                        "description": "For international payments, the amount delivered to the supplier in their local 'currency', expressed in ISO 4217 minor units (e.g. EUR 20,733.11 is returned as 2073311). Null for domestic (USD) payments."
+                    },
+                    "currency": {
+                        "type": "string",
+                        "readOnly": true,
+                        "description": "For international payments, the ISO 4217 currency code of the supplier's local currency (e.g. 'EUR', 'GBP', 'MXN'). 'USD' or null (null means USD) for domestic payments."
+                    },
+                    "fx_rate": {
+                        "type": "number",
+                        "readOnly": true,
+                        "description": "For international payments, the foreign exchange rate locked at payment execution. Null for domestic (USD) payments."
                     },
                     "payment_method": {
                         "type": "string",
                         "readOnly": true,
-                        "description": "Method of payment."
+                        "description": "Method of payment. 'International' for international payments."
                     },
                     "delivery_method": {
                         "type": "string",
@@ -3304,6 +3320,22 @@
                         "type": "string",
                         "readOnly": true,
                         "description": "Trace id which can be used to track the drawdown back to the buyer's bank statement."
+                    },
+                    "international_usd_amount_cents": {
+                        "type": "integer",
+                        "format": "int64",
+                        "readOnly": true,
+                        "description": "Total USD portion of the drawdown allocated to international payments, in cents. Null for drawdowns that contain no international payments."
+                    },
+                    "international_payment_count": {
+                        "type": "integer",
+                        "readOnly": true,
+                        "description": "Number of international payments funded by this drawdown. 0 for domestic-only drawdowns."
+                    },
+                    "fx_conversion_applied": {
+                        "type": "boolean",
+                        "readOnly": true,
+                        "description": "True if any payment in this drawdown involved a foreign exchange rate conversion."
                     }
                 }
             },
