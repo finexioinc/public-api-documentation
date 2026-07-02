@@ -3690,8 +3690,20 @@
                         "readOnly": true
                     },
                     "currency": {
+                        "type": "string",
+                        "readOnly": true,
+                        "description": "ISO 4217 currency code of the amount the supplier receives. 'USD' for domestic payments; the destination currency (e.g. 'EUR', 'GBP', 'MXN') for international payments."
+                    },
+                    "foreign_amount_minor_units": {
                         "type": "integer",
-                        "readOnly": true
+                        "format": "int64",
+                        "readOnly": true,
+                        "description": "For international payments, the amount the supplier receives in the destination 'currency', expressed in ISO 4217 minor units (e.g. EUR 20,733.11 is returned as 2073311). Null for domestic (USD) payments."
+                    },
+                    "fx_rate": {
+                        "type": "number",
+                        "readOnly": true,
+                        "description": "For international payments, the foreign exchange rate captured at disbursement time (a point-in-time snapshot, not a live rate). Null for domestic payments or when no rate was captured."
                     },
                     "originating_counterparty_id": {
                         "type": "string",
@@ -3923,7 +3935,8 @@
                     "check",
                     "ach",
                     "card",
-                    "wire"
+                    "wire",
+                    "international"
                 ],
                 "type": "string",
                 "readOnly": true
