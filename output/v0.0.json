@@ -1509,7 +1509,7 @@
             "post": {
                 "operationId": "Create Invoice Batch",
                 "summary": "Batch Create Invoices",
-                "description": "Submit an array of invoices.Request Format: Array of Invoice objects\n\nInternational payments: invoices for a supplier set up for International payments in a foreign currency must be submitted with 'currency' set to the supplier's currency, a non-zero 'foreign_amount_minor_units', and 'amount_cents' = 0. Failing invoices are rejected with a structured 'error_details' entry (index, originating_counterparty_id, receiving_counterparty_id, code, message) using one of these codes: 'INTERNATIONAL_NOT_ENROLLED' (supplier has not completed international banking enrollment), 'CURRENCY_REQUIRED', 'CURRENCY_MISMATCH', 'AMOUNT_CENTS_NOT_ALLOWED', 'FOREIGN_AMOUNT_REQUIRED', 'INVALID_FOREIGN_AMOUNT' (total of foreign_amount_minor_units per buyer/supplier group must be > 0). 'FOREIGN_AMOUNT_NOT_ALLOWED' is returned when foreign_amount_minor_units is non-zero for a domestic (USD) supplier.",
+                "description": "Submit an array of invoices.Request Format: Array of Invoice objects",
                 "parameters": [],
                 "requestBody": {
                     "content": {
@@ -3206,7 +3206,7 @@
                     "payment_method": {
                         "type": "string",
                         "readOnly": true,
-                        "description": "Method of payment. 'International' for international payments."
+                        "description": "Method of payment."
                     },
                     "delivery_method": {
                         "type": "string",
