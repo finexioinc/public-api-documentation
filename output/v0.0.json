@@ -1509,7 +1509,7 @@
             "post": {
                 "operationId": "Create Invoice Batch",
                 "summary": "Batch Create Invoices",
-                "description": "Submit an array of invoices.Request Format: Array of Invoice objects",
+                "description": "Submit an array of invoices.Request Format: Array of Invoice objects\n\nInternational payments: invoices for a supplier set up for International payments in a foreign currency must be submitted with 'currency' set to the supplier's currency, a non-zero 'foreign_amount_minor_units', and 'amount_cents' = 0. Failing invoices are rejected with a structured 'error_details' entry (index, originating_counterparty_id, receiving_counterparty_id, code, message) using one of these codes: 'INTERNATIONAL_NOT_ENROLLED' (supplier has not completed international banking enrollment), 'CURRENCY_REQUIRED', 'CURRENCY_MISMATCH', 'AMOUNT_CENTS_NOT_ALLOWED', 'FOREIGN_AMOUNT_REQUIRED', 'INVALID_FOREIGN_AMOUNT' (total of foreign_amount_minor_units per buyer/supplier group must be > 0). 'FOREIGN_AMOUNT_NOT_ALLOWED' is returned when foreign_amount_minor_units is non-zero for a domestic (USD) supplier.",
                 "parameters": [],
                 "requestBody": {
                     "content": {
@@ -3458,15 +3458,18 @@
                     },
                     "amount_cents": {
                         "type": "integer",
-                        "description": "Invoice amount in specified currency's smallest unit. e.g. $10 would be represented as 1000.",
+                        "description": "Invoice amount in specified currency's smallest unit. e.g. $10 would be represented as 1000.\nReturned as 0 for invoices to suppliers set up for International payments in a foreign currency (the amount is carried in foreign_amount_minor_units instead).",
                         "maximum": 999999900,
-                        "minimum": 1
+                        "minimum": 0
                     },
                     "currency": {
-                        "enum": [
-                            "USD"
-                        ],
-                        "type": "string"
+                        "type": "string",
+                        "description": "ISO 4217 currency code of the invoice. 'USD' for domestic invoices; the supplier's destination currency (e.g. 'EUR', 'GBP') for invoices to suppliers set up for International payments."
+                    },
+                    "foreign_amount_minor_units": {
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "For international payments, the supplier-facing amount in the supplier's 'currency', expressed in ISO 4217 minor units (e.g. euro-cents for EUR, pence for GBP), as submitted on the invoice. Returned as 0 for domestic (USD) invoices."
                     },
                     "discount_amount_cents": {
                         "type": "integer",
@@ -3593,7 +3596,13 @@
                 "properties": {
                     "amount_cents": {
                         "type": "integer",
-                        "description": "Invoice amount in specified currency's smallest unit. e.g. $10 would be represented as 1000."
+                        "description": "Invoice amount in specified currency's smallest unit. e.g. $10 would be represented as 1000.\nMust be 0 when the target supplier is set up for International payments in a foreign currency (submit the amount in foreign_amount_minor_units instead)."
+                    },
+                    "foreign_amount_minor_units": {
+                        "type": "integer",
+                        "format": "int64",
+                        "minimum": 0,
+                        "description": "For international payments, the supplier-facing amount in the supplier's currency, expressed in ISO 4217 minor units (e.g. euro-cents for EUR, pence for GBP).\nRequired and must be greater than 0 when the target supplier is set up for International payments in a foreign currency; must be 0 or omitted when the supplier is domestic (USD)."
                     },
                     "invoice_date": {
                         "type": "string",
@@ -3635,11 +3644,8 @@
                         "description": "Additional private data represented as key-value pairs. Both the key and value must be strings or integers."
                     },
                     "currency": {
-                        "enum": [
-                            "USD"
-                        ],
-                        "description": "Currency to be used for invoice payment. The accepted value is 'USD'",
-                        "type": "string"
+                        "type": "string",
+                        "description": "ISO 4217 currency code to be used for invoice payment. 'USD' (the default when omitted) for domestic suppliers.\nRequired when the target supplier is set up for International payments in a foreign currency, and must match that supplier's currency (e.g. 'EUR', 'GBP')."
                     },
                     "line_items": {
                         "type": "array",
