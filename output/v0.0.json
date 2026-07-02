@@ -4385,6 +4385,11 @@
                     "payment_reference": {
                         "type": "string",
                         "description": "Payment/bill reference included with payments to this supplier."
+                    },
+                    "enrolled": {
+                        "type": "boolean",
+                        "readOnly": true,
+                        "description": "Read-only. Indicates whether the supplier's international banking enrollment has been completed. Returned in responses only; any value supplied on create or update is ignored."
                     }
                 }
             },
