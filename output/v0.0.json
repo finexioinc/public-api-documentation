@@ -3185,7 +3185,23 @@
                     "amount_cents": {
                         "type": "string",
                         "readOnly": true,
-                        "description": "Total cents amount of the payment."
+                        "description": "Total cents amount of the payment. Always in USD; for international payments this is the USD amount drawn down to fund the payment."
+                    },
+                    "foreign_amount_minor_units": {
+                        "type": "integer",
+                        "format": "int64",
+                        "readOnly": true,
+                        "description": "For international payments, the amount delivered to the supplier in their local 'currency', expressed in ISO 4217 minor units (e.g. EUR 20,733.11 is returned as 2073311). Null for domestic (USD) payments."
+                    },
+                    "currency": {
+                        "type": "string",
+                        "readOnly": true,
+                        "description": "For international payments, the ISO 4217 currency code of the supplier's local currency (e.g. 'EUR', 'GBP', 'MXN'). 'USD' or null (null means USD) for domestic payments."
+                    },
+                    "fx_rate": {
+                        "type": "number",
+                        "readOnly": true,
+                        "description": "For international payments, the foreign exchange rate locked at payment execution. Null for domestic (USD) payments."
                     },
                     "payment_method": {
                         "type": "string",
@@ -3304,6 +3320,22 @@
                         "type": "string",
                         "readOnly": true,
                         "description": "Trace id which can be used to track the drawdown back to the buyer's bank statement."
+                    },
+                    "international_usd_amount_cents": {
+                        "type": "integer",
+                        "format": "int64",
+                        "readOnly": true,
+                        "description": "Total USD portion of the drawdown allocated to international payments, in cents. Null for drawdowns that contain no international payments."
+                    },
+                    "international_payment_count": {
+                        "type": "integer",
+                        "readOnly": true,
+                        "description": "Number of international payments funded by this drawdown. 0 for domestic-only drawdowns."
+                    },
+                    "fx_conversion_applied": {
+                        "type": "boolean",
+                        "readOnly": true,
+                        "description": "True if any payment in this drawdown involved a foreign exchange rate conversion."
                     }
                 }
             },
@@ -3458,15 +3490,18 @@
                     },
                     "amount_cents": {
                         "type": "integer",
-                        "description": "Invoice amount in specified currency's smallest unit. e.g. $10 would be represented as 1000.",
+                        "description": "Invoice amount in specified currency's smallest unit. e.g. $10 would be represented as 1000.\nReturned as 0 for invoices to suppliers set up for International payments in a foreign currency (the amount is carried in foreign_amount_minor_units instead).",
                         "maximum": 999999900,
-                        "minimum": 1
+                        "minimum": 0
                     },
                     "currency": {
-                        "enum": [
-                            "USD"
-                        ],
-                        "type": "string"
+                        "type": "string",
+                        "description": "ISO 4217 currency code of the invoice. 'USD' for domestic invoices; the supplier's destination currency (e.g. 'EUR', 'GBP') for invoices to suppliers set up for International payments."
+                    },
+                    "foreign_amount_minor_units": {
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "For international payments, the supplier-facing amount in the supplier's 'currency', expressed in ISO 4217 minor units (e.g. euro-cents for EUR, pence for GBP), as submitted on the invoice. Returned as 0 for domestic (USD) invoices."
                     },
                     "discount_amount_cents": {
                         "type": "integer",
@@ -3593,7 +3628,13 @@
                 "properties": {
                     "amount_cents": {
                         "type": "integer",
-                        "description": "Invoice amount in specified currency's smallest unit. e.g. $10 would be represented as 1000."
+                        "description": "Invoice amount in specified currency's smallest unit. e.g. $10 would be represented as 1000.\nMust be 0 when the target supplier is set up for International payments in a foreign currency (submit the amount in foreign_amount_minor_units instead)."
+                    },
+                    "foreign_amount_minor_units": {
+                        "type": "integer",
+                        "format": "int64",
+                        "minimum": 0,
+                        "description": "For international payments, the supplier-facing amount in the supplier's currency, expressed in ISO 4217 minor units (e.g. euro-cents for EUR, pence for GBP).\nRequired and must be greater than 0 when the target supplier is set up for International payments in a foreign currency; must be 0 or omitted when the supplier is domestic (USD)."
                     },
                     "invoice_date": {
                         "type": "string",
@@ -3635,11 +3676,8 @@
                         "description": "Additional private data represented as key-value pairs. Both the key and value must be strings or integers."
                     },
                     "currency": {
-                        "enum": [
-                            "USD"
-                        ],
-                        "description": "Currency to be used for invoice payment. The accepted value is 'USD'",
-                        "type": "string"
+                        "type": "string",
+                        "description": "ISO 4217 currency code to be used for invoice payment. 'USD' (the default when omitted) for domestic suppliers.\nRequired when the target supplier is set up for International payments in a foreign currency, and must match that supplier's currency (e.g. 'EUR', 'GBP')."
                     },
                     "line_items": {
                         "type": "array",
@@ -3690,8 +3728,20 @@
                         "readOnly": true
                     },
                     "currency": {
+                        "type": "string",
+                        "readOnly": true,
+                        "description": "ISO 4217 currency code of the amount the supplier receives. 'USD' for domestic payments; the destination currency (e.g. 'EUR', 'GBP', 'MXN') for international payments."
+                    },
+                    "foreign_amount_minor_units": {
                         "type": "integer",
-                        "readOnly": true
+                        "format": "int64",
+                        "readOnly": true,
+                        "description": "For international payments, the amount the supplier receives in the destination 'currency', expressed in ISO 4217 minor units (e.g. EUR 20,733.11 is returned as 2073311). Null for domestic (USD) payments."
+                    },
+                    "fx_rate": {
+                        "type": "number",
+                        "readOnly": true,
+                        "description": "For international payments, the foreign exchange rate captured at disbursement time (a point-in-time snapshot, not a live rate). Null for domestic payments or when no rate was captured."
                     },
                     "originating_counterparty_id": {
                         "type": "string",
@@ -3923,7 +3973,8 @@
                     "check",
                     "ach",
                     "card",
-                    "wire"
+                    "wire",
+                    "international"
                 ],
                 "type": "string",
                 "readOnly": true
