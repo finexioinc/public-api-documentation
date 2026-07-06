@@ -921,6 +921,90 @@
                 }
             }
         },
+        "/counterparties/suppliers/{id}/fxquote": {
+            "post": {
+                "tags": [
+                    "Suppliers"
+                ],
+                "operationId": "Get FX Rate Quote",
+                "summary": "Get FX Rate Quote",
+                "description": "Returns a real-time FX exchange rate quote",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "uuid of supplier",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FxQuoteRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FxQuoteResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FxQuoteBadRequestError"
+                                }
+                            }
+                        },
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FxQuoteNotFoundError"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "502": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FxQuoteProviderError"
+                                }
+                            }
+                        },
+                        "description": "Bad Gateway"
+                    },
+                    "503": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FxQuoteProviderUnavailableError"
+                                }
+                            }
+                        },
+                        "description": "Service Unavailable"
+
+                    }
+                }
+            }
+        },
         "/counterparties/buyers": {
             "get": {
                 "summary": "List Buyers",
@@ -4441,6 +4525,127 @@
                         "type": "boolean",
                         "readOnly": true,
                         "description": "Read-only. Indicates whether the supplier's international banking enrollment has been completed. Returned in responses only; any value supplied on create or update is ignored."
+                    }
+                }
+            },
+            "FxQuoteRequest": {
+                "type": "object",
+                "required": [
+                    "originating_counterparty_id",
+                    "foreign_amount_minor_units"
+                ],
+                "properties": {
+                    "originating_counterparty_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "uuid of the buyer (originating counterparty) the payment would be made on behalf of."
+                    },
+                    "foreign_amount_minor_units": {
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "Amount in the supplier's currency, expressed in minor units (e.g. pence for GBP, cents for EUR). Must be a whole integer greater than zero."
+                    }
+                }
+            },
+            "FxQuoteResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "readOnly": true,
+                        "description": "Identifier of this quote."
+                    },
+                    "exchange_rate": {
+                        "type": "number",
+                        "description": "FX exchange rate."
+                    },
+                    "currency": {
+                        "type": "string",
+                        "description": "ISO 4217 code of the supplier's currency the quote was generated for (e.g. 'GBP')."
+                    },
+                    "amount_cents": {
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "Equivalent USD amount in cents."
+                    },
+                    "foreign_amount_minor_units": {
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "The foreign currency amount from the request, in minor units."
+                    },
+                    "created": {
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "description": "When the quote was generated (UTC). Quotes are indicative and not locked; the rate applied at payment time may differ."
+                    }
+                }
+            },
+            "FxQuoteBadRequestError": {
+                "type": "object",
+                "properties": {
+                    "error_code": {
+                        "type": "string",
+                        "enum": [
+                            "SUPPLIER_NOT_ENROLLED_INTERNATIONAL",
+                            "PARTNER_INTL_NOT_ENABLED"
+                        ],
+                        "description": "'SUPPLIER_NOT_ENROLLED_INTERNATIONAL' when the supplier is not enrolled for international payments; 'PARTNER_INTL_NOT_ENABLED' when the partner is not enabled for international payments."
+                    },
+                    "detail": {
+                        "type": "string",
+                        "description": "Human-readable description of the error."
+                    }
+                }
+            },
+            "FxQuoteNotFoundError": {
+                "type": "object",
+                "properties": {
+                    "error_code": {
+                        "type": "string",
+                        "enum": [
+                            "SUPPLIER_NOT_FOUND",
+                            "BUYER_NOT_FOUND",
+                            "PARTNER_NOT_FOUND"
+                        ],
+                        "description": "Identifies which entity was not found."
+                    },
+                    "detail": {
+                        "type": "string",
+                        "description": "Human-readable description of the error."
+                    }
+                }
+            },
+            "FxQuoteProviderError": {
+                "type": "object",
+                "properties": {
+                    "error_code": {
+                        "type": "string",
+                        "enum": [
+                            "FX_PROVIDER_ERROR"
+                        ],
+                        "description": "The FX rate provider returned an error."
+                    },
+                    "detail": {
+                        "type": "string",
+                        "description": "Human-readable description of the error."
+                    }
+                }
+            },
+            "FxQuoteProviderUnavailableError": {
+                "type": "object",
+                "properties": {
+                    "error_code": {
+                        "type": "string",
+                        "enum": [
+                            "FX_PROVIDER_UNAVAILABLE"
+                        ],
+                        "description": "The FX rate service is temporarily unavailable; retry later."
+                    },
+                    "detail": {
+                        "type": "string",
+                        "description": "Human-readable description of the error."
                     }
                 }
             },
