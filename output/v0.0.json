@@ -4525,6 +4525,19 @@
                         "type": "boolean",
                         "readOnly": true,
                         "description": "Read-only. Indicates whether the supplier's international banking enrollment has been completed. Returned in responses only; any value supplied on create or update is ignored."
+                    },
+                    "enrollment_status": {
+                        "type": "string",
+                        "nullable": true,
+                        "readOnly": true,
+                        "enum": [
+                            "sent",
+                            "opened",
+                            "clicked",
+                            "bounced",
+                            "spam"
+                        ],
+                        "description": "Read-only. Delivery status of the supplier's international enrollment invite, derived from the most recent email-delivery event. One of: 'sent' (invite delivered to the supplier), 'opened', 'clicked', 'bounced' (invite never reached the supplier), 'spam' (supplier marked the invite as spam); null when no invite has been sent. Returned in responses only; any value supplied on create or update is ignored."
                     }
                 }
             },
