@@ -1845,6 +1845,158 @@
                 ]
             }
         },
+        "/payments/{key}/refund": {
+            "post": {
+                "operationId": "Refund Payment",
+                "summary": "Refund Payment",
+                "description": "Initiate a refund of a payment back to the buyer. Refunds are always for the full payment amount. Partial refunds are not supported.\n\nThe same eligibility rules as the Finexio self-service portal apply: the payment must not be complete, must have no correction already in progress, and must not be flagged for fraud review. Check payments are eligible; card payments are eligible only while the card is unused (no purchase or authorization has occurred and the card still holds its full balance). ACH, wire, and international payments are not eligible for self-service correction — contact Finexio support to correct these.\n\nThis endpoint is safe to retry. If a correction is already in progress for the payment — whether created by an earlier API call, the Finexio portal, or Finexio operations — no second correction is created and no error is returned; instead the response is `200 OK` with `already_in_progress: true` and the existing correction's current state.",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PaymentRefundRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaymentCorrectionResponse"
+                                }
+                            }
+                        },
+                        "description": "Success. Either a new correction was created (already_in_progress: false) or a correction already existed and its current state is reported instead (already_in_progress: true)."
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "$ref": "#/components/schemas/PaymentCorrectionDenied"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/PaymentCorrectionValidationError"
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "description": "Bad Request. Either the payment cannot be corrected (a denial with a human-readable detail and a stable machine-readable code) or a field failed validation (a map of field name to error messages)."
+                    },
+                    "403": {
+                        "description": "Forbidden. Your credential lacks the required permission."
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProblemDetails"
+                                }
+                            }
+                        },
+                        "description": "Not Found. No payment with that key exists for your account."
+                    },
+                    "500": {
+                        "description": "Internal Server Error. The correction could not be initiated due to a transient fault and nothing was created. Safe to retry."
+                    }
+                },
+                "tags": [
+                    "Payments"
+                ]
+            }
+        },
+        "/payments/{key}/reissue": {
+            "post": {
+                "operationId": "Reissue Payment",
+                "summary": "Reissue Payment",
+                "description": "Initiate a reissue of a payment to the supplier, for example when a check was lost or mailed to the wrong address. Finexio determines the reissue payment method automatically from the supplier's current payment configuration — you do not choose the method. Reissues act on the **full payment amount**. Partial reissues are not supported.\n\nThe same eligibility rules as the Finexio self-service portal apply: the payment must not be complete, must have no correction already in progress, and must not be flagged for fraud review. Check payments are eligible; card payments are eligible only while the card is unused (no purchase or authorization has occurred and the card still holds its full balance). ACH, wire, and international payments are not eligible for self-service correction. Contact Finexio support to correct these.\n\nThis endpoint is safe to retry. If a correction is already in progress for the payment — whether created by an earlier API call, the Finexio portal, or Finexio operations — no second correction is created and no error is returned; instead the response is `200 OK` with `already_in_progress: true` and the existing correction's current state.",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PaymentReissueRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaymentCorrectionResponse"
+                                }
+                            }
+                        },
+                        "description": "Success. Either a new correction was created (already_in_progress: false) or a correction already existed and its current state is reported instead (already_in_progress: true)."
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "$ref": "#/components/schemas/PaymentCorrectionDenied"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/PaymentCorrectionValidationError"
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "description": "Bad Request. Either the payment cannot be corrected (a denial with a human-readable detail and a stable machine-readable code) or a field failed validation (a map of field name to error messages)."
+                    },
+                    "403": {
+                        "description": "Forbidden. Your credential lacks the required permission."
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProblemDetails"
+                                }
+                            }
+                        },
+                        "description": "Not Found. No payment with that key exists for your account."
+                    },
+                    "500": {
+                        "description": "Internal Server Error. The correction could not be initiated due to a transient fault and nothing was created. Safe to retry."
+                    }
+                },
+                "tags": [
+                    "Payments"
+                ]
+            }
+        },
         "/webhooks/": {
             "description": "Subscriptions related operations.",
             "get": {
@@ -4062,6 +4214,153 @@
                 ],
                 "type": "string",
                 "readOnly": true
+            },
+            "PaymentRefundRequest": {
+                "type": "object",
+                "required": [
+                    "amount",
+                    "reason"
+                ],
+                "properties": {
+                    "amount": {
+                        "type": "number",
+                        "description": "Must equal the full original payment amount (the amount returned by GET /payments/{key}/). Any other value is rejected. Partial refunds are not supported."
+                    },
+                    "reason": {
+                        "type": "string",
+                        "enum": [
+                            "requested_by_customer"
+                        ],
+                        "description": "Why the refund is being requested. 'requested_by_customer' is currently the only accepted refund reason."
+                    },
+                    "note": {
+                        "type": "string",
+                        "description": "Optional free-text comment stored with the correction, visible to Finexio operations."
+                    }
+                }
+            },
+            "PaymentReissueRequest": {
+                "type": "object",
+                "required": [
+                    "amount",
+                    "reason"
+                ],
+                "properties": {
+                    "amount": {
+                        "type": "number",
+                        "description": "Must equal the full original payment amount (the amount returned by GET /payments/{key}/). Any other value is rejected. Partial reissues are not supported."
+                    },
+                    "reason": {
+                        "type": "string",
+                        "enum": [
+                            "lost_check",
+                            "incorrect_address",
+                            "supplier_cannot_accept_card",
+                            "supplier_card_by_mail_accidental",
+                            "other"
+                        ],
+                        "description": "Why the reissue is being requested. 'lost_check': the original check was lost in transit or misplaced. 'incorrect_address': the payment was sent to the wrong mailing address. 'supplier_cannot_accept_card': the supplier can no longer accept card payments; the payment is reissued as a check by mail unless the supplier's configuration specifies another method. 'supplier_card_by_mail_accidental': the supplier was placed on card-by-mail in error; behaves like 'supplier_cannot_accept_card'. 'other': any other reason — include details in 'note'."
+                    },
+                    "note": {
+                        "type": "string",
+                        "description": "Optional free-text comment stored with the correction, visible to Finexio operations."
+                    }
+                }
+            },
+            "PaymentCorrectionResponse": {
+                "type": "object",
+                "properties": {
+                    "payment_id": {
+                        "type": "string",
+                        "readOnly": true,
+                        "description": "The payment key supplied in the request path."
+                    },
+                    "request_type": {
+                        "type": "string",
+                        "enum": [
+                            "refund",
+                            "reissue"
+                        ],
+                        "readOnly": true,
+                        "description": "The kind of correction. When already_in_progress is true, this reflects the correction that already exists, which may differ from the endpoint that was called."
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "created",
+                            "reversing",
+                            "reversed",
+                            "disbursing",
+                            "error",
+                            "in_progress"
+                        ],
+                        "readOnly": true,
+                        "description": "Correction lifecycle status. 'created': the correction request has been accepted and queued (a brand-new correction is always 'created'). 'reversing' / 'reversed': the original disbursement is being pulled back (for example, a check is voided or a card is cancelled). 'disbursing': the refund or reissued payment is being sent. 'error': the correction needs Finexio operations attention; no action is required from you, but contact support if it persists. 'in_progress': a correction exists but its granular stage is unavailable."
+                    },
+                    "already_in_progress": {
+                        "type": "boolean",
+                        "readOnly": true,
+                        "description": "false when this request created the correction; true when a correction already existed and its current state is being reported instead (nothing new was created)."
+                    },
+                    "reason": {
+                        "type": "string",
+                        "readOnly": true,
+                        "description": "The correction reason in effect."
+                    },
+                    "amount": {
+                        "type": "number",
+                        "readOnly": true,
+                        "description": "The correction amount (always the full payment amount)."
+                    },
+                    "payment_method": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PaymentType"
+                            }
+                        ],
+                        "description": "How the corrected funds move. Refunds are always 'ach'. For reissues this is the method Finexio selected from the supplier's current payment configuration."
+                    },
+                    "delivery_method": {
+                        "$ref": "#/components/schemas/DeliveryMethod"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true,
+                        "readOnly": true,
+                        "description": "Optional human-readable detail."
+                    }
+                }
+            },
+            "PaymentCorrectionDenied": {
+                "type": "object",
+                "properties": {
+                    "detail": {
+                        "type": "string",
+                        "description": "Human-readable description of why the correction was denied."
+                    },
+                    "code": {
+                        "type": "string",
+                        "enum": [
+                            "not_eligible",
+                            "payment_complete",
+                            "already_refunded",
+                            "funding_incomplete",
+                            "fraud_hold",
+                            "correction_in_progress"
+                        ],
+                        "description": "Stable machine-readable denial code. 'not_eligible': the payment does not meet the eligibility rules — do not retry; contact Finexio support if you believe the payment should be correctable. 'payment_complete': the payment already completed — do not retry. 'already_refunded': the payment was already refunded in full — do not retry. 'funding_incomplete': the payment failed before funding succeeded, so there is nothing to refund — do not retry. 'fraud_hold': the payment is flagged for suspicious activity — do not retry; contact the Finexio Fraud & Compliance team. 'correction_in_progress': a correction exists in a state that cannot be reported back automatically — check the payment with GET /payments/{key}/."
+                    }
+                }
+            },
+            "PaymentCorrectionValidationError": {
+                "type": "object",
+                "description": "Field validation failure: a map of field name to a list of error messages. Example: { \"reason\": [\"Invalid value provided. Allowed values: lost_check, incorrect_address, supplier_cannot_accept_card, supplier_card_by_mail_accidental, other.\"], \"amount\": [\"Amount must equal the full payment amount 1250.00.\"] }",
+                "additionalProperties": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
             },
             "ProblemDetails": {
                 "type": "object",
