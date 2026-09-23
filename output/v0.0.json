@@ -1647,27 +1647,12 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/InvoiceBatchError"
-                                    }
-                                },
-                                "example": [
-                                    {
-                                        "error_details": [
-                                            {
-                                                "index": 1,
-                                                "originating_counterparty_id": "f6436d04-8909-488c-8e78-c5392aed2eb0",
-                                                "receiving_counterparty_id": null,
-                                                "code": "INACTIVE_BUYER",
-                                                "message": "This buyer is inactive and cannot receive invoices."
-                                            }
-                                        ]
-                                    }
-                                ]
+                                    "type": "string",
+                                    "example": "Try It to see the response"
+                                }
                             }
                         },
-                        "description": "Bad Request. The batch is rejected as a whole; no invoice in it is created. The body lists one object per rejected invoice, with index identifying its position in the submitted array. Invoices that reference an inactive (deactivated) buyer are rejected with the INACTIVE_BUYER code."
+                        "description": "Bad Request"
                     }
                 },
                 "tags": [
@@ -3887,68 +3872,6 @@
                 "type": "string",
                 "readOnly": true,
                 "description": "Current invoice status"
-            },
-            "InvoiceBatchError": {
-                "type": "object",
-                "description": "Validation errors for one rejected invoice. Keys are request field names (for example invoice_number or receiving_counterparty_id) or non_field_errors, each holding a list of messages. Failures that have a structured code are reported once, under error_details, instead of as a field message.",
-                "additionalProperties": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "properties": {
-                    "error_details": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/InvoiceBatchErrorDetail"
-                        }
-                    }
-                }
-            },
-            "InvoiceBatchErrorDetail": {
-                "type": "object",
-                "description": "A structured, machine-readable validation failure for one submitted invoice. Present in error_details alongside the field-level messages.",
-                "properties": {
-                    "index": {
-                        "type": "integer",
-                        "description": "Zero-based position of the invoice in the submitted array."
-                    },
-                    "originating_counterparty_id": {
-                        "type": "string",
-                        "format": "uuid",
-                        "nullable": true,
-                        "description": "The buyer the failure relates to, when the code is buyer-scoped."
-                    },
-                    "receiving_counterparty_id": {
-                        "type": "string",
-                        "format": "uuid",
-                        "nullable": true,
-                        "description": "The supplier the failure relates to, when the code is supplier-scoped."
-                    },
-                    "code": {
-                        "type": "string",
-                        "enum": [
-                            "BUYER_ON_HOLD",
-                            "INACTIVE_BUYER",
-                            "INACTIVE_SUPPLIER",
-                            "INTERNATIONAL_NOT_ENROLLED",
-                            "BUYER_NOT_ENABLED_INTERNATIONAL",
-                            "SUPPLIER_COUNTRY_NOT_SUPPORTED",
-                            "CURRENCY_REQUIRED",
-                            "CURRENCY_MISMATCH",
-                            "AMOUNT_CENTS_NOT_ALLOWED",
-                            "FOREIGN_AMOUNT_REQUIRED",
-                            "FOREIGN_AMOUNT_NOT_ALLOWED",
-                            "INVALID_FOREIGN_AMOUNT"
-                        ],
-                        "description": "Machine-readable reason. 'BUYER_ON_HOLD': The buyer (originating_counterparty_id) is on payment hold and cannot receive invoices. 'INACTIVE_BUYER': The buyer (originating_counterparty_id) has been deactivated and cannot receive invoices through any channel. 'INACTIVE_SUPPLIER': The supplier (receiving_counterparty_id) is inactive. 'INTERNATIONAL_NOT_ENROLLED': The supplier is set up for international payments but has not completed international banking enrollment. 'BUYER_NOT_ENABLED_INTERNATIONAL': The supplier is set up for international payments, but the buyer is not enabled for international payments. 'SUPPLIER_COUNTRY_NOT_SUPPORTED': The supplier's country or bank country is not supported for international payments. 'CURRENCY_REQUIRED': currency is required when the supplier is set up for international payments in a foreign currency. 'CURRENCY_MISMATCH': currency must match the supplier's currency for international payments. 'AMOUNT_CENTS_NOT_ALLOWED': amount_cents must be 0 when the supplier is set up for international payments in a foreign currency. 'FOREIGN_AMOUNT_REQUIRED': foreign_amount_minor_units is required and must be greater than 0 for a supplier paid in a foreign currency. 'FOREIGN_AMOUNT_NOT_ALLOWED': foreign_amount_minor_units must be 0 when the supplier is not paid in a foreign currency. 'INVALID_FOREIGN_AMOUNT': The total foreign_amount_minor_units for a buyer/supplier pair must be greater than 0."
-                    },
-                    "message": {
-                        "type": "string",
-                        "description": "Human-readable description of the failure."
-                    }
-                }
             },
             "LegacyApiInvoice": {
                 "type": "object",
