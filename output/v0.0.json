@@ -1009,7 +1009,7 @@
             "get": {
                 "summary": "List Buyers",
                 "operationId": "List Buyers",
-                "description": "Get A Paginated List Of All Buyers",
+                "description": "Get A Paginated List Of All Buyers.\nInactive (deactivated) buyers are excluded unless the active parameter says otherwise.",
                 "parameters": [
                     {
                         "name": "page",
@@ -1036,6 +1036,15 @@
                         "description": "An ISO 8601 formatted date. The result list will be filtered for buyers that have been updated since the supplied date.",
                         "schema": {
                             "type": "string"
+                        }
+                    },
+                    {
+                        "name": "active",
+                        "required": false,
+                        "in": "query",
+                        "description": "Filters buyers by active status. Omit to return only active buyers; pass false to return only inactive (deactivated) buyers.",
+                        "schema": {
+                            "type": "boolean"
                         }
                     }
                 ],
@@ -1103,7 +1112,7 @@
             "get": {
                 "operationId": "Get Buyer",
                 "summary": "Get Buyer Detail",
-                "description": "Get Information Of A Single Buyer",
+                "description": "Get Information Of A Single Buyer.",
                 "parameters": [
                     {
                         "name": "id",
@@ -2730,7 +2739,7 @@
                     "drawdown_bank_account_number": {
                         "type": "string",
                         "maxLength": 17,
-                        "description": "max length = 17\nrequired only if funding_method is 'ach_debit' or 'reverse_wire'"
+                        "description": "max length = 17\nrequired only if funding_method is 'ach_debit' or 'reverse_wire'\nReturned masked on read: only the last 4 digits are included."
                     },
                     "drawdown_bank_routing_number": {
                         "type": "string",
@@ -2740,7 +2749,7 @@
                     "refund_bank_account_number": {
                         "type": "string",
                         "maxLength": 17,
-                        "description": "max length = 17"
+                        "description": "max length = 17\nReturned masked on read: only the last 4 digits are included."
                     },
                     "refund_bank_routing_number": {
                         "type": "string",
@@ -2763,6 +2772,11 @@
                         "maxLength": 40,
                         "description": "max length = 40",
                         "readOnly": true
+                    },
+                    "active": {
+                        "type": "boolean",
+                        "readOnly": true,
+                        "description": "Read-only. Indicates whether the buyer is still active."
                     },
                     "metadata": {
                         "type": "object",
@@ -5134,7 +5148,7 @@
         },
         {
             "name": "Buyers",
-            "description": "Buyers management"
+            "description": "Buyers management. The create, update and delete operations below are documented for reference but are not currently served: the API accepts GET only, and write requests are rejected with 405 Method Not Allowed."
         },
         {
             "name": "Suppliers",
