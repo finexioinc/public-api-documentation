@@ -1022,14 +1022,87 @@
                 }
             }
         },
+        "/counterparties/suppliers/{id}/disclosures": {
+            "post": {
+                "tags": [
+                    "Suppliers"
+                ],
+                "operationId": "Issue Supplier Disclosure",
+                "summary": "Create Verification Disclosure",
+                "description": "Creates a disclosure to present to a supplier for a verification request. The response carries the current disclosure text and checkbox label to render to the supplier, plus a single-use disclosure id valid until expires_at. Once the supplier has ticked the box, submit the id with the supplier's IP address and agreement time in the verification request's attestation sub-object. Each disclosure id is valid for exactly one verification request. Issue a new disclosure for every attestation you capture.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "uuid of supplier",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SupplierDisclosureRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SupplierDisclosureResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProblemDetails"
+                                }
+                            }
+                        },
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SupplierVerificationError"
+                                }
+                            }
+                        },
+                        "description": "The supplier is not eligible for a disclosure; reason_code says why."
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SupplierVerificationError"
+                                }
+                            }
+                        },
+                        "description": "Supplier not found (reason_code SUPPLIER_NOT_FOUND)."
+                    }
+                }
+            }
+        },
         "/counterparties/suppliers/{id}/verification": {
             "post": {
                 "tags": [
                     "Suppliers"
                 ],
-                "operationId": "Request Supplier Verification",
-                "summary": "Request Supplier Verification",
-                "description": "Runs Finexio's supplier verification workflow for a supplier. The request shape selects the kind of verification:\n\n**Domestic bank verification** — send `routing_number` and `account_number` (always together). Finexio runs sanctions screening, a TIN match for Business-category suppliers, and bank account verification/authentication checks against the submitted account. When the verification succeeds, the verified bank details are applied to the supplier and its payment method is set to `ACH`. The supplier's stored payment method must be `ACH` or `Check` to be eligible.\n\n**Enrollment-only** — send no bank fields. Finexio emails the supplier's primary contact an enrollment invitation so the supplier provides its bank details directly to Finexio. The verification returns `202` with status `pending` and reason code `ENROLLMENT_REQUIRED`, and completes when the supplier finishes enrollment. If the invitation expires unused, the verification fails with `ENROLLMENT_LINK_EXPIRED`. The supplier must have a primary contact email address.\n\n**International bank verification** — send the `international` object (the supplier's stored payment method must be `International`). The submitted fields are overlaid on the supplier's stored international banking details and the effective result is verified with Finexio's international payments provider (account validation plus sanctions screening). An `account_number` or `iban` is required. The top-level `routing_number`/`account_number` are the domestic fields and must not be combined with `international`. On success the verified details are applied to the supplier's international banking profile. International outcomes are terminal (`success` or `failed`, never `pending`): fix the cause and submit a new request.\n\n**Supplier payment-authorization attestation** — some partner configurations require the supplier's attestation to Finexio's payment authorization disclosure before a domestic verification can complete. When required and the request carries no `attestation`, a verification whose checks all pass is held at `pending` with reason code `ATTESTATION_REQUIRED` until the supplier's authorization is captured. To capture it in your own UI: issue a disclosure with `POST /counterparties/suppliers/{id}/disclosures`, present the returned `disclosure_text` and `checkbox_label` to the supplier, and once the supplier has ticked the box, submit the `attestation` object (the single-use `disclosure_id`, the supplier's `ip_address`, and `agreed_at`) with the verification request. Attestation applies to domestic verifications only and cannot be combined with `international`. A `disclosure_id` that is unknown, expired, or already used is rejected with `400` and reason code `DISCLOSURE_INVALID`; no verification record is created.\n\n**Responses** — `200` when the verification resolved immediately (status `success` or `failed`); `202` when it is in flight (status `pending`): Finexio review, supplier enrollment, an attestation capture, or an asynchronous check completes it later — poll the GET endpoints or use webhooks to follow it. `403` with a structured error (`reason_code` + `message`) when the supplier's state blocks the request — for example `PENDING_VERIFICATION_EXISTS` (cancel the open request or wait for it to resolve), `MISSING_CATEGORY`, `TIN_REQUIRED_FOR_BUSINESS`, `CONTACT_EMAIL_REQUIRED`, or `INVALID_PAYMENT_METHOD`. `404` when the supplier does not exist (reason code `SUPPLIER_NOT_FOUND`). Only one verification can be open per supplier at a time.",
+                "operationId": "Create Supplier Verification Request",
+                "summary": "Create Supplier Verification Request",
+                "description": "Runs Finexio's supplier verification workflow for a supplier. The request shape selects the kind of verification:\n\nACH Bank Verification — send both `routing_number` and `account_number`. Finexio runs our screening checks. When the verification succeeds, the verified bank details are applied to the supplier and its payment method is set to `ACH`. The supplier's stored payment method must be `ACH` or `Check` to be eligible. If any of the screening checks failed, the status will be returned as pending and the supplier will be sent an email with a secure link where they can provide required documentation to complete the requested change.\n\nACH Bank Enrollment — do not send `routing_number` and `account_number`. Finexio emails the supplier's primary contact an enrollment invitation and the supplier provides its bank details directly to Finexio. The supplier must have a primary contact email address. Once the banking details are received, Finexio performs screening checks and applies the change the same as the ACH Bank Verification process does.",
                 "parameters": [
                     {
                         "name": "id",
@@ -1274,79 +1347,6 @@
                             }
                         },
                         "description": "The verification already completed (reason_code VERIFICATION_NOT_PENDING)."
-                    }
-                }
-            }
-        },
-        "/counterparties/suppliers/{id}/disclosures": {
-            "post": {
-                "tags": [
-                    "Suppliers"
-                ],
-                "operationId": "Issue Supplier Disclosure",
-                "summary": "Issue A Payment Authorization Disclosure",
-                "description": "Issues a payment authorization disclosure to present to a supplier. The response carries the current disclosure text and checkbox label to render to the supplier, plus a single-use disclosure id valid until expires_at. Once the supplier has ticked the box, submit the id with the supplier's IP address and agreement time in the verification request's attestation object. Each disclosure id is valid for exactly one verification request; issue a new disclosure for every attestation you capture. Returns 403 with reason_code INVALID_PAYMENT_METHOD for suppliers on the International payment method (attestation applies to domestic verification only) and 404 when the supplier does not exist.",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "description": "uuid of supplier",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": false,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/SupplierDisclosureRequest"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/SupplierDisclosureResponse"
-                                }
-                            }
-                        },
-                        "description": "Success"
-                    },
-                    "400": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProblemDetails"
-                                }
-                            }
-                        },
-                        "description": "Bad Request"
-                    },
-                    "403": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/SupplierVerificationError"
-                                }
-                            }
-                        },
-                        "description": "The supplier is not eligible for a disclosure; reason_code says why."
-                    },
-                    "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/SupplierVerificationError"
-                                }
-                            }
-                        },
-                        "description": "Supplier not found (reason_code SUPPLIER_NOT_FOUND)."
                     }
                 }
             }
@@ -5516,7 +5516,7 @@
                     "cancelled"
                 ],
                 "readOnly": true,
-                "description": "Status of a verification request. 'success' and 'failed' are terminal check outcomes; 'pending' means the verification is in flight (Finexio review, supplier enrollment, attestation capture, or an asynchronous check) and completes later; 'cancelled' means the request was withdrawn before it resolved. Only 'success' changes the supplier's stored bank data."
+                "description": "Status of a verification request. 'success' and 'failed' are terminal outcomes; 'pending' means the verification is in flight and will complete later; 'cancelled' means the request was withdrawn before it resolved. Only 'success' changes the supplier's stored bank data."
             },
             "SupplierVerificationReasonCode": {
                 "type": "string",
@@ -5549,7 +5549,7 @@
                     "ENROLLMENT_REQUIRED",
                     "ATTESTATION_REQUIRED"
                 ],
-                "description": "Machine-readable reason code explaining a verification outcome or a rejected request.\n\nRequest errors (returned in the error body, no verification record is created): 'SUPPLIER_NOT_FOUND' (404) - the supplier does not exist on your partner account; 'BUYER_NOT_FOUND' (403) - buyer_counterparty_id is not a buyer belonging to your partner account; 'MISSING_CATEGORY' (403) - the supplier has no category assigned; 'TIN_REQUIRED_FOR_BUSINESS' (403) - a TIN is required for Business-category suppliers; 'PENDING_VERIFICATION_EXISTS' (403) - an open verification already exists for this supplier - cancel it or wait for it to resolve; 'VERIFICATION_NOT_PENDING' (409) - a cancel was requested for a verification that already completed; 'INVALID_PAYMENT_METHOD' (403) - the supplier's payment method is not eligible for the requested verification (domestic requires ACH or Check, international requires International); 'BANK_DETAILS_REQUIRED' (403) - the request needs bank details that were not provided; 'CONTACT_EMAIL_REQUIRED' (403) - an enrollment invitation needs a primary contact email address on the supplier; 'EDU_EMAIL_REQUIRED' (403) - the supplier's category requires a .edu primary contact email address for enrollment; 'DISCLOSURE_INVALID' (400) - the attestation's disclosure_id is unknown, expired, or already used; 'INTERNATIONAL_PROVIDER_NOT_REGISTERED' (403) - the supplier is not registered with the international payments provider.\n\nFailed verification records (status 'failed', terminal - fix the cause and submit a new request): 'INVALID_ROUTING_NUMBER', 'ACCOUNT_NOT_FOUND', 'ACCOUNT_CLOSED' - the domestic bank account could not be verified; 'INTL_AVS_CLOSE_MATCH', 'INTL_AVS_NO_MATCH' - the international account holder's name does not sufficiently match the supplier on record; 'INTL_AVS_UNSUPPORTED' - no provider was able to verify the international account; 'INTL_AVS_RESULT_UNRECOGNIZED', 'TIN_RESULT_UNRECOGNIZED' - a provider answered with an unrecognized result; contact Finexio support; 'ENROLLMENT_LINK_EXPIRED' - the supplier's enrollment invitation expired unused.\n\nPending verification records (status 'pending', the verification completes later): 'AVS_NAME_MISMATCH' - the bank account holder's name needs review against the supplier on record; 'TIN_MISMATCH' - the TIN match needs review; 'SANCTIONS_MATCH', 'SANCTIONS_REVIEW' - sanctions screening raised a match for review; 'ENROLLMENT_REQUIRED' - Finexio is collecting the bank details from the supplier via an enrollment invitation; 'ATTESTATION_REQUIRED' - all checks passed but the supplier's payment authorization has not been captured yet.\n\nA 'pending' record may also carry no reason code while checks are still running."
+                "description": "Reason code explaining a verification outcome or a rejected request."
             },
             "SupplierVerificationSource": {
                 "type": "object",
@@ -5580,10 +5580,49 @@
                     "sources": {
                         "type": "object",
                         "readOnly": true,
-                        "additionalProperties": {
-                            "$ref": "#/components/schemas/SupplierVerificationSource"
-                        },
-                        "description": "Per-check results, keyed by check name: 'sanctions', 'tin', 'account_verification', 'account_authentication', 'international_account_verification'. Checks with no result yet are omitted."
+                        "description": "Per-check results. Checks with no result yet are omitted.",
+                        "properties": {
+                            "sanctions": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/SupplierVerificationSource"
+                                    }
+                                ],
+                                "description": "Sanctions screening of the supplier against government watchlists. A failure surfaces as reason_code SANCTIONS_MATCH or SANCTIONS_REVIEW."
+                            },
+                            "tin": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/SupplierVerificationSource"
+                                    }
+                                ],
+                                "description": "Taxpayer Identification Number match against IRS records. Run only for Business suppliers; null for other supplier types. A failure surfaces as reason_code TIN_MISMATCH."
+                            },
+                            "account_verification": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/SupplierVerificationSource"
+                                    }
+                                ],
+                                "description": "Verification of the domestic bank account, including that the account holder name matches the supplier. A name failure surfaces as reason_code AVS_NAME_MISMATCH. Run only for domestic (routing_number + account_number) verifications."
+                            },
+                            "account_authentication": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/SupplierVerificationSource"
+                                    }
+                                ],
+                                "description": "Authentication that the domestic bank account is open and in good standing. Run only for domestic (routing_number + account_number) verifications."
+                            },
+                            "international_account_verification": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/SupplierVerificationSource"
+                                    }
+                                ],
+                                "description": "Verification of the international bank account. A failure surfaces as one of the INTL_AVS_* reason codes. Run only for international verifications."
+                            }
+                        }
                     }
                 }
             },
