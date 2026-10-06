@@ -445,6 +445,15 @@
                             "type": "string",
                             "format": "date-time"
                         }
+                    },
+                    {
+                        "name": "expand",
+                        "in": "query",
+                        "required": false,
+                        "description": "Comma-separated list of expansions. Supported: 'verifications' - includes each supplier's most recent verification only, as a one-element verifications array (empty when the supplier has no verification history). Unknown values are ignored.",
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -518,6 +527,15 @@
                         "in": "path",
                         "required": true,
                         "description": "uuid of supplier",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "expand",
+                        "in": "query",
+                        "required": false,
+                        "description": "Comma-separated list of expansions. Supported: 'verifications' - includes the supplier's full verification history, newest first, as the verifications array. Unknown values are ignored.",
                         "schema": {
                             "type": "string"
                         }
@@ -1000,7 +1018,335 @@
                             }
                         },
                         "description": "Service Unavailable"
-
+                    }
+                }
+            }
+        },
+        "/counterparties/suppliers/{id}/verification": {
+            "post": {
+                "tags": [
+                    "Suppliers"
+                ],
+                "operationId": "Request Supplier Verification",
+                "summary": "Request Supplier Verification",
+                "description": "Runs Finexio's supplier verification workflow for a supplier. The request shape selects the kind of verification:\n\n**Domestic bank verification** — send `routing_number` and `account_number` (always together). Finexio runs sanctions screening, a TIN match for Business-category suppliers, and bank account verification/authentication checks against the submitted account. When the verification succeeds, the verified bank details are applied to the supplier and its payment method is set to `ACH`. The supplier's stored payment method must be `ACH` or `Check` to be eligible.\n\n**Enrollment-only** — send no bank fields. Finexio emails the supplier's primary contact an enrollment invitation so the supplier provides its bank details directly to Finexio. The verification returns `202` with status `pending` and reason code `ENROLLMENT_REQUIRED`, and completes when the supplier finishes enrollment. If the invitation expires unused, the verification fails with `ENROLLMENT_LINK_EXPIRED`. The supplier must have a primary contact email address.\n\n**International bank verification** — send the `international` object (the supplier's stored payment method must be `International`). The submitted fields are overlaid on the supplier's stored international banking details and the effective result is verified with Finexio's international payments provider (account validation plus sanctions screening). An `account_number` or `iban` is required. The top-level `routing_number`/`account_number` are the domestic fields and must not be combined with `international`. On success the verified details are applied to the supplier's international banking profile. International outcomes are terminal (`success` or `failed`, never `pending`): fix the cause and submit a new request.\n\n**Supplier payment-authorization attestation** — some partner configurations require the supplier's attestation to Finexio's payment authorization disclosure before a domestic verification can complete. When required and the request carries no `attestation`, a verification whose checks all pass is held at `pending` with reason code `ATTESTATION_REQUIRED` until the supplier's authorization is captured. To capture it in your own UI: issue a disclosure with `POST /counterparties/suppliers/{id}/disclosures`, present the returned `disclosure_text` and `checkbox_label` to the supplier, and once the supplier has ticked the box, submit the `attestation` object (the single-use `disclosure_id`, the supplier's `ip_address`, and `agreed_at`) with the verification request. Attestation applies to domestic verifications only and cannot be combined with `international`. A `disclosure_id` that is unknown, expired, or already used is rejected with `400` and reason code `DISCLOSURE_INVALID`; no verification record is created.\n\n**Responses** — `200` when the verification resolved immediately (status `success` or `failed`); `202` when it is in flight (status `pending`): Finexio review, supplier enrollment, an attestation capture, or an asynchronous check completes it later — poll the GET endpoints or use webhooks to follow it. `403` with a structured error (`reason_code` + `message`) when the supplier's state blocks the request — for example `PENDING_VERIFICATION_EXISTS` (cancel the open request or wait for it to resolve), `MISSING_CATEGORY`, `TIN_REQUIRED_FOR_BUSINESS`, `CONTACT_EMAIL_REQUIRED`, or `INVALID_PAYMENT_METHOD`. `404` when the supplier does not exist (reason code `SUPPLIER_NOT_FOUND`). Only one verification can be open per supplier at a time.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "uuid of supplier",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SupplierVerificationRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SupplierVerificationResponse"
+                                }
+                            }
+                        },
+                        "description": "The verification resolved immediately (status success or failed)."
+                    },
+                    "202": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SupplierVerificationResponse"
+                                }
+                            }
+                        },
+                        "description": "The verification is in flight (status pending) and completes later."
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "type": "object",
+                                            "additionalProperties": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "description": "Field validation errors: a map of field name to error messages."
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/SupplierVerificationError"
+                                        }
+                                    ],
+                                    "description": "A malformed body returns a field-to-messages map. An attestation whose disclosure_id cannot be used (unknown, expired, or already used) returns the structured error with reason_code DISCLOSURE_INVALID."
+                                }
+                            }
+                        },
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SupplierVerificationError"
+                                }
+                            }
+                        },
+                        "description": "The supplier's state blocks the verification; reason_code says why."
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SupplierVerificationError"
+                                }
+                            }
+                        },
+                        "description": "Supplier not found (reason_code SUPPLIER_NOT_FOUND)."
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Suppliers"
+                ],
+                "operationId": "Get Supplier Verification History",
+                "summary": "Get Supplier Verification History",
+                "description": "Returns the supplier's full verification history, newest first. Routing and account numbers are masked to the last 4 digits. A supplier with no verification history returns an empty list.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "uuid of supplier",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/SupplierVerificationRecord"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProblemDetails"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/counterparties/suppliers/{id}/verification/{request_id}": {
+            "get": {
+                "tags": [
+                    "Suppliers"
+                ],
+                "operationId": "Get Supplier Verification",
+                "summary": "Get A Single Supplier Verification",
+                "description": "Returns the verification request identified by request_id. Routing and account numbers are masked to the last 4 digits. Returns 404 when the verification does not exist for this supplier.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "uuid of supplier",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "request_id",
+                        "in": "path",
+                        "required": true,
+                        "description": "uuid of the verification request",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SupplierVerificationRecord"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProblemDetails"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/counterparties/suppliers/{id}/verification/{request_id}/cancel": {
+            "post": {
+                "tags": [
+                    "Suppliers"
+                ],
+                "operationId": "Cancel Supplier Verification",
+                "summary": "Cancel A Pending Supplier Verification",
+                "description": "Cancels a verification that is still pending so it no longer blocks a new request (PENDING_VERIFICATION_EXISTS) and a corrected one can be submitted immediately. Returns the cancelled record; calling it again on an already-cancelled verification returns the same record (idempotent). Returns 404 when the verification does not exist for this supplier and 409 with reason_code VERIFICATION_NOT_PENDING when it already completed. Never changes the supplier's payment method or stored bank data.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "uuid of supplier",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "request_id",
+                        "in": "path",
+                        "required": true,
+                        "description": "uuid of the verification request",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SupplierVerificationRecord"
+                                }
+                            }
+                        },
+                        "description": "The verification was cancelled (or was already cancelled)."
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProblemDetails"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "409": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SupplierVerificationError"
+                                }
+                            }
+                        },
+                        "description": "The verification already completed (reason_code VERIFICATION_NOT_PENDING)."
+                    }
+                }
+            }
+        },
+        "/counterparties/suppliers/{id}/disclosures": {
+            "post": {
+                "tags": [
+                    "Suppliers"
+                ],
+                "operationId": "Issue Supplier Disclosure",
+                "summary": "Issue A Payment Authorization Disclosure",
+                "description": "Issues a payment authorization disclosure to present to a supplier. The response carries the current disclosure text and checkbox label to render to the supplier, plus a single-use disclosure id valid until expires_at. Once the supplier has ticked the box, submit the id with the supplier's IP address and agreement time in the verification request's attestation object. Each disclosure id is valid for exactly one verification request; issue a new disclosure for every attestation you capture. Returns 403 with reason_code INVALID_PAYMENT_METHOD for suppliers on the International payment method (attestation applies to domestic verification only) and 404 when the supplier does not exist.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "uuid of supplier",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SupplierDisclosureRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SupplierDisclosureResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProblemDetails"
+                                }
+                            }
+                        },
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SupplierVerificationError"
+                                }
+                            }
+                        },
+                        "description": "The supplier is not eligible for a disclosure; reason_code says why."
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SupplierVerificationError"
+                                }
+                            }
+                        },
+                        "description": "Supplier not found (reason_code SUPPLIER_NOT_FOUND)."
                     }
                 }
             }
@@ -4771,6 +5117,14 @@
                             }
                         ],
                         "description": "International banking details."
+                    },
+                    "verifications": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SupplierVerificationRecord"
+                        },
+                        "readOnly": true,
+                        "description": "Read-only. The supplier's verification records, newest first. Present only when requested with the expand=verifications query parameter; the list endpoint returns only the most recent record per supplier, the single-supplier read returns the full history."
                     }
                 }
             },
@@ -5036,6 +5390,325 @@
                         }
                     }
                 ]
+            },
+            "SupplierVerificationRequest": {
+                "type": "object",
+                "required": [
+                    "type",
+                    "requested_by"
+                ],
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "remit_bank_account_update"
+                        ],
+                        "description": "The kind of verification requested. Must be 'remit_bank_account_update'."
+                    },
+                    "requested_by": {
+                        "type": "string",
+                        "enum": [
+                            "partner",
+                            "supplier",
+                            "buyer"
+                        ],
+                        "description": "Who initiated the verification request."
+                    },
+                    "buyer_counterparty_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "uuid of the buyer the request is made on behalf of. Required when requested_by is 'buyer'; not allowed otherwise. Must be a buyer belonging to your partner account (otherwise 403 with reason_code BUYER_NOT_FOUND)."
+                    },
+                    "routing_number": {
+                        "type": "string",
+                        "description": "The 9-digit ABA routing number of the domestic bank account to verify. Always sent together with account_number. Not allowed with international."
+                    },
+                    "account_number": {
+                        "type": "string",
+                        "description": "The domestic bank account number to verify. Always sent together with routing_number. Not allowed with international."
+                    },
+                    "international": {
+                        "$ref": "#/components/schemas/SupplierVerificationInternational"
+                    },
+                    "attestation": {
+                        "$ref": "#/components/schemas/SupplierVerificationAttestationRequest"
+                    }
+                },
+                "description": "Verification request body. Send routing_number + account_number for a domestic bank verification, the international object for an international one, or no bank fields to have Finexio collect the details from the supplier via an enrollment invitation."
+            },
+            "SupplierVerificationInternational": {
+                "type": "object",
+                "description": "International banking details to verify. Present makes this an international verification: the supplied fields are overlaid on the supplier's stored international banking details and the effective result is verified. An account_number or iban is required. Descriptive fields the validation does not read (purpose_of_payment, payment_reference, payee_type) are not accepted here - change them via the supplier endpoints. Values are validated by the payment provider using per-country formats.",
+                "properties": {
+                    "iban": {
+                        "type": "string",
+                        "description": "International Bank Account Number. An iban or account_number is required."
+                    },
+                    "swift_bic": {
+                        "type": "string",
+                        "description": "SWIFT/BIC code of the bank."
+                    },
+                    "account_number": {
+                        "type": "string",
+                        "description": "Bank account number. An account_number or iban is required."
+                    },
+                    "routing_number": {
+                        "type": "string",
+                        "description": "Country-specific bank routing code."
+                    },
+                    "bank_name": {
+                        "type": "string",
+                        "description": "Name of the bank."
+                    },
+                    "bank_country": {
+                        "type": "string",
+                        "description": "Country of the bank."
+                    },
+                    "currency": {
+                        "type": "string",
+                        "description": "Currency of the account."
+                    },
+                    "account_type": {
+                        "type": "string",
+                        "enum": [
+                            "Savings",
+                            "Checking"
+                        ],
+                        "description": "Account type: 'Savings' or 'Checking'. Optional input to the provider's validation."
+                    },
+                    "branch_code": {
+                        "type": "string",
+                        "description": "Branch code of the bank, where applicable."
+                    }
+                }
+            },
+            "SupplierVerificationAttestationRequest": {
+                "type": "object",
+                "required": [
+                    "disclosure_id",
+                    "ip_address",
+                    "agreed_at"
+                ],
+                "description": "The supplier's attestation that they agreed to Finexio's payment authorization disclosure. Optional; when present, all three fields are required. Domestic verification only - not accepted together with 'international'.",
+                "properties": {
+                    "disclosure_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "The single-use disclosure id returned by POST /counterparties/suppliers/{id}/disclosures. Must be unexpired and unused, or the request is rejected with 400 and reason_code DISCLOSURE_INVALID."
+                    },
+                    "ip_address": {
+                        "type": "string",
+                        "description": "The supplier's client IP address (IPv4 or IPv6) at the moment they ticked the checkbox."
+                    },
+                    "agreed_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "When the supplier ticked the checkbox - distinct from the API call time. Cannot be in the future."
+                    }
+                }
+            },
+            "SupplierVerificationStatus": {
+                "type": "string",
+                "enum": [
+                    "success",
+                    "pending",
+                    "failed",
+                    "cancelled"
+                ],
+                "readOnly": true,
+                "description": "Status of a verification request. 'success' and 'failed' are terminal check outcomes; 'pending' means the verification is in flight (Finexio review, supplier enrollment, attestation capture, or an asynchronous check) and completes later; 'cancelled' means the request was withdrawn before it resolved. Only 'success' changes the supplier's stored bank data."
+            },
+            "SupplierVerificationReasonCode": {
+                "type": "string",
+                "enum": [
+                    "SUPPLIER_NOT_FOUND",
+                    "BUYER_NOT_FOUND",
+                    "MISSING_CATEGORY",
+                    "TIN_REQUIRED_FOR_BUSINESS",
+                    "PENDING_VERIFICATION_EXISTS",
+                    "VERIFICATION_NOT_PENDING",
+                    "INVALID_PAYMENT_METHOD",
+                    "BANK_DETAILS_REQUIRED",
+                    "CONTACT_EMAIL_REQUIRED",
+                    "EDU_EMAIL_REQUIRED",
+                    "DISCLOSURE_INVALID",
+                    "INTERNATIONAL_PROVIDER_NOT_REGISTERED",
+                    "INVALID_ROUTING_NUMBER",
+                    "ACCOUNT_NOT_FOUND",
+                    "ACCOUNT_CLOSED",
+                    "INTL_AVS_CLOSE_MATCH",
+                    "INTL_AVS_NO_MATCH",
+                    "INTL_AVS_UNSUPPORTED",
+                    "INTL_AVS_RESULT_UNRECOGNIZED",
+                    "TIN_RESULT_UNRECOGNIZED",
+                    "ENROLLMENT_LINK_EXPIRED",
+                    "AVS_NAME_MISMATCH",
+                    "TIN_MISMATCH",
+                    "SANCTIONS_MATCH",
+                    "SANCTIONS_REVIEW",
+                    "ENROLLMENT_REQUIRED",
+                    "ATTESTATION_REQUIRED"
+                ],
+                "description": "Machine-readable reason code explaining a verification outcome or a rejected request.\n\nRequest errors (returned in the error body, no verification record is created): 'SUPPLIER_NOT_FOUND' (404) - the supplier does not exist on your partner account; 'BUYER_NOT_FOUND' (403) - buyer_counterparty_id is not a buyer belonging to your partner account; 'MISSING_CATEGORY' (403) - the supplier has no category assigned; 'TIN_REQUIRED_FOR_BUSINESS' (403) - a TIN is required for Business-category suppliers; 'PENDING_VERIFICATION_EXISTS' (403) - an open verification already exists for this supplier - cancel it or wait for it to resolve; 'VERIFICATION_NOT_PENDING' (409) - a cancel was requested for a verification that already completed; 'INVALID_PAYMENT_METHOD' (403) - the supplier's payment method is not eligible for the requested verification (domestic requires ACH or Check, international requires International); 'BANK_DETAILS_REQUIRED' (403) - the request needs bank details that were not provided; 'CONTACT_EMAIL_REQUIRED' (403) - an enrollment invitation needs a primary contact email address on the supplier; 'EDU_EMAIL_REQUIRED' (403) - the supplier's category requires a .edu primary contact email address for enrollment; 'DISCLOSURE_INVALID' (400) - the attestation's disclosure_id is unknown, expired, or already used; 'INTERNATIONAL_PROVIDER_NOT_REGISTERED' (403) - the supplier is not registered with the international payments provider.\n\nFailed verification records (status 'failed', terminal - fix the cause and submit a new request): 'INVALID_ROUTING_NUMBER', 'ACCOUNT_NOT_FOUND', 'ACCOUNT_CLOSED' - the domestic bank account could not be verified; 'INTL_AVS_CLOSE_MATCH', 'INTL_AVS_NO_MATCH' - the international account holder's name does not sufficiently match the supplier on record; 'INTL_AVS_UNSUPPORTED' - no provider was able to verify the international account; 'INTL_AVS_RESULT_UNRECOGNIZED', 'TIN_RESULT_UNRECOGNIZED' - a provider answered with an unrecognized result; contact Finexio support; 'ENROLLMENT_LINK_EXPIRED' - the supplier's enrollment invitation expired unused.\n\nPending verification records (status 'pending', the verification completes later): 'AVS_NAME_MISMATCH' - the bank account holder's name needs review against the supplier on record; 'TIN_MISMATCH' - the TIN match needs review; 'SANCTIONS_MATCH', 'SANCTIONS_REVIEW' - sanctions screening raised a match for review; 'ENROLLMENT_REQUIRED' - Finexio is collecting the bank details from the supplier via an enrollment invitation; 'ATTESTATION_REQUIRED' - all checks passed but the supplier's payment authorization has not been captured yet.\n\nA 'pending' record may also carry no reason code while checks are still running."
+            },
+            "SupplierVerificationSource": {
+                "type": "object",
+                "properties": {
+                    "passed": {
+                        "type": "boolean",
+                        "nullable": true,
+                        "readOnly": true,
+                        "description": "true or false when the check ran to a verdict; null when the check was deliberately not run (for example TIN for non-Business suppliers, or after an earlier check already failed) or has no result yet."
+                    }
+                }
+            },
+            "SupplierVerificationResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "readOnly": true,
+                        "description": "uuid of the verification request. Use it with the GET and cancel endpoints."
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/SupplierVerificationStatus"
+                    },
+                    "reason_code": {
+                        "$ref": "#/components/schemas/SupplierVerificationReasonCode"
+                    },
+                    "sources": {
+                        "type": "object",
+                        "readOnly": true,
+                        "additionalProperties": {
+                            "$ref": "#/components/schemas/SupplierVerificationSource"
+                        },
+                        "description": "Per-check results, keyed by check name: 'sanctions', 'tin', 'account_verification', 'account_authentication', 'international_account_verification'. Checks with no result yet are omitted."
+                    }
+                }
+            },
+            "SupplierVerificationAttestation": {
+                "type": "object",
+                "readOnly": true,
+                "description": "The supplier's recorded attestation to the payment authorization disclosure; null when the verification request carried none.",
+                "properties": {
+                    "disclosure_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "The disclosure the supplier agreed to."
+                    },
+                    "ip_address": {
+                        "type": "string",
+                        "description": "The supplier's client IP address as submitted."
+                    },
+                    "agreed_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "When the supplier agreed, as submitted."
+                    },
+                    "recorded_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "When Finexio recorded the attestation (server time)."
+                    }
+                }
+            },
+            "SupplierVerificationRecord": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SupplierVerificationResponse"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "created": {
+                                "type": "string",
+                                "format": "date-time",
+                                "readOnly": true,
+                                "description": "When the verification request was created."
+                            },
+                            "trigger_source": {
+                                "type": "string",
+                                "enum": [
+                                    "partner",
+                                    "supplier",
+                                    "buyer"
+                                ],
+                                "readOnly": true,
+                                "description": "Who initiated the verification request."
+                            },
+                            "routing_number_last4": {
+                                "type": "string",
+                                "readOnly": true,
+                                "description": "Last 4 digits of the verified routing number. Bank data is always masked to the last 4 digits on this API."
+                            },
+                            "account_number_last4": {
+                                "type": "string",
+                                "readOnly": true,
+                                "description": "Last 4 digits of the verified account number. Bank data is always masked to the last 4 digits on this API."
+                            },
+                            "attestation": {
+                                "$ref": "#/components/schemas/SupplierVerificationAttestation"
+                            }
+                        }
+                    }
+                ],
+                "description": "A verification history record: the verification response fields plus read-only history fields."
+            },
+            "SupplierVerificationError": {
+                "type": "object",
+                "description": "Structured verification error body, so integrators can branch on the reason code instead of parsing the message.",
+                "properties": {
+                    "reason_code": {
+                        "$ref": "#/components/schemas/SupplierVerificationReasonCode"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "Human-readable description of the error."
+                    }
+                }
+            },
+            "SupplierDisclosureRequest": {
+                "type": "object",
+                "properties": {
+                    "requested_by": {
+                        "type": "string",
+                        "enum": [
+                            "partner",
+                            "supplier",
+                            "buyer"
+                        ],
+                        "description": "Optional: who is presenting the disclosure to the supplier."
+                    }
+                }
+            },
+            "SupplierDisclosureResponse": {
+                "type": "object",
+                "description": "An issued disclosure: the text and checkbox label to present to the supplier, and the single-use disclosure id to return inside the verification request's attestation object.",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "readOnly": true,
+                        "description": "The disclosure id to submit as the verification request's attestation.disclosure_id."
+                    },
+                    "disclosure_text": {
+                        "type": "string",
+                        "readOnly": true,
+                        "description": "The payment authorization disclosure text to present to the supplier."
+                    },
+                    "checkbox_label": {
+                        "type": "string",
+                        "readOnly": true,
+                        "description": "The label to render next to the checkbox the supplier ticks."
+                    },
+                    "expires_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "description": "The disclosure id is valid for exactly one verification request submitted before this time."
+                    }
+                }
             },
             "Webhook": {
                 "allOf": [
