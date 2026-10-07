@@ -5417,7 +5417,7 @@
                     "buyer_counterparty_id": {
                         "type": "string",
                         "format": "uuid",
-                        "description": "uuid of the buyer the request is made on behalf of. Required when requested_by is 'buyer'; not allowed otherwise. Must be a buyer belonging to your partner account (otherwise 403 with reason_code BUYER_NOT_FOUND)."
+                        "description": "uuid of the buyer the request is made on behalf of. Required when requested_by is 'buyer'; not allowed otherwise."
                     },
                     "routing_number": {
                         "type": "string",
@@ -5438,7 +5438,7 @@
             },
             "SupplierVerificationInternational": {
                 "type": "object",
-                "description": "International banking details to verify. Present makes this an international verification: the supplied fields are overlaid on the supplier's stored international banking details and the effective result is verified. An account_number or iban is required. Descriptive fields the validation does not read (purpose_of_payment, payment_reference, payee_type) are not accepted here - change them via the supplier endpoints. Values are validated by the payment provider using per-country formats.",
+                "description": "International banking details to verify which when present makes this an international verification.",
                 "properties": {
                     "iban": {
                         "type": "string",
@@ -5516,7 +5516,7 @@
                     "cancelled"
                 ],
                 "readOnly": true,
-                "description": "Status of a verification request. 'success' and 'failed' are terminal outcomes; 'pending' means the verification is in flight and will complete later; 'cancelled' means the request was withdrawn before it resolved. Only 'success' changes the supplier's stored bank data."
+                "description": "Status of a verification request. 'success' and 'failed' are final outcomes; 'pending' means the verification is in flight and will complete later; 'cancelled' means the request was withdrawn before it completed. Only 'success' changes the supplier's stored bank data."
             },
             "SupplierVerificationReasonCode": {
                 "type": "string",
@@ -5532,7 +5532,6 @@
                     "CONTACT_EMAIL_REQUIRED",
                     "EDU_EMAIL_REQUIRED",
                     "DISCLOSURE_INVALID",
-                    "INTERNATIONAL_PROVIDER_NOT_REGISTERED",
                     "INVALID_ROUTING_NUMBER",
                     "ACCOUNT_NOT_FOUND",
                     "ACCOUNT_CLOSED",
@@ -5671,7 +5670,9 @@
                                 "enum": [
                                     "partner",
                                     "supplier",
-                                    "buyer"
+                                    "buyer",
+                                    "admin",
+                                    "portal"
                                 ],
                                 "readOnly": true,
                                 "description": "Who initiated the verification request."
