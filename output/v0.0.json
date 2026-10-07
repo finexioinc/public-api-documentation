@@ -485,7 +485,7 @@
             "post": {
                 "operationId": "Create Supplier",
                 "summary": "Create Supplier",
-                "description": "Create A New Supplier",
+                "description": "Create A New Supplier.\n\nBank verification on create. Two request shapes are verified instead of stored directly.\n\nDomestic bank details: when Finexio has configured your partner account to verify supplier bank changes, and the request sets payment_method to ACH or FinexioExpress together with bank_routing_number and bank_account_number, the supplier is created as a Printed Check supplier delivered by mail with no bank details stored, and the bank details are submitted for verification. When the verification succeeds, Finexio applies the verified bank details and sets the payment method to ACH (or FinexioExpress). A pending or failed verification leaves the supplier on Printed Check. The supplier must have a category, a TIN when its category is a Business category, and a primary contact email; if not, the request is rejected with 403 and a reason_code, and no supplier is created.\n\nInternational bank details: set international.verify to true and send an account_number or iban. The banking is verified through the international payments provider, the enrollment invitation is withheld while the verification is pending, and a successful verification enrolls the supplier with the verified banking without sending the invitation. international.verify has no effect when no international banking details are sent.\n\nIn both cases the response is the created supplier with its verifications array already populated (newest first, so verifications[0] is the outcome of this request). You do not need expand=verifications. Use the verification endpoints to follow a pending verification.",
                 "parameters": [],
                 "requestBody": {
                     "content": {
@@ -580,7 +580,7 @@
             "put": {
                 "operationId": "Update Supplier",
                 "summary": "Update Supplier",
-                "description": "Update An Existing Supplier",
+                "description": "Update An Existing Supplier.\n\nBank verification on update. When Finexio has configured your partner account to verify supplier bank changes, an update that sets the supplier to ACH or FinexioExpress with bank numbers, or changes the bank numbers of an ACH supplier, is not applied directly. Every other field in the request is saved, but the payment method, delivery method and bank details stay as they were while the new bank details are submitted for verification. When the verification succeeds, Finexio applies the new bank details and the ACH payment method. The same applies to a change to an international supplier's banking details, which is verified through the international payments provider.\n\nThe response is the updated supplier with its verifications array already populated (newest first, so verifications[0] is the outcome of this request). You do not need expand=verifications. The request is rejected with 403 and a reason_code, and nothing is saved, when the supplier's stored payment method is not eligible, a verification is already pending (PENDING_VERIFICATION_EXISTS), or, for domestic bank changes, the supplier has no category or a Business-category supplier has no TIN. international.verify is not accepted on update; use POST /counterparties/suppliers/{id}/verification to verify banking for an existing supplier on demand.",
                 "parameters": [
                     {
                         "name": "id",
@@ -650,7 +650,7 @@
             "patch": {
                 "operationId": "Partial Update Supplier",
                 "summary": "Partial Update Supplier",
-                "description": "Partially update an existing Supplier",
+                "description": "Partially update an existing Supplier.\n\nBank verification on update works exactly as described for Update Supplier: when Finexio has configured your partner account to verify supplier bank changes, a partial update that changes bank details is submitted for verification instead of being applied, every other field in the request is saved, and the response includes the verifications array without expand=verifications.",
                 "parameters": [
                     {
                         "name": "id",
@@ -5124,7 +5124,7 @@
                             "$ref": "#/components/schemas/SupplierVerificationRecord"
                         },
                         "readOnly": true,
-                        "description": "Read-only. The supplier's verification records, newest first. Present only when requested with the expand=verifications query parameter; the list endpoint returns only the most recent record per supplier, the single-supplier read returns the full history."
+                        "description": "Read-only. The supplier's verification records, newest first. Returned when requested with the expand=verifications query parameter: the list endpoint returns only the most recent record per supplier, and the single-supplier read returns the full history. It is also returned, without expand, on the response to a supplier create or update that was submitted for bank verification (see Create Supplier and Update Supplier); there verifications[0] is the outcome of that request."
                     }
                 }
             },
@@ -5187,6 +5187,11 @@
                     "payment_reference": {
                         "type": "string",
                         "description": "Payment/bill reference included with payments to this supplier."
+                    },
+                    "verify": {
+                        "type": "boolean",
+                        "writeOnly": true,
+                        "description": "Write-only, and accepted on supplier create only; sending it on update returns 400. Set to true to verify the supplied international banking details through the verification API instead of storing them directly. Requires an account_number or iban when any international banking field is sent (otherwise 400). While the verification is pending the enrollment invitation is withheld; a successful verification enrolls the supplier with the verified banking and no invitation is sent. Has no effect when no international banking details are sent: the enrollment invitation is sent as usual. The response includes the verifications array."
                     },
                     "enrolled": {
                         "type": "boolean",
