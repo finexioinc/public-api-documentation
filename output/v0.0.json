@@ -5347,6 +5347,19 @@
                 "allOf": [
                     {
                         "$ref": "#/components/schemas/SupplierBase"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "attestation": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/SupplierVerificationAttestationRequest"
+                                    }
+                                ],
+                                "description": "Optional, PUT/PATCH only, for accounts on the automatic verification of supplier updates. The supplier's attestation to the payment authorization disclosure, recorded on the verification this update triggers; same fields and rules as on the verification endpoint. Only accepted when the update leaves the supplier on payment_method 'ACH' or 'FinexioExpress' with both bank numbers (400 otherwise); not accepted on create (400): create the supplier with payment_method 'Check' and no bank account data, request a disclosure with POST /counterparties/suppliers/{id}/disclosures, then PATCH the supplier with payment_method 'ACH', the bank account data and this object. Ignored when the update triggers no verification. Never returned."
+                            }
+                        }
                     }
                 ]
             },
